@@ -88,6 +88,7 @@ export default function Header(){
         </div>
       </div>
     </nav>
+    <img src="assets/HeaderDecoration.png" alt="header decoration" className="w-screen " />
 
         </>
     )
