@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage:{
+        'header': "url('assets/g19.svg')"
+      },
       darkMode: 'class',
       colors: {
         background: {

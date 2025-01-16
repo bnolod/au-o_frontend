@@ -10,7 +10,7 @@ export default function Header(){
         >
           <img
             src="assets/auo-logo.png"
-            className="h-8"
+            className="h-10"
             alt="AUO logo"
           />
         </a>
@@ -81,14 +81,14 @@ export default function Header(){
                 href="#"
                 className="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
-                <img src="assets/profile_icon.svg" alt="" className="h-8"/>
+                <img src="assets/profile_icon.svg" alt="" className="h-10"/>
               </a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    <img src="assets/HeaderDecoration.png" alt="header decoration" className="w-screen " />
+    <img src="assets/headerdecoration.svg" alt="header decoration" className="w-full h-8 sm:h-16" />
 
         </>
     )
