@@ -10,6 +10,14 @@ export const LandingTexts = {
     mobile: {
         HU: "Próbáld ki az alkalmazásunkat is!",
         EN: "Access the platform anywhere on your mobile device"
+    },
+    title2:{
+        HU: "Csatlakozz bármelyik csoportunkhoz, vagy hozz létre egyet, hogy saját közösségedet építsd",
+        EN: "Join any group that interests you, or create one to foster your own community"
+    },
+    button2:{
+        HU: "Nézd meg, mit kínálunk még",
+        EN: "See What Else We Offer"
     }
 }
 export const HeaderTexts = {

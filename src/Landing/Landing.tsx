@@ -7,10 +7,10 @@ export default function Landing(){
     return (
         <main>
             <Header language={language}/>
-            <div className=" flex flex-col w-11/12 mx-auto justify-between items-center lg:flex-row overflow-hidden">
+            <section className=" flex flex-col w-11/12 mx-auto justify-between items-center lg:flex-row overflow-hidden">
 
             
-            <section className="basis-full sm:basis-4/12" >
+            <div className="basis-full sm:basis-4/12" >
                 <h1 className="text-7xl text-center lg:text-left">{LandingTexts.title[language]}</h1>
                 <hr className="my-10"/>
                 <button className="bg-highlight rounded w-full h-10 text-white">{LandingTexts.button[language]}</button>
@@ -19,15 +19,33 @@ export default function Landing(){
                 <img className="lg:w-1/2 w-3/12" src="assets/apple.svg" alt="" />
                 <img className="lg:w-1/2 w-3/12" src="assets/android.svg" alt="" />
                 </div>
-            </section>
-
-
-             <section className="sm:basis-7/12 basis-full  flex items-center justify-center"> 
-                <img className="basis-full sm:basis-2/3 " src="assets/FrontDecoration.svg" alt="" />
-            </section>
-
-
             </div>
+
+
+             <div className="sm:basis-7/12 basis-full  flex items-center justify-center"> 
+                <img className="basis-full sm:basis-2/3 " src="assets/FrontDecoration.svg" alt="" />
+            </div>
+
+            </section>
+
+            {/*TODO: svg export*/}
+            <hr  className="my-10"/>
+
+            <section className=" flex flex-col w-11/12 mx-auto justify-between items-center lg:flex-row overflow-hidden">
+
+            <div className="sm:basis-7/12 basis-full  flex items-center justify-center"> 
+                <img className="basis-full sm:basis-2/3 " src="assets/FrontDecoration2.svg" alt="" />
+            </div>
+            <div className="basis-full sm:basis-4/12" >
+                <img src="assets/auoLogo_black.svg" alt="auo_logo"  className="my-10"/>
+                <h1 className="text-7xl text-center lg:text-right">{LandingTexts.title2[language]}</h1>
+                <hr className="my-10"/>
+                <button className="bg-white outline outline-highlight rounded w-full h-10 text-black">{LandingTexts.button2[language]}</button>
+            </div>
+
+
+
+            </section>
         </main>
     )
 }
