@@ -1,4 +1,6 @@
-export default function Header(){
+import { HeaderTexts } from "../constants/texts";
+
+export default function Header({language = "EN"} : {language?: "EN" | "HU"}){
 
     return (
         <>
@@ -21,7 +23,7 @@ export default function Header(){
           aria-controls="navbar-default"
           aria-expanded="false"
         >
-          <span className="sr-only">Open main menu</span>
+          <span className="sr-only">{HeaderTexts.mainMenu[language]}</span>
           <svg
             className="w-5 h-5"
             aria-hidden="true"
@@ -49,7 +51,7 @@ export default function Header(){
                 href="#"
                 className="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
-                Download our App
+               {HeaderTexts.downloadApp[language]}
               </a>
             </li>
             <li className="flex items-center">
@@ -57,7 +59,7 @@ export default function Header(){
                 href="#"
                 className="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
-                FAQ
+                {HeaderTexts.faq[language]}
               </a>
             </li>
             <li className="flex items-center">
@@ -65,7 +67,7 @@ export default function Header(){
                 href="#"
                 className="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
-                About Us
+                {HeaderTexts.aboutUs[language]}
               </a>
             </li>
             <li className="flex items-center">
@@ -73,7 +75,7 @@ export default function Header(){
                 href="#"
                 className="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
-                Log In
+                {HeaderTexts.login[language]}
               </a>
             </li>
             <li className="flex items-center">
