@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 interface LandingSectionProps {
-    className?: String,
+    className?: string,
     children?: ReactNode,
 }
 

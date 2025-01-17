@@ -5,7 +5,7 @@ import ScreenHeightPage from "../components/ScreenHeightPage";
 export default function LandingPage() {
   const { language } = useLanguage();
   return (
-    <main>
+    <main className="bg-background">
       <ScreenHeightPage className="flex flex-col">
         {/*elso oldal*/}
         <NavBar language={language} />
@@ -37,11 +37,13 @@ export default function LandingPage() {
             />
           </div>
         </section>
-          <img src="assets/PageDivider_top.svg" alt="" />
+          <img src="assets/PageDivider_top.svg" alt="" className="h-16" />
+
       </ScreenHeightPage>
 
-      
-      {/*TODO: svg export*/}
+
+
+
 
       <section className=" flex flex-col-reverse w-11/12 mx-auto justify-between items-center lg:flex-row overflow-hidden">
         <div className="sm:basis-7/12 basis-full  flex items-center justify-center">
