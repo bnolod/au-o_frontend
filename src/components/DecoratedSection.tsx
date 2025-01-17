@@ -26,9 +26,9 @@ export default function DecoratedSection(props: SectionProps) {
     <ScreenHeightPage className={props.className}>
       {props.navigation}
       <div className={(props.innerClassName)+ " " + (props.futyis ? "bg-pink-500" : "bg-blue-500")}>
-        <img />
+        <img src="assets/PageDivider_bottom.svg" className="h-16 w-full"/>
         {props.children}
-        <img />
+        <img src="assets/PageDivider_top.svg" className="h-16 w-full"/>
       </div>
     </ScreenHeightPage>
   );

@@ -1,4 +1,11 @@
-<svg width="1920" height="209" viewBox="0 0 1920 209" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1920 209" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+<g mask="url(#mask0_129_152)">
+<g mask="url(#mask1_129_152)">
+<ellipse cx="259" cy="13.1928" rx="1159" ry="195.807" fill="#F7898F"/>
+<ellipse cx="1656" cy="13.1928" rx="1159" ry="195.807" fill="#F7898F"/>
+<ellipse cx="264" cy="-14.1928" rx="1159" ry="195.807" fill="#EF1A2D"/>
+<ellipse cx="1661" cy="-14.1928" rx="1159" ry="195.807" fill="#EF1A2D"/>
+</g>
 <g mask="url(#mask2_129_152)">
 <ellipse cx="259" cy="13.1928" rx="1159" ry="195.807" fill="#F7898F"/>
 <ellipse cx="1656" cy="13.1928" rx="1159" ry="195.807" fill="#F7898F"/>

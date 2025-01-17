@@ -6,7 +6,7 @@ import DecoratedSection from "../components/DecoratedSection";
 export default function LandingPage() {
   const { language } = useLanguage();
 
-  return <DecoratedSection futyis={false}>
+  return <DecoratedSection futyis={false} innerClassName="flex-grow">
     <p>Hello nests</p>
   </DecoratedSection>
 
