@@ -1,13 +1,13 @@
-import Header from "./Header";
+import NavBar from  "../components/NavBar";
 import { useLanguage } from "../contexts/LanguageContext";
 import { LandingTexts } from "../constants/texts";
-export default function Landing() {
+export default function LandingPage() {
   const { language } = useLanguage();
   return (
     <main>
       <section className="h-screen flex flex-col">
         {/*elso oldal*/}
-        <Header language={language} />
+        <NavBar language={language} />
         <section className=" flex flex-grow flex-col w-11/12 mx-auto justify-between items-center lg:flex-row overflow-hidden">
           <div className="basis-full sm:basis-4/12">
             <h1 className="text-7xl text-center lg:text-left">

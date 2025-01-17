@@ -1,6 +1,6 @@
 import { HeaderTexts } from "../constants/texts";
 
-export default function Header({language = "EN"} : {language?: "EN" | "HU"}){
+export default function NavBar({language = "EN"} : {language?: "EN" | "HU"}){
 
     return (
         <>
