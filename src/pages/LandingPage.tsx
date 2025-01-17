@@ -2,8 +2,15 @@ import NavBar from  "../components/NavBar";
 import { useLanguage } from "../contexts/LanguageContext";
 import { LandingTexts } from "../constants/texts";
 import ScreenHeightPage from "../components/ScreenHeightPage";
+import DecoratedSection from "../components/DecoratedSection";
 export default function LandingPage() {
   const { language } = useLanguage();
+
+  return <DecoratedSection futyis={false}>
+    <p>Hello nests</p>
+  </DecoratedSection>
+
+
   return (
     <main className="bg-background">
       <ScreenHeightPage className="flex flex-col">

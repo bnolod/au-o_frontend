@@ -18,13 +18,14 @@ interface SectionProps {
   innerClassName?: string;
   children?: ReactNode;
   navigation?: ReactElement;
+  futyis: boolean;
 }
 
 export default function DecoratedSection(props: SectionProps) {
   return (
-    <ScreenHeightPage className={props.className && props.className}>
+    <ScreenHeightPage className={props.className}>
       {props.navigation}
-      <div className={props.innerClassName && props.innerClassName}>
+      <div className={(props.innerClassName)+ " " + (props.futyis ? "bg-pink-500" : "bg-blue-500")}>
         <img />
         {props.children}
         <img />
