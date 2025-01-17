@@ -1,11 +1,12 @@
 import NavBar from  "../components/NavBar";
 import { useLanguage } from "../contexts/LanguageContext";
 import { LandingTexts } from "../constants/texts";
+import ScreenHeightPage from "../components/ScreenHeightPage";
 export default function LandingPage() {
   const { language } = useLanguage();
   return (
     <main>
-      <section className="h-screen flex flex-col">
+      <ScreenHeightPage className="flex flex-col">
         {/*elso oldal*/}
         <NavBar language={language} />
         <section className=" flex flex-grow flex-col w-11/12 mx-auto justify-between items-center lg:flex-row overflow-hidden">
@@ -37,7 +38,7 @@ export default function LandingPage() {
           </div>
         </section>
           <img src="assets/PageDivider_top.svg" alt="" />
-      </section>
+      </ScreenHeightPage>
 
       
       {/*TODO: svg export*/}
