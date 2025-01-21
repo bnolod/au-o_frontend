@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { LoginRequest, RegisterRequest, User } from "../lib/types";
+import { apiFetch, getUserByToken } from "../lib/apiClient";
 
 interface AuthenticationContextType {
   user: User | null | undefined; //defined ha talált, null ha nem és visszadobja login screenre, undefined ha tölt
@@ -17,7 +18,9 @@ export const AuthenticationProvider = ({
 }) => {
   const [user, setUser] = useState<User | null | undefined>(undefined);
 
-  async function login() {}
+  async function login() {
+   
+  }
 
   async function logout() {}
 

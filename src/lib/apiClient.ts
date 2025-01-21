@@ -1,10 +1,10 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { HttpError, HttpMethod } from "./types";
+import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
+import { HttpError, HttpMethod, LoginRequest, User } from "./types";
 
 const apiClient: AxiosInstance = axios.create({
-    baseURL: "",
+    baseURL: process.env.VITE_BACKEND_URL,
     headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",     
     }
 })
 apiClient.interceptors.request.use(
@@ -26,8 +26,9 @@ export async function apiFetch<T>(endpoint: string, method: HttpMethod = "GET", 
             data: body || undefined,
             headers: {
                 "Content-Type": "application/json",
-                Authorization: requiresAuth && `Bearer ${"token"}`
-            }
+                
+            },
+            withCredentials: requiresAuth
         }
 
         const res = await apiClient.request<T>(config)
@@ -35,5 +36,28 @@ export async function apiFetch<T>(endpoint: string, method: HttpMethod = "GET", 
     } catch(error: unknown) {
         throw new HttpError(500)
         
+    }
+}
+export async function getUserByToken(token: string): Promise<User | null> {
+    try {
+        const res = await apiClient.post("auth/profile", token)
+        if (res) {
+            
+            return res.data
+        }
+        return null
+    } catch(error: unknown) {
+        throw new HttpError(500)
+    }
+}
+export async function apiLogin(request: LoginRequest): Promise<string | null> {
+    try {
+        const res = await apiClient.post("auth/login", request)
+        if (res) {
+            return res.data
+        }
+        return null
+    } catch(error: unknown) {
+        throw new HttpError(500)
     }
 }

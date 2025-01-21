@@ -3,11 +3,12 @@ import { useLanguage } from "../contexts/LanguageContext";
 import { LandingTexts } from "../constants/texts";
 import ScreenHeightPage from "../components/ScreenHeightPage";
 import DecoratedSection from "../components/DecoratedSection";
+import MockAuth from "../components/MockAuth";
 export default function LandingPage() {
   const { language } = useLanguage();
 
   return <DecoratedSection futyis={false} innerClassName="flex-grow">
-    <p>Hello nests</p>
+    <MockAuth />
   </DecoratedSection>
 
 
