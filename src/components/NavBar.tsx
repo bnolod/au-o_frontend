@@ -4,7 +4,7 @@ export default function NavBar({language = "EN"} : {language?: "EN" | "HU"}){
 
     return (
         <>
-    <nav className="bg-highlight border-gray-200">
+    <nav className="bg-highlight border-gray-200 sticky top-0">
       <div className="max-w-screen flex flex-wrap items-center justify-between mx-auto p-4">
         <a
           href="/"
@@ -90,7 +90,7 @@ export default function NavBar({language = "EN"} : {language?: "EN" | "HU"}){
         </div>
       </div>
     </nav>
-    <img src="assets/headerdecoration.svg" alt="header decoration" className="w-full h-8 sm:h-16" />
+    <img src="assets/headerdecoration.svg" alt="header decoration" className="w-full h-8 pointer-events-none sm:h-16" />
 
         </>
     )

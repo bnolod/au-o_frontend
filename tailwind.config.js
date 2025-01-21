@@ -12,8 +12,8 @@ export default {
       darkMode: 'class',
       colors: {
         background: {
-          DEFAULT: "#FFF0F0",
-          dark: "#1B1B1B",
+          DEFAULT: "rgba(var(--background))",
+          dark: "rgba(var(--background-dark))",
         },
         backdrop: {
           primary: {
