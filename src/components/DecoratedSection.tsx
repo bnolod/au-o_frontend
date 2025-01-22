@@ -14,6 +14,8 @@ import { ReactElement, ReactNode } from "react";
 import ScreenHeightPage from "./ScreenHeightPage";
 
 interface SectionProps {
+  disableTopDecoration?: boolean;
+  disableBottomDecoration?: boolean;
   className?: string;
   innerClassName?: string;
   children?: ReactNode;
@@ -21,17 +23,31 @@ interface SectionProps {
 }
 
 export default function DecoratedSection(props: SectionProps) {
-
-  const topDecoration = <img src="assets/PageDivider_bottom.svg" className="h-16 w-full"/>;
-  const bottomDecoration = <img src="assets/PageDivider_top.svg" className="h-16 w-full"/>;
+  const topDecoration = (
+    <img src="assets/PageDivider_bottom.svg" className="h-16 w-full" />
+  );
+  const bottomDecoration = (
+    <img src="assets/PageDivider_top.svg" className="h-16 w-full" />
+  );
 
   return (
-    <ScreenHeightPage className={props.className + " text-textColor bg-background"}>
-        {props.navigation ? props.navigation : topDecoration}
-      <section className={(props.innerClassName + " flex flex-grow flex-col w-11/12 mx-auto items-center lg:flex-row overflow-hidden ")}>
+    <ScreenHeightPage
+      className={props.className + " text-textColor bg-background"}
+    >
+      {props.navigation
+        ? props.navigation
+        : props.disableTopDecoration
+        ? ""
+        : topDecoration}
+      <section
+        className={
+          props.innerClassName +
+          " flex flex-grow flex-col items-center lg:flex-row overflow-hidden "
+        }
+      >
         {props.children}
       </section>
-        {bottomDecoration}
+      {props.disableBottomDecoration ? "" : bottomDecoration}
     </ScreenHeightPage>
   );
 }

@@ -8,8 +8,12 @@ export default function LandingPage() {
 
   return (
     <>
-      <DecoratedSection innerClassName="justify-between" className="bg-background " navigation={<NavBar />}>
-        <div className="basis-full sm:basis-4/12 flex flex-col">
+      <DecoratedSection
+        innerClassName="justify-between"
+        className="bg-background "
+        navigation={<NavBar />}
+      >
+        <div className="basis-full sm:basis-4/12 flex flex-col p-12">
           <h1 className="text-7xl text-center lg:text-left">
             {LandingTexts.title[language]}
           </h1>
@@ -22,7 +26,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="sm:basis-7/12 basis-full  flex items-center justify-center">
+        <div className="sm:basis-7/12 basis-full  flex items-center p-12 justify-center">
           <img
             className="basis-full sm:basis-2/3 "
             src="assets/FrontDecoration.svg"
@@ -30,15 +34,19 @@ export default function LandingPage() {
           />
         </div>
       </DecoratedSection>
-      <DecoratedSection innerClassName="justify-between" className="">
-        <div className="sm:basis-7/12 basis-full flex items-center justify-center">
+      <DecoratedSection
+        innerClassName="justify-between"
+        className=""
+        disableBottomDecoration={true}
+      >
+        <div className="sm:basis-7/12 basis-full flex items-center p-12 justify-center">
           <img
             className="basis-full sm:basis-2/3"
             src="assets/FrontDecoration2.svg"
             alt=""
           />
         </div>
-        <div className="basis-full sm:basis-4/12  flex flex-col">
+        <div className="basis-full sm:basis-4/12  flex flex-col p-12">
           <img
             src="assets/auoLogo_black.svg"
             alt="auo_logo"
@@ -51,14 +59,22 @@ export default function LandingPage() {
           <Button text={LandingTexts.button2[language]} variant="secondary" />
         </div>
       </DecoratedSection>
-      <DecoratedSection innerClassName="justify-center" className="bg-[url('assets/FrontDecoration3.svg')] bg-contain bg-center bg-no-repeat ">
-        <div className="flex flex-col items-center bg-gray-500 rounded-lg bg-opacity-25 basis-6/12 p-16">
-           <img src="assets/auoLogo_black.svg" alt="" className="w-7/12 text-textColor" />
-           
-           <h1 className="text-7xl">{LandingTexts.title3[language]}</h1>
-        </div>
+      <DecoratedSection
+        innerClassName="justify-center"
+        className="bg-[url('assets/FrontDecoration3.svg')] bg-contain bg-center bg-no-repeat"
+        disableTopDecoration={true}
+      >
+          <div className="flex flex-col items-center bg-gray-500 rounded-3xl bg-opacity-25 basis-6/12 p-16  ">
+            <img
+              src="assets/auoLogo_black.svg"
+              alt=""
+              className="w-7/12 text-textColor"
+            />
+
+            <h1 className="text-7xl">{LandingTexts.title3[language]}</h1>
+          </div>
+        
       </DecoratedSection>
     </>
   );
-
 }
