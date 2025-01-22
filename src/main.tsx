@@ -5,10 +5,12 @@ import './index.css'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { LanguageProvider } from './contexts/LanguageContext.tsx'
 import LandingPage from './pages/LandingPage.tsx'
+import { AuthenticationProvider } from './contexts/AuthenticationContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <LanguageProvider>
+ <AuthenticationProvider>
 
     <BrowserRouter>
       <Routes>
@@ -17,6 +19,7 @@ createRoot(document.getElementById('root')!).render(
         </Route>
       </Routes>
     </BrowserRouter>
+ </AuthenticationProvider>
     </LanguageProvider>
   </StrictMode>,
 )

@@ -2,6 +2,9 @@ import NavBar from "../components/NavBar";
 import { useLanguage } from "../contexts/LanguageContext";
 import { LandingTexts } from "../constants/texts";
 import DecoratedSection from "../components/DecoratedSection";
+import MockAuth from "../components/MockAuth";
+export default function LandingPage() {
+
 import Button from "../components/Button";
 export default function LandingPage() {
   const { language } = useLanguage();
