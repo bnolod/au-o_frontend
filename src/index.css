@@ -11,14 +11,26 @@
   }
 }*/
 
+/*Light mode colors*/
 :root {
   --background: #FFF0F0;
-  --text-color: #000;
+  --backdrop-primary: #F3E5E5;
+  --backdrop-secondary: #E7DADA;
+  --highlight-primary: #EF1A2D;
+  --highlight-secondary: #F7898F;
+
+  --text-color: #000000;
 }
 
+/*Dark mode colors*/
 @media(prefers-color-scheme: dark) {
   :root {
-    --background: #F3E5E5;
-    --text-color: #fff;
+    --background: #1B1B1B;
+    --backdrop-primary: #232323;
+    --backdrop-secondary: #2B2B2B;
+    --highlight-primary: #EF1A2D;
+    --highlight-secondary: #790E1C;
+
+    --text-color: #FFFFFF;
   }
 }

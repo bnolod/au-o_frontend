@@ -11,9 +11,9 @@ export default function Button({
 }) {
     //TODO: Nem
   const VarPrimary =
-    "dark:bg-black bg-highlight rounded m-10 text-center h-10 text-white";
+    "bg-highlightPrimary rounded m-10 text-center h-10 text-white";
   const VarSecondary =
-    "bg-transparent outline outline-highlight rounded  h-10 text-black m-10";
+    "bg-transparent outline outline-highlightPrimary text-highlightPrimary rounded h-10 text-black m-10";
   return (
     <button
       onClick={onClick}

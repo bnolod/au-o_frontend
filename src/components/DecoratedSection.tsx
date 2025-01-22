@@ -26,9 +26,9 @@ export default function DecoratedSection(props: SectionProps) {
   const bottomDecoration = <img src="assets/PageDivider_top.svg" className="h-16 w-full"/>;
 
   return (
-    <ScreenHeightPage className={props.className}>
+    <ScreenHeightPage className={props.className + " text-textColor bg-background"}>
         {props.navigation ? props.navigation : topDecoration}
-      <section className={(props.innerClassName + " flex flex-grow flex-col w-11/12 mx-auto items-center lg:flex-row overflow-hidden")}>
+      <section className={(props.innerClassName + " flex flex-grow flex-col w-11/12 mx-auto items-center lg:flex-row overflow-hidden ")}>
         {props.children}
       </section>
         {bottomDecoration}
