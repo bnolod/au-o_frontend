@@ -18,18 +18,20 @@ interface SectionProps {
   innerClassName?: string;
   children?: ReactNode;
   navigation?: ReactElement;
-  futyis: boolean;
 }
 
 export default function DecoratedSection(props: SectionProps) {
+
+  const topDecoration = <img src="assets/PageDivider_bottom.svg" className="h-16 w-full"/>;
+  const bottomDecoration = <img src="assets/PageDivider_top.svg" className="h-16 w-full"/>;
+
   return (
-    <ScreenHeightPage className={props.className}>
-      {props.navigation}
-      <div className={(props.innerClassName)+ " " + (props.futyis ? "bg-pink-500" : "bg-blue-500")}>
-        <img src="assets/PageDivider_bottom.svg" className="h-16 w-full"/>
+    <ScreenHeightPage className={props.className + " text-textColor bg-background"}>
+        {props.navigation ? props.navigation : topDecoration}
+      <section className={(props.innerClassName + " flex flex-grow flex-col w-11/12 mx-auto items-center lg:flex-row overflow-hidden ")}>
         {props.children}
-        <img src="assets/PageDivider_top.svg" className="h-16 w-full"/>
-      </div>
+      </section>
+        {bottomDecoration}
     </ScreenHeightPage>
   );
 }

@@ -18,6 +18,10 @@ export const LandingTexts = {
     button2:{
         HU: "Nézd meg, mit kínálunk még",
         EN: "See What Else We Offer"
+    },
+    title3:{
+        HU: "Rendezvények, találkozók, és versenyek", //TODO: hu szoveg fix
+        EN: "Attend and organize events to meet new people and show off your wheels."
     }
 }
 export const HeaderTexts = {

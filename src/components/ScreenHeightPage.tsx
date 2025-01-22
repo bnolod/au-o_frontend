@@ -6,7 +6,7 @@ interface ScreenHProps {
 }
 
 export default function ScreenHeightPage(props:ScreenHProps) {
-    return  <div className={props.className + " min-h-screen"}>
+    return  <div className={props.className + " min-h-screen flex flex-col"}>
     {props.children}
     </div>
 }

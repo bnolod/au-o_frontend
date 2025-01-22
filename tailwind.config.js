@@ -11,26 +11,14 @@ export default {
       },
       darkMode: 'class',
       colors: {
-        background: {
-          DEFAULT: "#FFF0F0",
-          dark: "#1B1B1B",
-        },
-        backdrop: {
-          primary: {
-            DEFAULT: "#F3E5E5",
-            dark: "#232323"
-          },
-          secondary: {
-            DEFAULT: "#E7DADA",
-            dark: "#2B2B2B"
-          }
-        },
-        highlight: {
-          DEFAULT: "#EF1A2D",
-          light: "#F7898F",
-          dark: "#790E1C"
-        }   
-      }
+        /*Color codes in index.css*/
+        background: "var(--background)",
+        backdropPrimary: "var(--backdrop-primary)",
+        backdropSecondary: "var(--backdrop-secondary)",
+        highlightPrimary: "var(--highlight-primary)",
+        highlightSecondary: "var(--highlight-secondary)",
+        textColor: "var(--text-color)"
+      },
     },
   },
   plugins: [],
