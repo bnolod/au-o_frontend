@@ -7,12 +7,14 @@ export default {
   theme: {
     extend: {
       backgroundImage:{
-        'header': "url('assets/g19.svg')"
+        'header': "url('assets/g19.svg')",
+        'backgroundGradient': "var(--background-gradient)"
       },
       darkMode: 'class',
       colors: {
         /*Color codes in index.css*/
         background: "var(--background)",
+        /*backgroundGradient: "var(--background-gradient)", nem ide kell*/
         backdropPrimary: "var(--backdrop-primary)",
         backdropSecondary: "var(--backdrop-secondary)",
         highlightPrimary: "var(--highlight-primary)",

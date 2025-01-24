@@ -18,7 +18,7 @@
   --backdrop-secondary: #E7DADA;
   --highlight-primary: #EF1A2D;
   --highlight-secondary: #F7898F;
-
+  --background-gradient: linear-gradient(127.4deg, #F7898F 0%, #FFF0F0 100%);
   --text-color: #000000;
 }
 
@@ -30,6 +30,7 @@
     --backdrop-secondary: #2B2B2B;
     --highlight-primary: #EF1A2D;
     --highlight-secondary: #790E1C;
+    --background-gradient: linear-gradient(143.907deg, #EF1A2D 0%, #1B1B1B 100%);
 
     --text-color: #FFFFFF;
   }
