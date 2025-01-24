@@ -3,8 +3,6 @@ import { useLanguage } from "../contexts/LanguageContext";
 import { LandingTexts } from "../constants/texts";
 import DecoratedSection from "../components/DecoratedSection";
 import MockAuth from "../components/MockAuth";
-export default function LandingPage() {
-
 import Button from "../components/Button";
 export default function LandingPage() {
   const { language } = useLanguage();
@@ -67,16 +65,15 @@ export default function LandingPage() {
         className="bg-[url('assets/FrontDecoration3.svg')] bg-contain bg-center bg-no-repeat"
         disableTopDecoration={true}
       >
-          <div className="flex flex-col items-center bg-gray-500 rounded-3xl bg-opacity-25 basis-6/12 p-16  ">
-            <img
-              src="assets/auoLogo_black.svg"
-              alt=""
-              className="w-7/12 text-textColor"
-            />
+        <div className="flex flex-col items-center bg-gray-500 rounded-3xl bg-opacity-25 basis-6/12 p-16  ">
+          <img
+            src="assets/auoLogo_black.svg"
+            alt=""
+            className="w-7/12 text-textColor"
+          />
 
-            <h1 className="text-7xl">{LandingTexts.title3[language]}</h1>
-          </div>
-        
+          <h1 className="text-7xl">{LandingTexts.title3[language]}</h1>
+        </div>
       </DecoratedSection>
     </>
   );

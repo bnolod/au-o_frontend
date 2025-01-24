@@ -1,3 +1,5 @@
+import { redirect } from "react-router";
+
 export default function Button({
   text,
   onClick,
@@ -7,7 +9,7 @@ export default function Button({
   text: string;
   onClick?: () => void;
   className?: string;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "";
 }) {
     //TODO: Nem
   const VarPrimary =
@@ -15,6 +17,7 @@ export default function Button({
   const VarSecondary =
     "bg-transparent outline outline-highlightPrimary text-highlightPrimary rounded h-10 text-black m-10";
   return (
+    
     <button
       onClick={onClick}
       className={
@@ -25,3 +28,4 @@ export default function Button({
     </button>
   );
 }
+//hello gonba vagyok a gonba 
