@@ -13,13 +13,13 @@ export default {
       darkMode: 'class',
       colors: {
         /*Color codes in index.css*/
-        background: "var(--background)",
+        background: "rgba(var(--background))",
         /*backgroundGradient: "var(--background-gradient)", nem ide kell*/
-        backdropPrimary: "var(--backdrop-primary)",
-        backdropSecondary: "var(--backdrop-secondary)",
-        highlightPrimary: "var(--highlight-primary)",
-        highlightSecondary: "var(--highlight-secondary)",
-        textColor: "var(--text-color)"
+        backdropPrimary: "rgba(var(--backdrop-primary))",
+        backdropSecondary: "rgba(var(--backdrop-secondary))",
+        highlightPrimary: "rgba(var(--highlight-primary))",
+        highlightSecondary: "rgba(var(--highlight-secondary))",
+        textColor: "rgba(var(--text-color))"
       },
     },
   },

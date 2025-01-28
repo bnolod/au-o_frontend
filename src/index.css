@@ -13,25 +13,25 @@
 
 /*Light mode colors*/
 :root {
-  --background: #FFF0F0;
-  --backdrop-primary: #F3E5E5;
-  --backdrop-secondary: #E7DADA;
-  --highlight-primary: #EF1A2D;
-  --highlight-secondary: #F7898F;
+  --background: 255,240,240;
+  --backdrop-primary: 243,229,229;
+  --backdrop-secondary: 231,218,218;
+  --highlight-primary: 239,26,45;
+  --highlight-secondary: 247,137,143;
   --background-gradient: linear-gradient(127.4deg, #F7898F 0%, #FFF0F0 100%);
-  --text-color: #000000;
+  --text-color: 0,0,0;  
 }
 
 /*Dark mode colors*/
 @media(prefers-color-scheme: dark) {
   :root {
-    --background: #1B1B1B;
-    --backdrop-primary: #232323;
-    --backdrop-secondary: #2B2B2B;
-    --highlight-primary: #EF1A2D;
-    --highlight-secondary: #790E1C;
+    --background: 27,27,27;
+    --backdrop-primary: 35,35,35;
+    --backdrop-secondary: 43,43,43;
+    --highlight-primary: 239,26,45;
+    --highlight-secondary: 121,14,28;
     --background-gradient: linear-gradient(143.907deg, #EF1A2D 0%, #1B1B1B 100%);
 
-    --text-color: #FFFFFF;
+    --text-color: 255,255,255;
   }
 }
