@@ -23,7 +23,11 @@ export default function LandingPage() {
             <p>{LandingTexts.mobile[language]}</p>
             <div className="flex">
               <img className="w-1/2" src="assets/apple.svg" alt="" />
-              <img className="w-1/2" src="assets/android.svg" alt="android link" />
+              <img
+                className="w-1/2"
+                src="assets/android.svg"
+                alt="android link"
+              />
             </div>
           </div>
         </div>

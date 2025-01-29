@@ -7,6 +7,7 @@ import { LanguageProvider } from "./contexts/LanguageContext.tsx";
 import LandingPage from "./pages/LandingPage.tsx";
 import { AuthenticationProvider } from "./contexts/AuthenticationContext.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
+import MainPage from "./pages/MainPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")!).render(
           <Routes>
             <Route index element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/main" element={<MainPage />} />
           </Routes>
         </BrowserRouter>
       </AuthenticationProvider>
