@@ -1,4 +1,4 @@
-import LoginModal from "../components/Hello";
+import LoginModal from "../components/LoginModal";
 import LandingHeader from "../components/LandingHeader";
 import ScrollableDisplay from "../components/ScrollableDisplay";
 import { LandingTexts } from "../constants/texts";

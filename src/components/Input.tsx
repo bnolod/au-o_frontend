@@ -3,34 +3,35 @@ import { AuthTexts } from "../constants/texts";
 import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Input({
-  labelText,
-  inputText,
+  labelText = "example",
+  inputPlaceholder = "example",
   type, //type
   id,
-  isRequired
+  isRequired = false
 }: {
 
   type: React.HTMLInputTypeAttribute;
   labelText: string;
-  inputText: string;
-  id: string;
+  inputPlaceholder: string;
+  id?: string;
+  isRequired?: boolean;
 }) {
   const { language } = useLanguage();
   return (
-    <>
+    <div className="pt-3 w-full">
       <label
         htmlFor="{}"
-        className="block text-sm font-medium text-gray-900 dark:text-white"
+        className="text-sm font-medium"
       >
-        {AuthTexts.login.labels.email[language]}
+        {labelText}
       </label>
       <input
         type={type}
         id={id}
-        className=" border rounded-full bg-transparent w-full block p-3"
-        placeholder={AuthTexts.login.placeholders.email[language]}
-        required
+        className="rounded-xl bg-highlightSecondary/25 w-full p-3"
+        placeholder={inputPlaceholder}
+        required={isRequired}
       />
-    </>
+    </div>
   );
 }
