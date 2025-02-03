@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 import { HeaderTexts } from "../constants/texts";
 import { useEffect, useState } from "react";
+import { MdSearch, MdSettings } from "react-icons/md";
+import ProfileImage from "./ProfileImage";
 
 export default function Header({
   language = "EN",
@@ -20,9 +22,9 @@ export default function Header({
   }, []);
 
   return (
-    <header className="relative">
+    <header className="fixed backdrop-blur-xl w-full p-3">
       <nav className="max-w-screen flex flex-wrap items-center justify-between">
-        <div className="basis-1/3 flex justify-end p-5">
+        <div className="basis-1/3 flex justify-start">
           <Link
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
@@ -36,43 +38,24 @@ export default function Header({
             />
           </Link>
         </div>
-        <div className="basis-2/3 items-center p-5 text-textColor">
-          <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
-              <li className="flex items-center">
-                <Link
-                  to="#"
-                  className="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0"
-                >
-                  {HeaderTexts.downloadApp[language]}
-                </Link>
-              </li>
-              <li className="flex items-center">
-                <Link
-                  to="#"
-                  className="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0"
-                >
-                  {HeaderTexts.faq[language]}
-                </Link>
-              </li>
-              <li className="flex items-center">
-                <Link
-                  to="#"
-                  className="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0"
-                >
-                  {HeaderTexts.aboutUs[language]}
-                </Link>
-              </li>
-              <li className="flex items-center">
-                <Link
-                  to="/login"
-                  className="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0"
-                >
-                  {HeaderTexts.login[language]}
-                </Link>
-              </li>
-            </ul>
-          </div>
+        <div className="basis-1/3 flex items-center justify-between text-textColor backdrop-blur-7xl bg-white/50 rounded-xl ">
+          <input
+            type="search"
+            className="p-3 w-10/12 rounded bg-transparent"
+            placeholder="example"
+          />
+          <button className="flex-grow flex justify-end p-3">
+            <MdSearch className="text-xl"></MdSearch>
+          </button>
+        </div>
+        <div className="basis-1/3 flex justify-end items-center">
+        
+        
+          <h3 className="text-center hidden md:flex">Felhasznalo Nev</h3>
+          <ProfileImage className="mx-3"/>
+          <button className="mr-3">
+            <MdSettings className="text-4xl" />
+          </button>
         </div>
       </nav>
     </header>
