@@ -1,3 +1,4 @@
+import CommentBoard from "../components/CommentBoard";
 import Header from "../components/Header";
 import Post from "../components/Post";
 
@@ -15,7 +16,9 @@ const longText = "Lorem ipsum dolor sit amet, bam bam bam bam bam bam bam bam ba
           <Post src="examples/profile.png" text=""/>
           <Post src="vite.svg" text={longText}/>
         </div>
-        <div className="md:w-3/12 fixed right-0 bg-cyan-300 flex items-start">assets</div>
+        <div className="md:w-3/12 fixed right-0 flex items-start">
+        <CommentBoard/>
+        </div>
       </main>
     </div>
   );
