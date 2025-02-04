@@ -8,9 +8,6 @@ import LandingPage from "./pages/LandingPage.tsx";
 import { AuthenticationProvider } from "./contexts/AuthenticationContext.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import MainPage from "./pages/MainPage.tsx";
-import CoffeePage from "./pages/CoffeePage.tsx";
-import LoginModal from "./components/LoginModal.tsx";
-import Input from "./components/Input.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -18,10 +15,10 @@ createRoot(document.getElementById("root")!).render(
       <AuthenticationProvider>
         <BrowserRouter>
           <Routes>
-            <Route index element={<LandingPage />} />
+            <Route index element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/main" element={<MainPage />} />
-            <Route path="/test" element={<Input/>} />
+            <Route path="/landing" element={<LandingPage />} />
+
           </Routes>
         </BrowserRouter>
       </AuthenticationProvider>

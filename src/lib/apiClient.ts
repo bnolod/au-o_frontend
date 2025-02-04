@@ -1,42 +1,61 @@
 import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
-import { HttpError, HttpMethod, LoginRequest, User } from "./types";
+import { HttpError, HttpMethod, LoginRequest, RegisterRequest, User } from "./types";
 
 const apiClient: AxiosInstance = axios.create({
-    baseURL: process.env.VITE_BACKEND_URL,
+    baseURL: "http://localhost:8080/api/v1",
     headers: {
-        "Content-Type": "application/json",     
-    }
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+    },
+    validateStatus: function (status) {
+        return true;
+      },
 })
 apiClient.interceptors.request.use(
     async (config) => {
-        const token = await localStorage.getItem("token") //remélem nem localstorage megoldás lesz
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`
-        } else config.headers.Authorization = null
-        return config
+      const token = window.localStorage.getItem("jwtToken");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      } else config.headers.Authorization = null;
+      return config;
+    },
+    (error: unknown) => {
+      return Promise.reject(new HttpError(500, (error as Error).message));
     }
-)
+  );
 export default apiClient
-
-export async function apiFetch<T>(endpoint: string, method: HttpMethod = "GET", requiresAuth: boolean = true, body?: Record<string, any>): Promise<T | null> {
+export  async function logout() {
+    await localStorage.deleteItemAsync("jwtToken");
+    window.location.href = "/landing"
+}
+export async function apiFetch<T>(
+    endpoint: string,
+    method: HttpMethod = "GET",
+    requiresAuth: boolean = true,
+    body?: Record<string, any>
+  ): Promise<T | null> {
     try {
-        const config: AxiosRequestConfig = {
-            method,
-            url: endpoint,
-            data: body || undefined,
-            headers: {
-                "Content-Type": "application/json",
-                
-            },
-            withCredentials: requiresAuth
-        }
-
-        const res = await apiClient.request<T>(config)
-        return res.data
-    } catch(error: unknown) {
-        throw new HttpError(500)
-        
+      const config = {
+        method,
+        url: endpoint,
+        data: body || undefined,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            requiresAuth &&
+            `Bearer ${window.localStorage.getItem("jwtToken")}`,
+        },
+      };
+  
+      const res = await apiClient.request<T>(config);
+      if (res.status === 403 && requiresAuth) {
+        await logout();
+      }
+      return res.data;
+    } catch (error: unknown) {
+      return null;
     }
+  
 }
 export async function getUserByToken(token: string): Promise<User | null> {
     try {
@@ -59,5 +78,11 @@ export async function apiLogin(request: LoginRequest): Promise<string | null> {
         return null
     } catch(error: unknown) {
         throw new HttpError(500)
+    }
+}
+export async function apiRegister(request: RegisterRequest) {
+    const res = await apiClient.post("auth/register", request)
+    if (res) {
+        return res.data
     }
 }

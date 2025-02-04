@@ -1,12 +1,12 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { LoginRequest, RegisterRequest, User } from "../lib/types";
-import { apiFetch, getUserByToken } from "../lib/apiClient";
+import { apiFetch, apiLogin, apiRegister, getUserByToken } from "../lib/apiClient";
 
 interface AuthenticationContextType {
   user: User | null | undefined; //defined ha talált, null ha nem és visszadobja login screenre, undefined ha tölt
   login: (request: LoginRequest) => Promise<void>;
   logout: () => Promise<void>;
-  register: (request: RegisterRequest) => Promise<void>;
+  register: (request: RegisterRequest) => Promise<boolean>;
 }
 const AuthenticationContext = createContext<
   AuthenticationContextType | undefined
@@ -18,13 +18,25 @@ export const AuthenticationProvider = ({
 }) => {
   const [user, setUser] = useState<User | null | undefined>(undefined);
 
-  async function login() {
-   
+  async function login(request: LoginRequest) {
+   const res = await apiLogin(request)
+   if (res) {
+      localStorage.setItem("jwtToken", res)
+   }
   }
 
   async function logout() {}
 
-  async function register() {}
+  async function register(request: RegisterRequest) {
+    const res = await apiRegister(request)
+    if (res) {
+      localStorage.setItem("jwtToken", res)
+      console.log("registered", res)
+    return true
+    }
+    return false
+
+  }
 
   return (
     <AuthenticationContext.Provider value={{ user, login, register, logout }}>

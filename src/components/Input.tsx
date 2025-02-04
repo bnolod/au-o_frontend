@@ -7,14 +7,18 @@ export default function Input({
   inputPlaceholder = "example",
   type, //type
   id,
-  isRequired = false
+  isRequired = false,
+  value = "",
+  onChange
 }: {
 
   type: React.HTMLInputTypeAttribute;
   labelText: string;
   inputPlaceholder: string;
+  value?: string;
   id?: string;
   isRequired?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   const { language } = useLanguage();
   return (
@@ -27,7 +31,9 @@ export default function Input({
       </label>
       <input
         type={type}
+        value={value}
         id={id}
+        onChange={onChange}
         className="rounded-xl bg-highlightSecondary/25 w-full p-3"
         placeholder={inputPlaceholder}
         required={isRequired}
