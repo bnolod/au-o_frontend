@@ -7,11 +7,13 @@ import { MdClose } from "react-icons/md";
 export default function LoginModal({
   language = "EN",
   registerMode = true,
+  toggleRegister,
   toggleModal,
   isOpen
 }: {
   language: "HU" | "EN";
   registerMode: boolean;
+  toggleRegister: () => void;
   toggleModal: () => void;
   isOpen:boolean;
 }) {
@@ -92,9 +94,9 @@ export default function LoginModal({
                   {AuthTexts.login.confirm[language]}
                 </button>
                 <p>{AuthTexts.login.notRegistered[language]}</p>
-                <Link className="underline" to="/">
+                <button className="underline" onClick={toggleRegister}>
                   {AuthTexts.login.confirmTabSwitch[language]}
-                </Link>
+                </button>
               </div>
             </form>
           </div>

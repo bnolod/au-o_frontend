@@ -3,19 +3,24 @@ import LandingHeader from "../components/LandingHeader";
 import ScrollableDisplay from "../components/ScrollableDisplay";
 import { LandingTexts } from "../constants/texts";
 import { useLanguage } from "../contexts/LanguageContext";
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 export default function LandingPage() {
   const { language } = useLanguage();
 
+  const [registerMode, setRegisterMode] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
+  const toggleRegister = (e : FormEvent) =>{
+    e.preventDefault()
+    setRegisterMode(!registerMode);
+  }
 
-  // click outside modal
+  // click outside modal (:c)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (event.target instanceof HTMLDialogElement) {
@@ -39,6 +44,8 @@ export default function LandingPage() {
       <LandingHeader></LandingHeader>
       <div ref={modalRef}>
         <LoginModal
+          toggleRegister={toggleRegister}
+          registerMode={registerMode}
           language={language}
           toggleModal={toggleModal}
           isOpen={isOpen}
