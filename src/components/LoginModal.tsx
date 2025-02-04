@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { AuthTexts } from "../constants/texts";
 import { Link } from "react-router";
 import Input from "./Input";
@@ -15,7 +15,6 @@ export default function LoginModal({
   toggleModal: () => void;
   isOpen:boolean;
 }) {
-
   const loginInputs = (
     <>
       <Input
