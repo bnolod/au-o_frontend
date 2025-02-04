@@ -7,15 +7,14 @@ import { MdClose } from "react-icons/md";
 export default function LoginModal({
   language = "EN",
   registerMode = true,
+  toggleModal,
+  isOpen
 }: {
   language: "HU" | "EN";
   registerMode: boolean;
+  toggleModal: () => void;
+  isOpen:boolean;
 }) {
-  const [isOpen, setIsOpen] = useState(true);
-
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
-  };
 
   const loginInputs = (
     <>
@@ -75,7 +74,7 @@ export default function LoginModal({
           className="fixed inset-0 w-screen h-screen flex items-center justify-center bg-transparent backdrop-blur-xl text-textColor"
         >
           <div className="bg-background p-8 rounded-xl relative shadow-lg flex flex-col justify-between w-full lg:w-1/3 ">
-            <p className="absolute top-0 right-0 right text-3xl p-5" onClick={()=>{setIsOpen(!isOpen)}}><MdClose/></p>
+            <p className="absolute top-0 right-0 right text-3xl p-5" onClick={toggleModal}><MdClose/></p>
             <h1 className="text-5xl text-center">
               {registerMode
                 ? AuthTexts.signup.heroText[language]
