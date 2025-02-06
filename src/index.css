@@ -23,8 +23,9 @@
 }
 
 /*Dark mode colors*/
+/*Valoszinuleg nem lesz jo megoldas a media prefers color scheme*/
 @media(prefers-color-scheme: dark) {
-  :root {
+  :root .dark {
     --background: 27,27,27;
     --backdrop-primary: 35,35,35;
     --backdrop-secondary: 43,43,43;

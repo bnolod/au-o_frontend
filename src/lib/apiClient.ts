@@ -73,6 +73,7 @@ export async function apiLogin(request: LoginRequest): Promise<string | null> {
     try {
         const res = await apiClient.post("auth/login", request)
         if (res) {
+          console.log("apiclient: " + res)
             return res.data
         }
         return null

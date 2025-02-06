@@ -29,6 +29,7 @@ test("get all users should be forbidden", async () => {
 });
 
 test("apiregister", async () => {
-    console.log((await apiRegister(testUser)))
-    expect(await apiRegister(testUser)).toBe(200)
+  const res = await apiRegister(testUser);
+  if 
+    expect(await ).toBe(200)
 })

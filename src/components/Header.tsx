@@ -19,7 +19,10 @@ export default function Header({
 
     // This callback will fire if the perferred color scheme changes without a reload
     mq.addEventListener("change", (evt) => setIsDark(evt.matches));
+    
   }, []);
+
+
 
   return (
     <header className="fixed backdrop-blur-xl w-full p-3">
@@ -53,7 +56,9 @@ export default function Header({
         
           <h3 className="text-center hidden md:flex">Felhasznalo Nev</h3>
           <ProfileImage className="mx-3"/>
-          <button className="mr-3">
+          <button className="mr-3" onClick={() => {
+              document.getElementById("root")!.classList.toggle('dark')
+        }}>
             <MdSettings className="text-4xl" />
           </button>
         </div>

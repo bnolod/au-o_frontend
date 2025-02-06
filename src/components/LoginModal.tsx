@@ -19,7 +19,6 @@ export default function LoginModal({
   toggleModal: () => void;
   isOpen:boolean;
 }) {
-  const [email, setEmail] = useState("");
   const [formState, setFormState] = useState<RegisterRequest>()
   const {login, register} = useAuthentication()
   //TODO: Add datepicker to for
