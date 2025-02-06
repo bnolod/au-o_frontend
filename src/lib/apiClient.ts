@@ -13,7 +13,7 @@ const apiClient: AxiosInstance = axios.create({
 })
 apiClient.interceptors.request.use(
     async (config) => {
-      const token = window.localStorage.getItem("jwtToken");
+      const token = localStorage.getItem("jwtToken");
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       } else config.headers.Authorization = null;
