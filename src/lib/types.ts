@@ -1,16 +1,17 @@
 import { HttpErrorTexts } from "../constants/texts"
 
 export interface User {
-    id: number
-    username: string
-    password: string
-    nickname: string
-    role_id: UserRole  
-    email: string
-    isPublic: boolean
-    profile_img: string
-    date_of_birth: string
-    date_of_signup: string
+  id: number;
+  username: string;
+  password: string;
+  nickname: string;
+  role: string;
+  email: string;
+  isPublic: boolean;
+  profileImg: string;
+  bio: string;
+  dateOfBirth: string;
+  dateOfSignup: string;
 }
 
 export interface LoginRequest {
@@ -18,12 +19,11 @@ export interface LoginRequest {
     password: string
 }
 export interface RegisterRequest {
-    username: string;
-    email: string;
-    nickname: string
-    password: string
-    date_of_birth: string
-
+  email: string;
+  password: string;
+  username: string;
+  nickname: string;
+  dateOfBirth: string;
 }
 export enum UserRole {
     USER,
@@ -47,3 +47,9 @@ export interface IHttpError {
       
     }
   }
+
+export interface CommentContextType {
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
+  toggleOpen: () => void;
+}

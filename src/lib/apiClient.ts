@@ -1,13 +1,13 @@
-import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { HttpError, HttpMethod, LoginRequest, RegisterRequest, User } from "./types";
 
 const apiClient: AxiosInstance = axios.create({
     baseURL: "http://localhost:8080/api/v1",
     headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
     },
-    validateStatus: function (status) {
+    validateStatus: function (_) {
         return true;
       },
 })
@@ -33,7 +33,7 @@ export async function apiFetch<T>(
     method: HttpMethod = "GET",
     requiresAuth: boolean = true,
     body?: Record<string, any>
-  ): Promise<T | null> {
+  ): Promise<{data: T, status: number} | null> {
     try {
       const config = {
         method,
@@ -51,7 +51,7 @@ export async function apiFetch<T>(
       if (res.status === 403 && requiresAuth) {
         await logout();
       }
-      return res.data;
+      return { data: res.data, status: res.status };
     } catch (error: unknown) {
       return null;
     }
@@ -73,8 +73,7 @@ export async function apiLogin(request: LoginRequest): Promise<string | null> {
     try {
         const res = await apiClient.post("auth/login", request)
         if (res) {
-          console.log("apiclient: " + res)
-            return res.data
+            return res.data.token
         }
         return null
     } catch(error: unknown) {
@@ -84,6 +83,6 @@ export async function apiLogin(request: LoginRequest): Promise<string | null> {
 export async function apiRegister(request: RegisterRequest) {
     const res = await apiClient.post("auth/register", request)
     if (res) {
-        return res.data
+        return res.data.token
     }
 }

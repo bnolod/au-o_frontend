@@ -1,14 +1,9 @@
 import { Link } from "react-router";
-import { HeaderTexts } from "../constants/texts";
 import { useEffect, useState } from "react";
 import { MdSearch, MdSettings } from "react-icons/md";
 import ProfileImage from "./ProfileImage";
 
-export default function Header({
-  language = "EN",
-}: {
-  language?: "EN" | "HU";
-}) {
+export default function Header() {
   const [isDark, setIsDark] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");

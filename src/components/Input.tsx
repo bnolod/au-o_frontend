@@ -1,6 +1,4 @@
 import React from "react";
-import { AuthTexts } from "../constants/texts";
-import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Input({
   labelText = "example",
@@ -20,7 +18,7 @@ export default function Input({
   isRequired?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
-  const { language } = useLanguage();
+
   return (
     <div className="pt-3 w-full">
       <label

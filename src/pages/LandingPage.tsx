@@ -3,7 +3,7 @@ import LandingHeader from "../components/LandingHeader";
 import ScrollableDisplay from "../components/ScrollableDisplay";
 import { LandingTexts } from "../constants/texts";
 import { useLanguage } from "../contexts/LanguageContext";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function LandingPage() {
   const { language } = useLanguage();
@@ -15,8 +15,9 @@ export default function LandingPage() {
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
-  const toggleRegister = (e : FormEvent) =>{
-    e.preventDefault()
+  const toggleRegister = () =>{
+    
+  
     setRegisterMode(!registerMode);
   }
 
@@ -44,7 +45,7 @@ export default function LandingPage() {
       <LandingHeader></LandingHeader>
       <div ref={modalRef}>
         <LoginModal
-          toggleRegister={toggleRegister}
+          toggleRegister={() => toggleRegister()}
           registerMode={registerMode}
           language={language}
           toggleModal={toggleModal}

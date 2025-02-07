@@ -80,6 +80,10 @@ export const AuthTexts = {
       nickname: {
         HU: "Becenév",
         EN: "Nickname",
+      },
+      dateOfBirth: {
+        HU: "Születési dátum",
+        EN: "Date of birth",
       }
     },
     heroText: {
