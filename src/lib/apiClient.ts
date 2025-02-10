@@ -1,6 +1,12 @@
 import axios, { AxiosInstance } from "axios";
 import { HttpError, HttpMethod, LoginRequest, RegisterRequest, User } from "./types";
 
+/**
+ * Axios instance configured for API requests.
+ *
+ * This instance is configured with a base URL, default headers, and a request interceptor
+ * that adds the JWT token from localStorage to the Authorization header of each request.
+ */
 const apiClient: AxiosInstance = axios.create({
     baseURL: "http://localhost:8080/api/v1",
     headers: {
@@ -10,7 +16,8 @@ const apiClient: AxiosInstance = axios.create({
     validateStatus: function (_) {
         return true;
       },
-})
+});
+
 apiClient.interceptors.request.use(
     async (config) => {
       const token = localStorage.getItem("jwtToken");

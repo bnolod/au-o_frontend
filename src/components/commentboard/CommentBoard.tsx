@@ -10,9 +10,9 @@ export default function CommentBoard(){
             </div>
             <div className="basis-2/12 flex flex-col justify-between">
                 <hr className=""/>
-                <div className="flex items-center justify-between">
-                    <ProfileImage/>
-                    <input type="text" className="p-3 rounded-full flex-grow ml-3" placeholder="Írj valamit" />
+                <div className="flex items-center justify-between gap-1">
+                    <ProfileImage className="scale-90"/>
+                    <input type="text" className="rounded-full p-3 flex-grow w-full" placeholder="Írj valamit" />
                 </div>
             </div>
         </div>

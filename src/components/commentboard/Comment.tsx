@@ -5,7 +5,7 @@ export default function Comment({ replies }: { replies?: boolean }) {
     <div className="flex flex-col w-full">
       <div className="flex justify-start">
         <div className="flex flex-col">
-          <ProfileImage></ProfileImage>
+          <ProfileImage className="scale-90 aspect-square"></ProfileImage>
         </div>
         <div className="flex flex-col flex-grow">
           <h1 className="font-bold">Nev</h1>
