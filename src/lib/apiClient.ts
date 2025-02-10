@@ -15,26 +15,43 @@ const apiClient: AxiosInstance = axios.create({
     },
     validateStatus: function (_) {
         return true;
-      },
+    },
 });
 
 apiClient.interceptors.request.use(
     async (config) => {
-      const token = localStorage.getItem("jwtToken");
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      } else config.headers.Authorization = null;
-      return config;
+        const token = localStorage.getItem("jwtToken");
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        } else {
+            config.headers.Authorization = null;
+        }
+        return config;
     },
     (error: unknown) => {
-      return Promise.reject(new HttpError(500, (error as Error).message));
+        return Promise.reject(new HttpError(500, (error as Error).message));
     }
-  );
-export default apiClient
-export  async function logout() {
-    await localStorage.deleteItemAsync("jwtToken");
-    window.location.href = "/landing"
+);
+
+export default apiClient;
+
+/**
+ * Logs out the user.
+ *
+ * This function removes the JWT token from localStorage and redirects the user to the landing page.
+ *
+ * @returns {Promise<void>} - A promise that resolves when the logout process is complete.
+ *
+ * @example
+ * logout().then(() => {
+ *   console.log("User logged out");
+ * });
+ */
+export async function logout(): Promise<void> {
+    await localStorage.removeItem("jwtToken");
+    window.location.href = "/landing";
 }
+
 export async function apiFetch<T>(
     endpoint: string,
     method: HttpMethod = "GET",
@@ -73,7 +90,7 @@ export async function getUserByToken(token: string): Promise<User | null> {
         }
         return null
     } catch(error: unknown) {
-        throw new HttpError(500)
+        throw new HttpError(500,"getuserbytoken_fail + " + error)
     }
 }
 export async function apiLogin(request: LoginRequest): Promise<string | null> {
@@ -84,7 +101,7 @@ export async function apiLogin(request: LoginRequest): Promise<string | null> {
         }
         return null
     } catch(error: unknown) {
-        throw new HttpError(500)
+        throw new HttpError(500,"apilogin_fail " + error)
     }
 }
 export async function apiRegister(request: RegisterRequest) {
