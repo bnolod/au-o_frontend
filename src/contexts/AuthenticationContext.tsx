@@ -23,7 +23,7 @@ export const AuthenticationProvider = ({
    const res = await apiLogin(request)
    if (res) {
       localStorage.setItem("jwtToken", res)
-      const tokenUser = await getUserByToken(res)
+      const tokenUser = await getUserByToken()
       setUser(tokenUser)
       return true
    }
@@ -40,7 +40,7 @@ export const AuthenticationProvider = ({
     const res = await apiRegister(request)
     if (res) {
       localStorage.setItem("jwtToken", res)
-      const tokenUser = await getUserByToken(res)
+      const tokenUser = await getUserByToken()
       setUser(tokenUser)
     return true
     }

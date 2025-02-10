@@ -85,7 +85,10 @@ export async function apiFetch<T>(
     return null;
   }
 }
-export async function getUserByToken(token: string): Promise<User | null> {
+/**
+ * apiFetch handles token automatically from localstorage
+ */
+export async function getUserByToken(): Promise<User | null> {
   try {
     const res = await apiFetch("auth/profile");
     if (res) {
