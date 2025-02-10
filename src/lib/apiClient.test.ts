@@ -1,5 +1,5 @@
 import { expect, test, vi } from "vitest";
-import apiClient, { apiFetch, apiRegister } from "./apiClient";
+import apiClient, { apiRegister } from "./apiClient";
 import { RegisterRequest } from "./types";
 
 
@@ -8,7 +8,7 @@ const testUser:RegisterRequest = {
     email: "hallo@teszt.com",
     nickname: "teszter",
     password: "erosjelszo",
-    date_of_birth: "2000-01-01",
+    dateOfBirth: "2000-01-01",
 }
 
 
@@ -30,6 +30,5 @@ test("get all users should be forbidden", async () => {
 
 test("apiregister", async () => {
   const res = await apiRegister(testUser);
-  if 
-    expect(await ).toBe(200)
+    expect(await res.status).toBe(200)
 })

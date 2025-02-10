@@ -2,7 +2,7 @@ import { useAuthentication } from "../contexts/AuthenticationContext";
 import { LoginRequest, RegisterRequest } from "../lib/types";
 
 export default function MockAuth() {
-    const {login, register, user} = useAuthentication()
+    const {login, register} = useAuthentication()
     const loginData: LoginRequest = {
         usernameOrEmail: "teszt",
         password: "Teszt@1234",
@@ -10,7 +10,7 @@ export default function MockAuth() {
     const registerData: RegisterRequest = {
         username: "teszt",
         email: "teszt@teszt.com",
-        date_of_birth: "1999-01-01",
+        dateOfBirth: "1999-01-01",
         password: "Teszt@1234",
         nickname: "teszti",
     }

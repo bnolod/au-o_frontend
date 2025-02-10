@@ -1,9 +1,8 @@
-import { useContext } from "react";
 import { MdAddComment } from "react-icons/md";
-import { openCommentsContext } from "../../pages/MainPage";
+import { useCommentBoard } from "../../contexts/CommentContext";
 
 export default function PostReactionBar() {
-    let [openComments, setOpenComments] = useContext(openCommentsContext);
+    const {toggleOpen} = useCommentBoard();
   
     return (
     <div className="flex text-xs p-3 justify-between">
@@ -19,7 +18,7 @@ export default function PostReactionBar() {
         {" "}
         😍 gomb
       </button>
-      <button className="outline-highlightPrimary bg-backdropSecondary p-2 mx-1 rounded-lg flex items-center " onClick={()=>{setOpenComments(!openComments)}}>
+      <button className="outline-highlightPrimary bg-backdropSecondary p-2 mx-1 rounded-lg flex items-center " onClick={()=>{toggleOpen()}}>
         <MdAddComment/> gomb
       </button>
       <div className=" flex flex-col flex-grow text-right">

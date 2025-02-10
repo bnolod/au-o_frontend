@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import ProfileImage from "../ProfileImage";
 
 export default function Comment({ replies }: { replies?: boolean }) {

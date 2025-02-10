@@ -1,10 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { AuthTexts } from "../constants/texts";
-import { Link } from "react-router";
 import Input from "./Input";
 import { MdClose } from "react-icons/md";
-import { RegisterRequest } from "../lib/types";
+import { LoginRequest, RegisterRequest } from "../lib/types";
 import { useAuthentication } from "../contexts/AuthenticationContext";
+import { redirect, replace } from "react-router";
 
 export default function LoginModal({
   language = "EN",
@@ -20,22 +20,35 @@ export default function LoginModal({
   isOpen:boolean;
 }) {
   const [formState, setFormState] = useState<RegisterRequest>()
-  const {login, register} = useAuthentication()
+  const { register, login, user} = useAuthentication()
   //TODO: Add datepicker to for
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (registerMode) {
-      const formData = new FormData(e.currentTarget as HTMLFormElement);
       const request: RegisterRequest = {
-        date_of_birth: '2001-09-11',
+        dateOfBirth: "2000-01-01",
         email: formState!.email,
         password: formState!.password,
         nickname: formState!.nickname,
         username: formState!.username
       }
+      console.log(request)
       const res = await register!(request)
       if (res) {
         toggleModal()
+        replace("/")
+      }
+    }
+    else {
+      const request: LoginRequest = {
+        usernameOrEmail: formState!.email,
+        password: formState!.password
+      }
+      console.log(request)
+      const res = await login!(request)
+      if (res) {
+        toggleModal()
+        replace("/")
       }
     }
     
@@ -45,11 +58,15 @@ export default function LoginModal({
       <Input
         type="email"
         labelText={AuthTexts.login.labels.email[language]}
+        value={formState?.email}
+        onChange={(e)=>{setFormState({...formState!, email: e.currentTarget.value})}}
         inputPlaceholder={AuthTexts.login.placeholders.email[language]}
-      />
+        />
       <Input
         type="password"
         labelText={AuthTexts.login.labels.password[language]}
+        value={formState?.password}
+        onChange={(e)=>{setFormState({...formState!, password: e.currentTarget.value})}}
         inputPlaceholder={AuthTexts.login.placeholders.password[language]}
       />
     </>
@@ -95,10 +112,20 @@ export default function LoginModal({
           inputPlaceholder={AuthTexts.signup.placeholders.confirmPassword[language]}
         />
       </div>
+      <div>
+        <Input
+          type="date"
+          value={formState?.dateOfBirth}
+          labelText={AuthTexts.signup.labels.dateOfBirth[language]}
+          inputPlaceholder={"2000-01-01"}
+        />
+      </div>
 
     </>
   );
-
+  if (user) {
+    redirect("/")
+  }
   return (
     <>
       {isOpen && (
@@ -126,11 +153,11 @@ export default function LoginModal({
                   {AuthTexts.login.confirm[language]}
                 </button>
                 <p>{AuthTexts.login.notRegistered[language]}</p>
-                <button className="underline" onClick={toggleRegister}>
-                  {AuthTexts.login.confirmTabSwitch[language]}
-                </button>
               </div>
             </form>
+                <button className="underline" onClick={() => toggleRegister()}>
+                  {AuthTexts.login.confirmTabSwitch[language]}
+                </button>
           </div>
         </dialog>
       )}
