@@ -7,32 +7,27 @@ import { useAuthentication } from "./contexts/AuthenticationContext.tsx";
 import { useEffect } from "react";
 
 function App() {
-  const { user } = useAuthentication()
-  if (user === undefined) {
+  const { user } = useAuthentication();
+  if (user != undefined) {
+    console.log(user.email);
   }
-  useEffect(() => {
-
-  }, [])
+  useEffect(() => {}, []);
   return (
     <BrowserRouter>
       <Routes>
-        {
-          user === undefined && (
-            <>
+        {user === undefined && (
+          <>
             <Route index element={<LandingPage />} />
             <Route path="*" element={<Navigate to="/" />} />
-            </>
-          )
-        }
-        {
-          user !== null && user !== undefined &&(
-            <>
-          <Route path="/login" element={<LoginPage />} />
-        <Route path="/landing" element={<LandingPage />} />
-        <Route index element={<MainPage />} />
-            </>
-          )
-        }
+          </>
+        )}
+        {user !== null && user !== undefined && (
+          <>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/landing" element={<LandingPage />} />
+            <Route index element={<MainPage />} />
+          </>
+        )}
       </Routes>
     </BrowserRouter>
   );
