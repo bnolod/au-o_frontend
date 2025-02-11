@@ -39,7 +39,7 @@
 
 
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 0px;
 }
 
 ::-webkit-scrollbar-track {
@@ -47,8 +47,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(247,137,143);
-    border-radius: 10px;
+    background: none
 }
 
 ::-webkit-scrollbar-thumb:hover {
