@@ -101,7 +101,9 @@ export async function getUserByToken(): Promise<User | null> {
 }
 export async function apiLogin(request: LoginRequest): Promise<string | null> {
   try {
+    localStorage.removeItem("jwtToken");
     const res = await apiClient.post("auth/login", request);
+    console.log(res)
     if (res) {
       console.info("login completed");
       return res.data.token;

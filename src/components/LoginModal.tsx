@@ -21,6 +21,7 @@ export default function LoginModal({
 }) {
   const [formState, setFormState] = useState<RegisterRequest>()
   const { register, login, user} = useAuthentication()
+  const [errors, setErrors] = useState<string[]>(["s"]);
   //TODO: Add datepicker to for
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -144,12 +145,14 @@ export default function LoginModal({
             <form onSubmit={handleSubmit} className="flex flex-col flex-grow items-center justify-center">
               <div className="flex w-full flex-col basis-2/3 justify-evenly py-10">
                 {registerMode ? registerForm : loginInputs}
+                {errors.length > 0 ? <div className="pt-3"><div className="text-center bg-highlightPrimary p-3 rounded-xl text-white">{errors[0]}</div></div> : ""}
               </div>
               <div className="text-center w-full basis-1/3">
                 <button
                   type="submit"
                   className="p-3 w-full bg-highlightSecondary text-white rounded-xl"
                 >
+                  
                   {AuthTexts.login.confirm[language]}
                 </button>
                 <p>{AuthTexts.login.notRegistered[language]}</p>
