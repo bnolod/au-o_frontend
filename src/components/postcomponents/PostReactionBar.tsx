@@ -1,7 +1,8 @@
 import { MdAddComment } from "react-icons/md";
 import { useCommentBoard } from "../../contexts/CommentContext";
+import { PostResponse } from "../../lib/types";
 
-export default function PostReactionBar() {
+export default function PostReactionBar({location}:PostResponse) {
     const {toggleOpen} = useCommentBoard();
   
     return (
@@ -22,8 +23,8 @@ export default function PostReactionBar() {
         <MdAddComment/> gomb
       </button>
       <div className=" flex flex-col flex-grow text-right">
-        <p className="text-highlightPrimary">Tilted Towers</p>
-        <p>2001.09.11</p>
+        <p className="text-highlightPrimary">{location}</p>
+        <p>2</p>
       </div>
     </div>
   );

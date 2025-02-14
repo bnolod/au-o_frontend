@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { LoginRequest, RegisterRequest, User } from "../lib/types";
 import { apiLogin, apiRegister, getUserByToken } from "../lib/apiClient";
 import { replace } from "react-router";
@@ -19,33 +19,41 @@ export const AuthenticationProvider = ({
 }) => {
   const [user, setUser] = useState<User | null | undefined>(undefined);
 
+  useEffect(() => {
+    //ha van jwt token, akkor lekéri a user adatait
+  if(localStorage.getItem("jwtToken")){
+    getUserByToken().then((res) => {
+      setUser(res);
+    }
+    )
+  }},[])
+
   async function login(request: LoginRequest) {
-   const res = await apiLogin(request)
-   if (res) {
-      localStorage.setItem("jwtToken", res)
-      const tokenUser = await getUserByToken()
-      setUser(tokenUser)
-      return true
-   }
-   return false
+    const res = await apiLogin(request);
+    if (res) {
+      localStorage.setItem("jwtToken", res);
+      const tokenUser = await getUserByToken();
+      setUser(tokenUser);
+      return true;
+    }
+    return false;
   }
 
   async function logout() {
-    setUser(null)
-    localStorage.removeItem("jwtToken")
-    replace("/")
+    setUser(null);
+    localStorage.removeItem("jwtToken");
+    replace("/");
   }
 
   async function register(request: RegisterRequest) {
-    const res = await apiRegister(request)
+    const res = await apiRegister(request);
     if (res) {
-      localStorage.setItem("jwtToken", res)
-      const tokenUser = await getUserByToken()
-      setUser(tokenUser)
-    return true
+      localStorage.setItem("jwtToken", res);
+      const tokenUser = await getUserByToken();
+      setUser(tokenUser);
+      return true;
     }
-    return false
-
+    return false;
   }
 
   return (
@@ -56,10 +64,10 @@ export const AuthenticationProvider = ({
 };
 
 export const useAuthentication = () => {
-    const context = useContext(AuthenticationContext)
-    if (!context) {
-        throw new Error("Context used outside provider")
-    }
-    return context
-}
-export default AuthenticationContext
+  const context = useContext(AuthenticationContext);
+  if (!context) {
+    throw new Error("Context used outside provider");
+  }
+  return context;
+};
+export default AuthenticationContext;

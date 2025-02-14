@@ -8,10 +8,14 @@ import { useEffect } from "react";
 
 function App() {
   const { user } = useAuthentication();
-  if (user != undefined) {
-    console.log(user.email);
-  }
-  useEffect(() => {}, []);
+
+  useEffect(() => {
+    if (user != undefined) {
+      console.log(user.email);
+    } else {
+      console.log("no user");
+    }
+  }, []);
   return (
     <BrowserRouter>
       <Routes>

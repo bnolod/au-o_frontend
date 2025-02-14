@@ -35,6 +35,7 @@ export default function LoginModal({
       }
       console.log(request)
       const res = await register!(request)
+      console.log(res)
       if (res) {
         toggleModal()
         replace("/")

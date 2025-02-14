@@ -2,8 +2,10 @@ import { Link } from "react-router";
 import { useEffect, useState } from "react";
 import { MdSearch, MdSettings } from "react-icons/md";
 import ProfileImage from "./ProfileImage";
+import { useAuthentication } from "../contexts/AuthenticationContext";
 
 export default function Header() {
+  const {user} = useAuthentication();
   const [isDark, setIsDark] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
@@ -49,7 +51,7 @@ export default function Header() {
         <div className="basis-1/3 flex justify-end items-center">
         
         
-          <h3 className="text-center hidden md:flex">Felhasznalo Nev</h3>
+          <h3 className="text-center hidden md:flex">{user?.nickname}</h3>
           <ProfileImage className="mx-3"/>
           <button className="mr-3" onClick={() => {
               document.getElementById("root")!.classList.toggle('dark')
