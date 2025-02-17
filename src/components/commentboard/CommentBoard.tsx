@@ -3,7 +3,7 @@ import Comment from "./Comment"
 
 export default function CommentBoard(){
     return (
-        <div className="bg-background rounded-xl my-2 max-h-[80vh] w-full flex flex-col p-3">
+        <div className="bg-background rounded-xl my-2 max-h-[80vh] flex flex-col p-3">
             <h1 className="self-center">Comments</h1>
             <div className="flex flex-col overflow-y-scroll">
                 <Comment replies={true} ></Comment>

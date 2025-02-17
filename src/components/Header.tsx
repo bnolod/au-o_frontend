@@ -38,15 +38,10 @@ export default function Header() {
             />
           </Link>
         </div>
-        <div className="basis-1/3 flex items-center justify-between text-textColor backdrop-blur-7xl bg-white/50 rounded-xl ">
-          <input
-            type="search"
-            className="p-3 w-10/12 rounded bg-transparent"
-            placeholder="example"
-          />
-          <button className="flex-grow flex justify-end p-3">
-            <MdSearch className="text-xl"></MdSearch>
-          </button>
+        <div className="basis-1/3 flex items-center justify-center rounded-xl ">
+          <div className="p-3 text-highlightPrimary">Home</div>
+          <div className="p-3">Groups</div>
+          <div className="p-3">Events</div>
         </div>
         <div className="basis-1/3 flex justify-end items-center">
         

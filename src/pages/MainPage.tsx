@@ -8,10 +8,8 @@ import { PostResponse } from "../lib/types";
 import { apiFetch } from "../lib/apiClient";
 import LeftAside from "../components/leftnavigation/LeftNavigation";
 
-
 export default function MainPage() {
-
-  const {user} = useAuthentication();
+  const { user } = useAuthentication();
 
   const [posts, setPosts] = useState<PostResponse[]>([]);
 
@@ -27,23 +25,12 @@ export default function MainPage() {
     load();
   }, []);
 
-
-  const {isOpen} = useCommentBoard();
+  const { isOpen } = useCommentBoard();
   return (
-    <div className="bg-backgroundGradient bg-fixed min-h-screen flex flex-col text-textColor">
-      <Header />
-      <main className="flex flex-col md:flex-row h-full items-center md:items-start justify-center pt-20">
-        <LeftAside/>
-        <div className=" md:w-3/12 fixed left-0 bg-cyan-50"></div>
-        <div className="w-11/12 md:w-5/12 flex flex-col">
-        {posts.map((post) => (
-            <Post {...post}/>
-          ))}
-        </div>
-        <div className={"md:w-3/12 w-11/12 right-4 items-start " + (!isOpen ? "hidden" : "fixed flex")}>
-        <CommentBoard/>
-        </div>
-      </main>
-    </div>
+    <>
+      {posts.map((post) => (
+        <Post {...post} />
+      ))}
+    </>
   );
 }

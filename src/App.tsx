@@ -21,11 +21,12 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/landing" element={<LandingPage />} />
-          <Route index element={<MainPage />} />
-          <Route path="/layout" element={<GeneralLayout/>}/>
+          <Route path="/" element={<GeneralLayout />}>
+            <Route index element={<MainPage />} />
+          </Route>
+          <Route path="/layout" element={<GeneralLayout />} />
         </Route>
-        <Route path="*" element={<Navigate to="/"/>} />
-
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );
