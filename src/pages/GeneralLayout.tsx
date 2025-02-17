@@ -8,7 +8,7 @@ export default function GeneralLayout() {
     <div className="bg-backgroundGradient bg-fixed min-h-screen flex flex-col text-textColor">
       <Header />
       <main className="flex flex-col md:flex-row h-full items-center md:items-start justify-center pt-20">
-        <div className="w-3/12 hidden md:flex    md:fixed left-3 flex flex-col gap-5">
+        <div className="w-3/12 hidden md:flex md:fixed left-3 flex-col gap-5">
           <LeftNavigation />
         </div>
         <div className="w-11/12 md:w-5/12 flex flex-col">
