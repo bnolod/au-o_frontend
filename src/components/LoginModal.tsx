@@ -4,7 +4,7 @@ import Input from "./Input";
 import { MdClose } from "react-icons/md";
 import { LoginRequest, RegisterRequest } from "../lib/types";
 import { useAuthentication } from "../contexts/AuthenticationContext";
-import { redirect, replace } from "react-router";
+import { redirect, replace, useNavigate } from "react-router";
 
 export default function LoginModal({
   language = "EN",
@@ -22,6 +22,7 @@ export default function LoginModal({
   const [formState, setFormState] = useState<RegisterRequest>()
   const { register, login, user} = useAuthentication()
   const [errors, setErrors] = useState<string[]>(["s"]);
+  const navigate = useNavigate();
   //TODO: Add datepicker to for
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -50,7 +51,8 @@ export default function LoginModal({
       const res = await login!(request)
       if (res) {
         toggleModal()
-        replace("/")
+        navigate("/", {replace:true })
+        console.log("fasz")
       }
     }
     

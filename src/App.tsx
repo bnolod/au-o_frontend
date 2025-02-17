@@ -5,33 +5,27 @@ import LoginPage from "./pages/LoginPage.tsx";
 import MainPage from "./pages/MainPage.tsx";
 import { useAuthentication } from "./contexts/AuthenticationContext.tsx";
 import { useEffect } from "react";
+import ProtectedRoute from "./lib/ProtectedRoute.tsx";
+import GeneralLayout from "./pages/GeneralLayout.tsx";
 
 function App() {
   const { user } = useAuthentication();
 
   useEffect(() => {
-    if (user != undefined) {
-      console.log(user.email);
-    } else {
-      console.log("no user");
-    }
+    console.log(user);
   }, []);
   return (
     <BrowserRouter>
       <Routes>
-        {user === undefined && (
-          <>
-            <Route index element={<LandingPage />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </>
-        )}
-        {user !== null && user !== undefined && (
-          <>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/landing" element={<LandingPage />} />
-            <Route index element={<MainPage />} />
-          </>
-        )}
+        <Route path="/landing" element={<LandingPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/landing" element={<LandingPage />} />
+          <Route index element={<MainPage />} />
+          <Route path="/layout" element={<GeneralLayout/>}/>
+        </Route>
+        <Route path="*" element={<Navigate to="/"/>} />
+
       </Routes>
     </BrowserRouter>
   );
