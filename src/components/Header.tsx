@@ -22,7 +22,7 @@ export default function Header() {
 
 
   return (
-    <header className="fixed backdrop-blur-xl w-full p-3">
+    <header className="fixed backdrop-blur-xl w-full p-3 z-50">
       <nav className="max-w-screen flex flex-wrap items-center justify-between">
         <div className="basis-1/3 flex justify-start">
           <Link

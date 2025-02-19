@@ -9,7 +9,7 @@ export default function Post (post : PostResponse){
     return (
         <div className=" bg-background rounded-xl my-2 flex flex-col">
             <PostHeader user={post.user}></PostHeader>
-            <PostImage src={post.images[0].url}/>
+            <PostImage images={post.images}/>
             <PostReactionBar post={post}/>
             <PostText text={post.text}/>
         </div>
