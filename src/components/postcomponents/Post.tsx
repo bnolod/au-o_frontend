@@ -4,8 +4,9 @@ import PostImage from "./PostImage";
 import PostReactionBar from "./PostReactionBar";
 import PostText from "./PostText";
 
-export default function Post (post : PostResponse){
+export default function Post ({post} :{post:  PostResponse}){
     //todo: multiple image support
+    console.log(post)
     return (
         <div className=" bg-background rounded-xl my-2 flex flex-col">
             <PostHeader user={post.user}></PostHeader>

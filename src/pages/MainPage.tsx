@@ -15,7 +15,6 @@ export default function MainPage() {
 
   async function fetchPosts(): Promise<PostResponse[]> {
     const post = await apiFetch<PostResponse[]>("posts/all", "GET", true);
-    console.log(post);
     return post?.data!;
   }
   useEffect(() => {
@@ -29,7 +28,7 @@ export default function MainPage() {
   return (
     <>
       {posts.map((post) => (
-        <Post {...post} />
+        <Post post={post} />
       ))}
     </>
   );

@@ -3,6 +3,7 @@ import {
   HttpError,
   HttpMethod,
   LoginRequest,
+  Reactions,
   RegisterRequest,
   User,
 } from "./types";
@@ -103,7 +104,7 @@ export async function apiLogin(request: LoginRequest): Promise<string | null> {
   try {
     localStorage.removeItem("jwtToken");
     const res = await apiClient.post("auth/login", request);
-    console.log(res)
+    console.log(res);
     if (res) {
       console.info("login completed");
       return res.data.token;
@@ -119,4 +120,16 @@ export async function apiRegister(request: RegisterRequest) {
     console.info("register completed");
     return res.data.token;
   }
+}
+
+export async function addReaction(
+  reaction: "FIRE" | "COOL" | "HEART",
+  target: "post" | "comment" | "reply",
+  postId: number
+) {
+  console.log(`posts/${target}/${postId}/addOrRemoveReaction/${reaction}`);
+  const res = await apiClient.post(
+    `posts/${target}/${postId}/addOrRemoveReaction/${reaction}`
+  );
+  return res;
 }
