@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { MdSearch, MdSettings } from "react-icons/md";
 import ProfileImage from "./ProfileImage";
 import { useAuthentication } from "../contexts/AuthenticationContext";
+import Avatar from "@mui/material/Avatar";
+import { grey } from "@mui/material/colors";
 
 export default function Header() {
-  const {user} = useAuthentication();
+  const { user } = useAuthentication();
   const [isDark, setIsDark] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
@@ -16,10 +18,7 @@ export default function Header() {
 
     // This callback will fire if the perferred color scheme changes without a reload
     mq.addEventListener("change", (evt) => setIsDark(evt.matches));
-    
   }, []);
-
-
 
   return (
     <header className="fixed backdrop-blur-xl w-full p-3 z-50">
@@ -43,14 +42,21 @@ export default function Header() {
           <div className="p-3">Groups</div>
           <div className="p-3">Events</div>
         </div>
-        <div className="basis-1/3 flex justify-end items-center">
-        
-        
+        <div className="basis-1/3 flex justify-end gap-1 items-center">
           <h3 className="text-center hidden md:flex">{user?.nickname}</h3>
-          <ProfileImage className="mx-3"/>
-          <button className="mr-3" onClick={() => {
-              document.getElementById("root")!.classList.toggle('dark')
-        }}>
+          <Avatar
+            className=""
+            sx={{ bgcolor: grey[800] }}
+            src={user?.profileImg}
+          >
+            {user?.nickname.substring(0, 3).toUpperCase()}
+          </Avatar>
+          <button
+            className=""
+            onClick={() => {
+              document.getElementById("root")!.classList.toggle("dark");
+            }}
+          >
             <MdSettings className="text-4xl" />
           </button>
         </div>
