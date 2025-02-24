@@ -7,6 +7,7 @@ import { useAuthentication } from "./contexts/AuthenticationContext.tsx";
 import { useEffect } from "react";
 import ProtectedRoute from "./lib/ProtectedRoute.tsx";
 import GeneralLayout from "./pages/GeneralLayout.tsx";
+import ProfilePage from "./pages/ProfilePage.tsx";
 
 function App() {
   const { user } = useAuthentication();
@@ -23,6 +24,7 @@ function App() {
           <Route path="/landing" element={<LandingPage />} />
           <Route path="/" element={<GeneralLayout />}>
             <Route index element={<MainPage />} />
+            <Route path="/profile" element={<ProfilePage/>}/>
           </Route>
           <Route path="/layout" element={<GeneralLayout />} />
         </Route>

@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import { useEffect, useState } from "react";
 import { MdSearch, MdSettings } from "react-icons/md";
 import ProfileImage from "./ProfileImage";
@@ -44,13 +44,14 @@ export default function Header() {
         </div>
         <div className="basis-1/3 flex justify-end gap-1 items-center">
           <h3 className="text-center hidden md:flex">{user?.nickname}</h3>
+          <NavLink to={"/profile"}>
           <Avatar
-            className=""
             sx={{ bgcolor: grey[800] }}
             src={user?.profileImg}
           >
             {user?.nickname.substring(0, 3).toUpperCase()}
           </Avatar>
+          </NavLink>
           <button
             className=""
             onClick={() => {

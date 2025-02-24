@@ -2,7 +2,7 @@ import { MdMoreHoriz } from "react-icons/md";
 import ProfileImage from "../ProfileImage";
 import { UserPostResponseType } from "../../lib/types";
 import Avatar from "@mui/material/Avatar";
-import { deepOrange, grey } from "@mui/material/colors";
+import {grey } from "@mui/material/colors";
 
 export default function PostHeader({user}: {user: UserPostResponseType}
 ) {
