@@ -60,7 +60,7 @@ export default function LoginModal({
   const loginInputs = (
     <>
       <Input
-        type="email"
+        type="text"
         labelText={AuthTexts.login.labels.email[language]}
         value={formState?.email}
         onChange={(e)=>{setFormState({...formState!, email: e.currentTarget.value})}}

@@ -12,9 +12,6 @@ import ProfilePage from "./pages/ProfilePage.tsx";
 function App() {
   const { user } = useAuthentication();
 
-  useEffect(() => {
-    console.log(user);
-  }, []);
   return (
     <BrowserRouter>
       <Routes>
@@ -24,7 +21,10 @@ function App() {
           <Route path="/landing" element={<LandingPage />} />
           <Route path="/" element={<GeneralLayout />}>
             <Route index element={<MainPage />} />
-            <Route path="/profile" element={<ProfilePage/>}/>
+            <Route path="/profile/">
+              <Route index element={<ProfilePage userId={user?.id} />} />
+              <Route path=":id" element={<ProfilePage userId={user?.id}/>}/>
+            </Route>
           </Route>
           <Route path="/layout" element={<GeneralLayout />} />
         </Route>

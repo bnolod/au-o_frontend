@@ -30,7 +30,7 @@ export default function Header() {
           >
             <img
               src={
-                isDark ? "assets/auoLogo_white.svg" : "assets/auoLogo_black.svg"
+                isDark ? "/assets/auoLogo_white.svg" : "/assets/auoLogo_black.svg"
               }
               className=""
               alt="AUO logo"
