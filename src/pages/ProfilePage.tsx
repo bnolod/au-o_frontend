@@ -7,7 +7,7 @@ import {
   MdMoreHoriz,
 } from "react-icons/md";
 import PostDisplay from "../components/profilecomponents/PostDisplay";
-import { useEffect, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { User } from "../lib/types";
 import { apiFetch } from "../lib/apiClient";
 import { useParams } from "react-router";
@@ -15,6 +15,15 @@ import { useParams } from "react-router";
 export default function ProfilePage({userId}:{userId: number|undefined}) {
   const [user, setUser] = useState<User>();
   const { id } = useParams();
+  const [selectedPage, setSelectedPage] = useState<"posts"|"groups"|"car"|"saved">("posts");
+
+
+  function handlePageChange(event: React.MouseEvent<HTMLButtonElement>, value:"posts"|"groups"|"car"|"saved") {
+    event.currentTarget.style.color = "red";
+    setSelectedPage(value);
+
+    // Add logic to handle page change here
+  }
 
   useEffect(() => {
     async function load() {
@@ -24,6 +33,18 @@ export default function ProfilePage({userId}:{userId: number|undefined}) {
     }
     load();
   }, []);
+
+
+  //
+  let bottomDisplay;
+  if (user){
+    switch(selectedPage){
+      case "posts":
+        bottomDisplay = <PostDisplay userId={user.id}/>
+        break;
+    }
+  }
+
 
   return (
     <>
@@ -43,20 +64,21 @@ export default function ProfilePage({userId}:{userId: number|undefined}) {
           </div>
         </div>
         <div className="flex text-3xl bg-backdropSecondary rounded-xl p-2 justify-center divide-x-2">
-          <button className="flex-grow flex justify-center">
+          <button className="flex-grow flex justify-center" onClick={(event)=>(handlePageChange(event, "posts"))}>
             <MdBackupTable />
           </button>
-          <button className="flex-grow flex justify-center">
+          <button className="flex-grow flex justify-center" onClick={(event)=>(handlePageChange(event, "groups"))}>
             <MdGroups />
           </button>
-          <button className="flex-grow flex justify-center">
+          <button className="flex-grow flex justify-center" onClick={(event)=>(handlePageChange(event, "saved"))}>
             <MdBookmark />
           </button>
-          <button className="flex-grow flex justify-center">
+          <button className="flex-grow flex justify-center" onClick={(event)=>(handlePageChange(event, "car"))}>
             <MdCarRepair />
           </button>
         </div>
-        {user && <PostDisplay userId={user.id}/>}
+        {bottomDisplay}
+        
       </div>
     </>
   );

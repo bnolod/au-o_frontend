@@ -19,6 +19,7 @@ export default function PostDisplay({ userId }: { userId: number }) {
 
   return (
     <Card className="">
+      {posts.length == 0 && <div className="text-center">jaj</div>}
       <ImageList variant="masonry" cols={2} gap={8}>
         {posts.map((post) => (
           <ImageListItem key={post.postId}>
