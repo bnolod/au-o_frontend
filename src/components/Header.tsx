@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { BiLogOut } from "react-icons/bi";
 import { logout } from "../lib/apiClient";
+import { PiPlus } from "react-icons/pi";
 
 export default function Header() {
   const { user } = useAuthentication();
@@ -85,8 +86,17 @@ export default function Header() {
                 </ListItemAvatar>
                 <ListItemText primary={user?.nickname} />
               </ListItem>
+
               <ListItem>
-                {" "}
+                <NavLink to={"/post"}>
+                  <ListItemIcon>
+                    <PiPlus></PiPlus>
+                  </ListItemIcon>
+                  <ListItemText primary="New post"></ListItemText>
+                </NavLink>
+              </ListItem>
+
+              <ListItem>
                 <ListItemButton
                   onClick={() => {
                     logout();
