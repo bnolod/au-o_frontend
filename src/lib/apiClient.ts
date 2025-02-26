@@ -15,7 +15,7 @@ import {
  * that adds the JWT token from localStorage to the Authorization header of each request.
  */
 const apiClient: AxiosInstance = axios.create({
-  baseURL: "http://localhost:8080/api/v1",
+  baseURL: "http://172.20.0.1:8080/api/v1",
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",

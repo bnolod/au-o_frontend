@@ -5,10 +5,19 @@ import ProfileImage from "./ProfileImage";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import Avatar from "@mui/material/Avatar";
 import { grey } from "@mui/material/colors";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 
 export default function Header() {
   const { user } = useAuthentication();
   const [isDark, setIsDark] = useState(false);
+  const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -23,43 +32,60 @@ export default function Header() {
   return (
     <header className="fixed backdrop-blur-xl w-full p-3 z-50">
       <nav className="max-w-screen flex flex-wrap items-center justify-between">
-        <div className="basis-1/3 flex justify-start">
+        <div className=" flex justify-start">
           <Link
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img
               src={
-                isDark ? "/assets/auoLogo_white.svg" : "/assets/auoLogo_black.svg"
+                isDark
+                  ? "/assets/auoLogo_white.svg"
+                  : "/assets/auoLogo_black.svg"
               }
               className=""
               alt="AUO logo"
             />
           </Link>
         </div>
-        <div className="basis-1/3 flex items-center justify-center rounded-xl ">
+        <div className="flex items-center justify-center rounded-xl justify-self-center">
           <div className="p-3 text-highlightPrimary">Home</div>
           <div className="p-3">Groups</div>
           <div className="p-3">Events</div>
         </div>
-        <div className="basis-1/3 flex justify-end gap-1 items-center">
+        <div className="flex justify-end gap-1 items-center">
           <h3 className="text-center hidden md:flex">{user?.nickname}</h3>
           <NavLink to={"/profile"}>
-          <Avatar
-            sx={{ bgcolor: grey[800] }}
-            src={user?.profileImg}
-          >
-            {user?.nickname.substring(0, 3).toUpperCase()}
-          </Avatar>
+            <Avatar sx={{ bgcolor: grey[800] }} src={user?.profileImg}>
+              {user?.nickname.substring(0, 3).toUpperCase()}
+            </Avatar>
           </NavLink>
           <button
             className=""
             onClick={() => {
-              document.getElementById("root")!.classList.toggle("dark");
+              setDrawerOpen(!isDrawerOpen);
+              /*document.getElementById("root")!.classList.toggle("dark");*/
             }}
           >
             <MdSettings className="text-4xl" />
           </button>
+          <Drawer
+            className=""
+            open={isDrawerOpen}
+            anchor="right"
+            onClose={() => {
+              setDrawerOpen(false);
+            }}
+          >
+            <List>
+              <ListItem>
+                <ListItemAvatar>
+                  {user?.nickname.substring(0, 3).toUpperCase()}
+                </ListItemAvatar>
+                <ListItemText>{user?.nickname}</ListItemText>
+              </ListItem>
+            </List>
+          </Drawer>
         </div>
       </nav>
     </header>

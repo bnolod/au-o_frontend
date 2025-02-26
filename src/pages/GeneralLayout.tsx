@@ -14,7 +14,7 @@ export default function GeneralLayout() {
         <div className="w-11/12 md:w-5/12 flex flex-col">
           <Outlet />
         </div>
-        <div className={" md:w-3/12 hidden md:flex md:fixed w-11/12 right-3 items-start "}>
+        <div className={" md:w-3/12 hidden md:flex md:fixed w-11/12 right-3 items-start "}> 
           <CommentBoard></CommentBoard>
         </div>
       </main>
