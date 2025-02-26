@@ -7,7 +7,7 @@ import {
   MdMoreHoriz,
 } from "react-icons/md";
 import PostDisplay from "../components/profilecomponents/PostDisplay";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "../lib/types";
 import { apiFetch } from "../lib/apiClient";
 import { useParams } from "react-router";
@@ -27,9 +27,11 @@ export default function ProfilePage({userId}:{userId: number|undefined}) {
 
   useEffect(() => {
     async function load() {
-      const res = await apiFetch(`users/user/${id || userId}`);
-      console.log(res.data)
-      setUser(res.data);
+      const res = await apiFetch<User>(`users/user/${id || userId}`);
+      if (res && res.data) {
+        console.log(res.data)
+        setUser(res.data);
+      }
     }
     load();
   }, []);

@@ -1,7 +1,5 @@
 import { Link, NavLink } from "react-router";
 import { useEffect, useState } from "react";
-import { MdSearch, MdSettings } from "react-icons/md";
-import ProfileImage from "./ProfileImage";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import Avatar from "@mui/material/Avatar";
 import { grey } from "@mui/material/colors";
@@ -11,8 +9,12 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
+  Switch,
 } from "@mui/material";
+import { BiLogOut } from "react-icons/bi";
+import { logout } from "../lib/apiClient";
 
 export default function Header() {
   const { user } = useAuthentication();
@@ -55,19 +57,14 @@ export default function Header() {
         </div>
         <div className="flex justify-end gap-1 items-center">
           <h3 className="text-center hidden md:flex">{user?.nickname}</h3>
-          <NavLink to={"/profile"}>
+          <button
+            onClick={() => {
+              setDrawerOpen(!isDrawerOpen);
+            }}
+          >
             <Avatar sx={{ bgcolor: grey[800] }} src={user?.profileImg}>
               {user?.nickname.substring(0, 3).toUpperCase()}
             </Avatar>
-          </NavLink>
-          <button
-            className=""
-            onClick={() => {
-              setDrawerOpen(!isDrawerOpen);
-              /*document.getElementById("root")!.classList.toggle("dark");*/
-            }}
-          >
-            <MdSettings className="text-4xl" />
           </button>
           <Drawer
             className=""
@@ -77,12 +74,42 @@ export default function Header() {
               setDrawerOpen(false);
             }}
           >
-            <List>
-              <ListItem>
+            <List className="flex flex-col h-full justify-start bg-backdropSecondary">
+              <ListItem className="">
                 <ListItemAvatar>
-                  {user?.nickname.substring(0, 3).toUpperCase()}
+                  <NavLink to={"/profile"}>
+                    <Avatar sx={{ bgcolor: grey[800] }} src={user?.profileImg}>
+                      {user?.nickname.substring(0, 3).toUpperCase()}
+                    </Avatar>
+                  </NavLink>
                 </ListItemAvatar>
-                <ListItemText>{user?.nickname}</ListItemText>
+                <ListItemText primary={user?.nickname} />
+              </ListItem>
+              <ListItem>
+                {" "}
+                <ListItemButton
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  <ListItemIcon>
+                    <BiLogOut></BiLogOut>
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem className="">
+                <ListItemText>Dark mode</ListItemText>
+                <Switch
+                  edge="end"
+                  onChange={() => {
+                    document.getElementById("root")!.classList.toggle("dark");
+                  }}
+                  checked={document
+                    .getElementById("root")
+                    ?.classList.contains("dark")}
+                ></Switch>
               </ListItem>
             </List>
           </Drawer>

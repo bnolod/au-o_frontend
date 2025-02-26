@@ -3,7 +3,6 @@ import {
   HttpError,
   HttpMethod,
   LoginRequest,
-  Reactions,
   RegisterRequest,
   User,
 } from "./types";

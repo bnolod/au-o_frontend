@@ -2,8 +2,10 @@ import { Outlet } from "react-router";
 import CommentBoard from "../components/commentboard/CommentBoard";
 import Header from "../components/Header";
 import LeftNavigation from "../components/leftnavigation/LeftNavigation";
+import { useCommentBoard } from "../contexts/CommentContext";
 
 export default function GeneralLayout() {
+  const {isOpen} = useCommentBoard()
   return (
     <div className="bg-backgroundGradient bg-fixed min-h-screen flex flex-col text-textColor">
       <Header />
@@ -15,7 +17,7 @@ export default function GeneralLayout() {
           <Outlet />
         </div>
         <div className={" md:w-3/12 hidden md:flex md:fixed w-11/12 right-3 items-start "}> 
-          <CommentBoard></CommentBoard>
+          <CommentBoard isOpen={isOpen}></CommentBoard>
         </div>
       </main>
     </div>

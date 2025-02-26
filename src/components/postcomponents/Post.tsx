@@ -1,4 +1,4 @@
-import { PostResponse, User } from "../../lib/types";
+import { PostResponse } from "../../lib/types";
 import PostHeader from "./PostHeader";
 import PostImage from "./PostImage";
 import PostReactionBar from "./PostReactionBar";

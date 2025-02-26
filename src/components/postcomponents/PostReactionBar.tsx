@@ -2,40 +2,78 @@ import { MdAddComment } from "react-icons/md";
 import { useCommentBoard } from "../../contexts/CommentContext";
 import { PostResponse } from "../../lib/types";
 import { addReaction } from "../../lib/apiClient";
+import { useState, useEffect } from "react";
 
 export default function PostReactionBar({ post }: { post: PostResponse }) {
   const { toggleOpen } = useCommentBoard();
-
-  function handleButtonPress() {
-    //ide kene meg valamit irni
-    //na igen
+  const typeMap = {
+    FIRE: post.reactionTypeMap ? post.reactionTypeMap.FIRE : 0,
+    COOL: post.reactionTypeMap !== null ? post.reactionTypeMap.COOL : 0,
+    HEART: post.reactionTypeMap ? post.reactionTypeMap.HEART : 0,
+  }
+  const [addedReaction, setAddedReaction] = useState<
+    "FIRE" | "COOL" | "HEART" | null
+  >(post.reactedWith);
+  function handleReaction(reaction: "FIRE" | "COOL" | "HEART" | null) {
+    if (addedReaction === reaction) {
+    
+      setAddedReaction(null);
+    } else {
+        setAddedReaction(reaction);
+      
+    }
   }
 
+  useEffect(() => {
+    console.log("postReactionBar", addedReaction);
+  }, [addedReaction]);
   return (
-    <div className="flex text-xs p-3 justify-between">
+    <div
+      key={addedReaction ? addedReaction : "NONE" + post.postId}
+      className="flex text-xs p-3 justify-between"
+    >
       <button
-        className="outline-highlightPrimary bg-backdropSecondary p-2 mx-1 rounded-lg"
+        key={addedReaction ? addedReaction : "NONE" + post.postId}
+        className={`outline-highlightPrimary  p-2 mx-1 rounded-lg disabled:opacity-50 ${
+          (addedReaction === "FIRE" && post.reactedWith === "FIRE") || (addedReaction === "FIRE" && post.reactedWith === null) 
+            ? "bg-highlightPrimary"
+            : "bg-backdropSecondary"
+        }`}
         onClick={() => {
+          handleReaction("FIRE");
           addReaction("FIRE", "post", post.postId);
         }}
+        disabled={addedReaction !== "FIRE" && addedReaction !== null}
       >
-        🔥 {post.reactionTypeMap.FIRE}
+        🔥  {(typeMap.FIRE > 0 || post.reactedWith === "FIRE") && typeMap.FIRE + (post.reactedWith === null && addedReaction === "FIRE" ? 1 : 0) - (post.reactedWith === "FIRE" && addedReaction === null ? 1 : 0)}
       </button>
       <button
-        className="outline-highlightPrimary bg-backdropSecondary p-2 mx-1 rounded-lg"
+        className={`outline-highlightPrimary bg-backdropSecondary p-2 mx-1 rounded-lg disabled:opacity-50 ${
+          (addedReaction === "COOL" && post.reactedWith === "COOL") || (addedReaction === "COOL" && post.reactedWith === null) 
+            ? "bg-highlightPrimary"
+            : "bg-backdropSecondary"
+        }`}
         onClick={() => {
+          handleReaction("COOL");
           addReaction("COOL", "post", post.postId);
         }}
+        disabled={addedReaction !== "COOL" && addedReaction !== null}
       >
-        😎 {post.reactionTypeMap.COOL}
+        😎   {(typeMap.COOL > 0 || post.reactedWith === "COOL") && typeMap.COOL + (post.reactedWith === null && addedReaction === "COOL" ? 1 : 0) - (post.reactedWith === "COOL" && addedReaction === null ? 1 : 0)}
       </button>
       <button
-        className="outline-highlightPrimary bg-backdropSecondary p-2 mx-1 rounded-lg"
+        className={`outline-highlightPrimary bg-backdropSecondary p-2 mx-1 rounded-lg disabled:opacity-50 ${
+          (addedReaction === "HEART" && post.reactedWith === "HEART") || (addedReaction === "HEART" && post.reactedWith === null) 
+            ? "bg-highlightPrimary"
+            : "bg-backdropSecondary"
+        }`}
         onClick={() => {
+          handleReaction("HEART");
           addReaction("HEART", "post", post.postId);
         }}
+        disabled={addedReaction !== "HEART" && addedReaction !== null}
       >
-        😍 {post.reactionTypeMap.HEART}
+        😍  {(typeMap.HEART > 0 || post.reactedWith === "HEART") && typeMap.HEART + (post.reactedWith === null && addedReaction === "HEART" ? 1 : 0) - (post.reactedWith === "HEART" && addedReaction === null ? 1 : 0)}
       </button>
       <button
         className="outline-highlightPrimary bg-backdropSecondary p-2 mx-1 rounded-lg flex items-center "
