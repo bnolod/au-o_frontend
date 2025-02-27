@@ -53,3 +53,52 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+
+@layer base {
+  .tsm {
+    @apply text-sm font-light;
+  }
+  .tlg {
+    @apply text-lg font-semibold;
+  }
+  .txl {
+    @apply text-xl font-semibold;
+  }
+  .t2x {
+    @apply text-2xl font-bold;
+  }
+  .description {
+    @apply secondary rounded-xl p-2
+  }
+  .secondary {
+    @apply bg-backdropSecondary;
+  }
+  .primary {
+    @apply bg-backdropPrimary;
+  }
+  .background {
+    @apply bg-background;
+  }
+  .highlight {
+    @apply bg-highlight;
+  }
+  .highlight-dark {
+    @apply bg-highlight-dark dark:bg-highlight-dark;
+  }
+  .highlight-light {
+    @apply bg-highlight-light dark:bg-highlight-light;
+  }
+  .highlight-themed {
+    @apply bg-highlight-light dark:bg-highlight-dark;
+  }
+  .divider {
+    @apply w-11/12 mx-auto border border-black dark:border-white my-2 muted;
+  }
+  .stroke {
+    @apply border border-black dark:border-white;
+  }
+  .muted {
+    @apply opacity-65;
+  }
+}
