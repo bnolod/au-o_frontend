@@ -1,28 +1,29 @@
+import { ReactNode } from "react";
+
 export default function Button({
-  text,
   onClick,
   className,
-  variant,
+  secondary = false,
+  children
 }: {
-  text: string;
   onClick?: () => void;
   className?: string;
-  variant?: "primary" | "secondary" | "";
+  secondary?: boolean;
+  children?: ReactNode
 }) {
-    //TODO: Nem
   const VarPrimary =
-    "bg-highlightPrimary rounded m-10 text-center h-10 text-white";
+    "p-3 bg-highlightPrimary rounded-xl text-center text-white";
   const VarSecondary =
-    "bg-transparent outline outline-highlightPrimary text-highlightPrimary rounded h-10 text-black m-10";
+    "p-3 bg-highlightSecondary rounded-xl";
   return (
     
     <button
       onClick={onClick}
       className={
-        variant == "primary" ? VarPrimary : VarSecondary + " " + className
+        secondary ? VarSecondary : VarPrimary + " " + className
       }
     >
-      {text}
+      {children}
     </button>
   );
 }

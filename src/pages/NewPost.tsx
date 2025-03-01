@@ -32,10 +32,10 @@ export default function PostPage() {
             }))}
           />
         </div>
-        <form className="w-full flex flex-col" onSubmit={handleSubmit}>
+        <form className="w-full flex flex-col gap-2" onSubmit={handleSubmit}>
           <label
             htmlFor="fileUpload"
-            className="secondary p-3 w-full rounded-xl mb-2 tx-l text-center hover:cursor-pointer"
+            className="secondary p-3 w-full rounded-xl tx-l text-center hover:cursor-pointer"
           >
             <input
               className="hidden"
@@ -47,13 +47,11 @@ export default function PostPage() {
             Fotók feltöltése
           </label>
           <label htmlFor="text">Leírás:</label>
-          <textarea
-            className="description mb-2"
-            placeholder="Leírás"
-            name="text"
-          />
-          <Button text="Post"></Button>
+          <textarea className="secondary rounded-xl p-3" placeholder="Leírás" name="text" />
+          <label htmlFor="location">Lokáció:</label>
+          <input className="secondary rounded-xl p-3" type="text" name="location" />
 
+          <Button secondary>Post</Button>
         </form>
       </section>
     </Card>

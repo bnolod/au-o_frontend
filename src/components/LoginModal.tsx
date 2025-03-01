@@ -21,7 +21,7 @@ export default function LoginModal({
 }) {
   const [formState, setFormState] = useState<RegisterRequest>()
   const { register, login, user} = useAuthentication()
-  const [errors, setErrors] = useState<string[]>(["s"]);
+  const [errors, setErrors] = useState<string[]>(["todo: add errors"]);
   const navigate = useNavigate();
   //TODO: Add datepicker to for
   async function handleSubmit(e: React.FormEvent) {
