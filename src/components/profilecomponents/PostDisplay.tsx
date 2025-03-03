@@ -9,8 +9,10 @@ export default function PostDisplay({ userId }: { userId: number }) {
 
   useEffect(() => {
     async function load() {
-      const res = await apiFetch(`users/user/${userId}/posts`);
-      setPosts(res.data);
+      const res = await apiFetch<PostResponse[]>(`users/user/${userId}/posts`);
+      if (res && res.data) {
+        setPosts(res.data);
+      }
     }
     load();
   }, []);

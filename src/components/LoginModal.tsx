@@ -5,23 +5,27 @@ import { MdClose } from "react-icons/md";
 import { LoginRequest, RegisterRequest } from "../lib/types";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import { redirect, replace, useNavigate } from "react-router";
+import { validateRegister } from "../lib/Validation/Validation";
+import { useSnackbar } from "../contexts/SnackbarContext";
+import { Snackbar } from "@mui/material";
 
 export default function LoginModal({
   language = "EN",
   registerMode = true,
   toggleRegister,
   toggleModal,
-  isOpen
+  isOpen,
 }: {
   language: "HU" | "EN";
   registerMode: boolean;
   toggleRegister: () => void;
   toggleModal: () => void;
-  isOpen:boolean;
+  isOpen: boolean;
 }) {
-  const [formState, setFormState] = useState<RegisterRequest>()
-  const { register, login, user} = useAuthentication()
+  const [formState, setFormState] = useState<RegisterRequest>();
+  const { register, login, user } = useAuthentication();
   const [errors, setErrors] = useState<string[]>(["todo: add errors"]);
+  const showSnackbar = useSnackbar();
   const navigate = useNavigate();
   //TODO: Add datepicker to for
   async function handleSubmit(e: React.FormEvent) {
@@ -32,45 +36,63 @@ export default function LoginModal({
         email: formState!.email,
         password: formState!.password,
         nickname: formState!.nickname,
-        username: formState!.username
+        username: formState!.username,
+      };
+      console.log(request);
+      const validity = validateRegister(
+        request.email,
+        request.username,
+        request.password,
+        request.nickname,
+        request.password,
+        request.dateOfBirth
+      );
+      if (!validity.valid) {
+        console.log(validity.messages)
+        showSnackbar(validity.messages![0], "error");
+        return;
       }
-      console.log(request)
-      const res = await register!(request)
-      console.log(res)
+
+      const res = await register!(request);
+      console.log(res);
       if (res) {
-        toggleModal()
-        replace("/")
+        toggleModal();
+        replace("/");
       }
-    }
-    else {
+    } else {
       const request: LoginRequest = {
         usernameOrEmail: formState!.email,
-        password: formState!.password
-      }
-      console.log(request)
-      const res = await login!(request)
+        password: formState!.password,
+      };
+      console.log(request);
+      const res = await login!(request);
       if (res) {
-        toggleModal()
-        navigate("/", {replace:true })
-        console.log("fasz")
+        toggleModal();
+        navigate("/", { replace: true });
+        console.log("fasz");
       }
     }
-    
   }
   const loginInputs = (
     <>
+    <Snackbar message="fasz" open={errors ? true : false}/>
+      
       <Input
         type="text"
         labelText={AuthTexts.login.labels.email[language]}
         value={formState?.email}
-        onChange={(e)=>{setFormState({...formState!, email: e.currentTarget.value})}}
+        onChange={(e) => {
+          setFormState({ ...formState!, email: e.currentTarget.value });
+        }}
         inputPlaceholder={AuthTexts.login.placeholders.email[language]}
-        />
+      />
       <Input
         type="password"
         labelText={AuthTexts.login.labels.password[language]}
         value={formState?.password}
-        onChange={(e)=>{setFormState({...formState!, password: e.currentTarget.value})}}
+        onChange={(e) => {
+          setFormState({ ...formState!, password: e.currentTarget.value });
+        }}
         inputPlaceholder={AuthTexts.login.placeholders.password[language]}
       />
     </>
@@ -80,22 +102,28 @@ export default function LoginModal({
     <>
       <Input
         type="email"
-        onChange={(e)=>{setFormState({...formState!, email: e.currentTarget.value})}}
+        onChange={(e) => {
+          setFormState({ ...formState!, email: e.currentTarget.value });
+        }}
         value={formState?.email}
         labelText={AuthTexts.signup.labels.email[language]}
         inputPlaceholder={AuthTexts.signup.placeholders.email[language]}
       />
-      <div className="flex gap-4" >
+      <div className="flex gap-4">
         <Input
           type="text"
-          onChange={(e)=>{setFormState({...formState!, username: e.currentTarget.value})}}
+          onChange={(e) => {
+            setFormState({ ...formState!, username: e.currentTarget.value });
+          }}
           value={formState?.username}
           labelText={AuthTexts.signup.labels.username[language]}
           inputPlaceholder={AuthTexts.signup.placeholders.username[language]}
         />
         <Input
           type="text"
-          onChange={(e)=>{setFormState({...formState!, nickname: e.currentTarget.value})}}
+          onChange={(e) => {
+            setFormState({ ...formState!, nickname: e.currentTarget.value });
+          }}
           value={formState?.nickname}
           labelText={AuthTexts.signup.labels.nickname[language]}
           inputPlaceholder={AuthTexts.signup.placeholders.nickname[language]}
@@ -103,7 +131,9 @@ export default function LoginModal({
       </div>
       <div className="flex gap-4">
         <Input
-         onChange={(e)=>{setFormState({...formState!, password: e.currentTarget.value})}}
+          onChange={(e) => {
+            setFormState({ ...formState!, password: e.currentTarget.value });
+          }}
           type="password"
           value={formState?.password}
           labelText={AuthTexts.signup.labels.password[language]}
@@ -113,7 +143,9 @@ export default function LoginModal({
           type="password"
           value={formState?.password}
           labelText={AuthTexts.signup.labels.confirmPassword[language]}
-          inputPlaceholder={AuthTexts.signup.placeholders.confirmPassword[language]}
+          inputPlaceholder={
+            AuthTexts.signup.placeholders.confirmPassword[language]
+          }
         />
       </div>
       <div>
@@ -124,11 +156,10 @@ export default function LoginModal({
           inputPlaceholder={"2000-01-01"}
         />
       </div>
-
     </>
   );
   if (user) {
-    redirect("/")
+    redirect("/");
   }
   return (
     <>
@@ -138,32 +169,47 @@ export default function LoginModal({
           className="fixed inset-0 w-screen h-screen flex items-center justify-center bg-transparent backdrop-blur-xl text-textColor"
         >
           <div className="bg-background p-8 rounded-xl relative shadow-lg flex flex-col justify-between w-full lg:w-1/3 ">
-            <p className="absolute top-0 right-0 right text-3xl p-5" onClick={toggleModal}><MdClose/></p>
+            <p
+              className="absolute top-0 right-0 right text-3xl p-5"
+              onClick={toggleModal}
+            >
+              <MdClose />
+            </p>
             <h1 className="text-5xl text-center">
               {registerMode
                 ? AuthTexts.signup.heroText[language]
                 : AuthTexts.login.heroText[language]}
             </h1>
 
-            <form onSubmit={handleSubmit} className="flex flex-col flex-grow items-center justify-center">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col flex-grow items-center justify-center"
+            >
               <div className="flex w-full flex-col basis-2/3 justify-evenly py-10">
                 {registerMode ? registerForm : loginInputs}
-                {errors.length > 0 ? <div className="pt-3"><div className="text-center bg-highlightPrimary p-3 rounded-xl text-white">{errors[0]}</div></div> : ""}
+                {errors.length > 0 ? (
+                  <div className="pt-3">
+                    <div className="text-center bg-highlightPrimary p-3 rounded-xl text-white">
+                      {errors[0]}
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="text-center w-full basis-1/3">
                 <button
                   type="submit"
                   className="p-3 w-full bg-highlightSecondary text-white rounded-xl"
                 >
-                  
                   {AuthTexts.login.confirm[language]}
                 </button>
                 <p>{AuthTexts.login.notRegistered[language]}</p>
               </div>
             </form>
-                <button className="underline" onClick={() => toggleRegister()}>
-                  {AuthTexts.login.confirmTabSwitch[language]}
-                </button>
+            <button className="underline" onClick={() => toggleRegister()}>
+              {AuthTexts.login.confirmTabSwitch[language]}
+            </button>
           </div>
         </dialog>
       )}
