@@ -7,7 +7,7 @@ export default function LeftNavigation() {
       <div className="flex items-center justify-between backdrop-blur-7xl bg-white/50 rounded-xl ">
         <input
           type="search"
-          className="p-3 pl-5 flex-grow rounded bg-transparent"
+          className="p-3 pl-5 flex-grow rounded bg-transparent w-full"
           placeholder="Search..."
         />
         <button className=" flex justify-end p-3">
