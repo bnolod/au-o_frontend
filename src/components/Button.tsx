@@ -4,11 +4,13 @@ export default function Button({
   onClick,
   className,
   secondary = false,
+  type,
   children
 }: {
   onClick?: () => void;
   className?: string;
   secondary?: boolean;
+  type?: "reset"|"submit"|"button"|undefined
   children?: ReactNode
 }) {
   const VarPrimary =
@@ -22,6 +24,7 @@ export default function Button({
       className={
         secondary ? VarSecondary : VarPrimary + " " + className
       }
+      type={type}
     >
       {children}
     </button>

@@ -25,6 +25,8 @@ export default function LoginModal({
   const [formState, setFormState] = useState<RegisterRequest>();
   const { register, login, user } = useAuthentication();
   const [errors, setErrors] = useState<string[]>(["todo: add errors"]);
+  const [snackbarOpen, setSnackbarOpen] = useState<boolean>(true);
+
   const showSnackbar = useSnackbar();
   const navigate = useNavigate();
   //TODO: Add datepicker to for
@@ -49,6 +51,7 @@ export default function LoginModal({
       );
       if (!validity.valid) {
         console.log(validity.messages)
+        setSnackbarOpen(true);
         showSnackbar(validity.messages![0], "error");
         return;
       }
@@ -75,7 +78,6 @@ export default function LoginModal({
   }
   const loginInputs = (
     <>
-    <Snackbar message="fasz" open={errors ? true : false}/>
       
       <Input
         type="text"
@@ -163,6 +165,7 @@ export default function LoginModal({
   }
   return (
     <>
+        <Snackbar message="fasz" open={snackbarOpen} onClose={()=>{setSnackbarOpen(false)}} action={<button onClick={()=>{setSnackbarOpen(false)}}/>}/>
       {isOpen && (
         <dialog
           open

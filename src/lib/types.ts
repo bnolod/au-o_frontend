@@ -170,14 +170,6 @@ export interface Reply {
   user: UserPostResponseType;
   text: string;
 }
-export interface CreatePostRequest {
-  userId: string;
-  description: string;
-  images: string[];
-  group: string;
-  location: string;
-  event: string;
-}
 export interface LoadingModalProps {
   loading: boolean;
   text?: string;

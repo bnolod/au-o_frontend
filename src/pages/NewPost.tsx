@@ -1,16 +1,54 @@
-import { Divider } from "@mui/material";
-import Card from "../components/Card";
-import React, { FormEvent, useState } from "react";
-import PostImage from "../components/postcomponents/PostImage";
-import { ImageUploadResponse } from "../lib/types";
-import Input from "../components/Input";
-import Button from "../components/Button";
+import Card from '../components/Card';
+import React, { FormEvent, useState } from 'react';
+import PostImage from '../components/postcomponents/PostImage';
+import {ImageUploadResponse } from '../lib/types';
+
+import Button from '../components/Button';
+import { useAuthentication } from '../contexts/AuthenticationContext';
+import { createImageForm } from '../lib/functions';
+import { imageUpload } from '../lib/ApiCalls/ImageApiCalls';
+import { CreatePostRequest } from '../lib/request/PostCreationRequest';
 
 export default function PostPage() {
-  const [images, setImages] = useState<File[]>([]);
+  const user = useAuthentication();
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+
+  const [loading, setLoading] = useState<boolean>(true);
+  const [newPostForm, setNewPostForm] = useState<CreatePostRequest>();
+
+//nem hiszem el 
+  if (loading && user.user !== undefined) {
+    setLoading(false)
+    setNewPostForm(
+      {
+        description: '',
+        location: '',
+        userId: user.user!.id,
+        groupId: null,
+        eventId: null,
+        images: [],
+        vehicleId: null,
+      }
+    )
+  }
+  console.log("setloading" + loading)
+  const [images, setImages] = useState<File[]>([]);
+  
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    const uploadedImages: ImageUploadResponse[] = [];
+    for (const image of images) {
+      const res = await createImageForm(image, newPostForm.description, user.user!);
+      if (res) {
+        const upload = await imageUpload(res);
+        if (upload) {
+          uploadedImages.push(upload);
+          console.log("kep feltooltve")
+        }
+      }
+    }
   }
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -20,7 +58,8 @@ export default function PostPage() {
     }
   }
 
-  return (
+  return (<>
+  {loading ? <h1 className={'text-7xl text-center italic'}>spinner</h1> : (
     <Card>
       <h1 className="text-center text-3xl">New Post</h1>
       <section>
@@ -28,32 +67,34 @@ export default function PostPage() {
           <PostImage
             images={images.map((image) => ({
               url: URL.createObjectURL(image),
-              deleteHash: "not",
+              deleteHash: 'not',
             }))}
           />
         </div>
         <form className="w-full flex flex-col gap-2" onSubmit={handleSubmit}>
-          <label
-            htmlFor="fileUpload"
-            className="secondary p-3 w-full rounded-xl tx-l text-center hover:cursor-pointer"
-          >
-            <input
-              className="hidden"
-              multiple
-              type="file"
-              id="fileUpload"
-              onChange={handleImageChange}
-            />
+          <label htmlFor="fileUpload" className="secondary p-3 w-full rounded-xl tx-l text-center hover:cursor-pointer">
+            <input className="hidden" multiple type="file" id="fileUpload" onChange={handleImageChange} />
             Fotók feltöltése
           </label>
           <label htmlFor="text">Leírás:</label>
           <textarea className="secondary rounded-xl p-3" placeholder="Leírás" name="text" />
           <label htmlFor="location">Lokáció:</label>
           <input className="secondary rounded-xl p-3" type="text" name="location" />
+          <span className="flex gap-3">
+            <span className="flex flex-grow flex-col">
+              <label htmlFor="event">Esemény:</label>
+              <input type="text" name="event" className="secondary rounded-xl p-3 w-full" />
+            </span>
+            <span className="flex flex-grow flex-col">
+              <label htmlFor="group">Csoport:</label>
+              <input type="text" name="event" className="secondary rounded-xl p-3 w-full" />
+            </span>
+          </span>
 
-          <Button secondary>Post</Button>
+          <Button type="submit" secondary>Post</Button>
         </form>
       </section>
-    </Card>
-  );
+    </Card>)}
+    </>);
+
 }
