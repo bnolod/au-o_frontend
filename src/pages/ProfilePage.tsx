@@ -1,4 +1,4 @@
-import { Avatar } from "@mui/material";
+import { Avatar, Box, Modal } from "@mui/material";
 import {
   MdBackupTable,
   MdBookmark,
@@ -16,6 +16,7 @@ export default function ProfilePage({userId}:{userId: number|undefined}) {
   const [user, setUser] = useState<User>();
   const { id } = useParams();
   const [selectedPage, setSelectedPage] = useState<"posts"|"groups"|"car"|"saved">("posts");
+  const [profileModalOpen, setProfileModalOpen] = useState<boolean>(false);
 
 
   function handlePageChange(event: React.MouseEvent<HTMLButtonElement>, value:"posts"|"groups"|"car"|"saved") {
@@ -51,7 +52,14 @@ export default function ProfilePage({userId}:{userId: number|undefined}) {
   return (
     <>
       <div className="bg-background rounded-xl my-2 flex flex-col p-3 gap-3">
-        <MdMoreHoriz className="text-2xl self-end" />
+        <button className="text-2xl self-end" onClick={()=>setProfileModalOpen(true)} >
+        <MdMoreHoriz/>
+        </button>
+        <Modal open={profileModalOpen}
+        onClose={()=>setProfileModalOpen(false)}
+        >
+          <div className="bg-white flex h-full">hello asd</div>
+        </Modal>
         <div className="flex justify-start items-center w-full gap-3">
           <Avatar src={user?.profileImg} sx={{ height: 76, width: 76 }}>
             {user?.nickname.substring(0, 3).toUpperCase()}
