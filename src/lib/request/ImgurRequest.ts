@@ -1,4 +1,5 @@
 
+//ez valojaban a new post dto
 export interface ImageStoreRequest {
     text: string;
     postImages: ImageUploadResponse[];

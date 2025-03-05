@@ -6,9 +6,10 @@ export function createTimestamp() {
 
 export async function createImageForm(image: File, description: string, user: User | null) {
     const imageForm = new FormData();
-    imageForm.append('file', image);
+    imageForm.append('image', image);
     imageForm.append('description', description || '');
     imageForm.append('type', 'file');
     imageForm.append('title', `${user!.username.replace('_', '')}_${createTimestamp()}`);
+    console.log(imageForm)
     return imageForm;
   }
