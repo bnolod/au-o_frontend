@@ -3,6 +3,7 @@ import { useCommentBoard } from '../../contexts/CommentContext';
 import { PostResponse } from '../../lib/types';
 import { addReaction } from '../../lib/apiClient';
 import { useState, useEffect } from 'react';
+import CommentModal from '../commentboard/CommentModal';
 
 export default function PostReactionBar({ post }: { post: PostResponse }) {
   const { toggleOpen } = useCommentBoard();
@@ -88,6 +89,7 @@ export default function PostReactionBar({ post }: { post: PostResponse }) {
         <MdAddComment /> gomb
       </button> */}
       <div className=" flex flex-col flex-grow text-right">
+        <CommentModal comments={post.comments}/>
         <p className="text-highlightPrimary">{post.location}</p>
         <p>2</p>
       </div>

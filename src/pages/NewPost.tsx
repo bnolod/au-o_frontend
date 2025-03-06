@@ -60,11 +60,11 @@ export default function PostPage() {
   }
 
   return (
-    <>
+    <div className='h-full w-full flex flex-col justify-center align-middle items-center justify-items-center'>
       {loading ? (
         <h1 className={'text-7xl text-center italic'}>spinner</h1>
       ) : (
-        <Card>
+        <Card className=' mt-4 w-full self-center shadow-lg shadow-[#00000022]' >
           <h1 className="text-center text-3xl">New Post</h1>
           <section>
             <div>
@@ -105,6 +105,6 @@ export default function PostPage() {
           </section>
         </Card>
       )}
-    </>
+    </div>
   );
 }

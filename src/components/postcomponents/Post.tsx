@@ -8,7 +8,7 @@ export default function Post ({post} :{post:  PostResponse}){
     //todo: multiple image support
     console.log(post)
     return (
-        <div className="bg-background rounded-3xl my-2 flex flex-col shadow-[#00000055] shadow-lg p-3 gap-2">
+        <div className="bg-background rounded-3xl mb-6 flex flex-col shadow-[#00000055] shadow-lg p-3 gap-2">
             <PostHeader user={post.user}></PostHeader>
             <PostImage images={post.images}/>
             <PostReactionBar post={post}/>

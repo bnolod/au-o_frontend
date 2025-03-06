@@ -19,7 +19,7 @@ export default function ProfilePage({userId}:{userId: number|undefined}) {
 
 
   function handlePageChange(event: React.MouseEvent<HTMLButtonElement>, value:"posts"|"groups"|"car"|"saved") {
-    event.currentTarget.style.color = "red";
+    // event.currentTarget.style.color = "red";
     setSelectedPage(value);
 
     // Add logic to handle page change here
@@ -44,13 +44,22 @@ export default function ProfilePage({userId}:{userId: number|undefined}) {
       case "posts":
         bottomDisplay = <PostDisplay userId={user.id}/>
         break;
+      case "groups":
+        bottomDisplay = <div>Groups</div>
+        break;
+      case "car":
+        bottomDisplay = <div>Car</div>
+        break;
+      case "saved":
+        bottomDisplay = <div>Saved</div>
+        break;
     }
   }
 
 
   return (
     <>
-      <div className="bg-background rounded-xl my-2 flex flex-col p-3 gap-3">
+      <div className="bg-background rounded-xl my-2 flex flex-col p-3 gap-3 shadow-md shadow-[#00000066]">
         <MdMoreHoriz className="text-2xl self-end" />
         <div className="flex justify-start items-center w-full gap-3">
           <Avatar src={user?.profileImg} sx={{ height: 76, width: 76 }}>
@@ -65,21 +74,23 @@ export default function ProfilePage({userId}:{userId: number|undefined}) {
             <p>{1111} Following</p>
           </div>
         </div>
-        <div className="flex text-3xl bg-backdropSecondary rounded-xl p-2 justify-center divide-x-2">
-          <button className="flex-grow flex justify-center" onClick={(event)=>(handlePageChange(event, "posts"))}>
+        <div className="flex text-3xl bg-backdropSecondary rounded-xl p-2 justify-center divide-x-2 shadow-md shadow-[#00000066]">
+          <button className={`flex-grow flex justify-center ${selectedPage == "posts" ? " text-red-500" : ""} `} onClick={(event)=>(handlePageChange(event, "posts"))}>
             <MdBackupTable />
           </button>
-          <button className="flex-grow flex justify-center" onClick={(event)=>(handlePageChange(event, "groups"))}>
+          <button className={`flex-grow flex justify-center ${selectedPage == "groups" ? " text-red-500" : ""} `} onClick={(event)=>(handlePageChange(event, "groups"))}>
             <MdGroups />
           </button>
-          <button className="flex-grow flex justify-center" onClick={(event)=>(handlePageChange(event, "saved"))}>
+          <button className={`flex-grow flex justify-center ${selectedPage == "saved" ? " text-red-500" : ""} `} onClick={(event)=>(handlePageChange(event, "saved"))}>
             <MdBookmark />
           </button>
-          <button className="flex-grow flex justify-center" onClick={(event)=>(handlePageChange(event, "car"))}>
+          <button className={`flex-grow flex justify-center ${selectedPage == "car" ? " text-red-500" : ""} `} onClick={(event)=>(handlePageChange(event, "car"))}>
             <MdCarRepair />
           </button>
         </div>
+        <div className="min-h-[50vh]">
         {bottomDisplay}
+        </div>
         
       </div>
     </>
