@@ -19,6 +19,7 @@ const apiClient: AxiosInstance = axios.create({
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
   },
+  withCredentials:true,
   validateStatus: function (_) {
     return true;
   },
@@ -28,6 +29,7 @@ apiClient.interceptors.request.use(
   async (config) => {
     const token = localStorage.getItem("jwtToken");
     if (token) {
+
       config.headers.Authorization = `Bearer ${token}`;
     } else {
       config.headers.Authorization = null;
@@ -69,6 +71,7 @@ export async function apiFetch<T>(
       method,
       url: endpoint,
       data: body || undefined,
+      withCredentials:true,
       headers: {
         "Content-Type": "application/json",
         Authorization:
