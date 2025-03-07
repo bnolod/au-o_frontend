@@ -7,7 +7,6 @@ import { useAuthentication } from "../contexts/AuthenticationContext";
 import { redirect, replace, useNavigate } from "react-router";
 import { validateRegister } from "../lib/Validation/Validation";
 import { useSnackbar } from "../contexts/SnackbarContext";
-import { Snackbar } from "@mui/material";
 
 export default function LoginModal({
   language = "EN",
@@ -25,11 +24,9 @@ export default function LoginModal({
   const [formState, setFormState] = useState<RegisterRequest>();
   const { register, login, user } = useAuthentication();
   const [errors, setErrors] = useState<string[]>(["todo: add errors"]);
-  const [snackbarOpen, setSnackbarOpen] = useState<boolean>(true);
+  const {showSnackbar} = useSnackbar();
 
-  const showSnackbar = useSnackbar();
   const navigate = useNavigate();
-  //TODO: Add datepicker to for
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (registerMode) {
@@ -51,7 +48,6 @@ export default function LoginModal({
       );
       if (!validity.valid) {
         console.log(validity.messages)
-        setSnackbarOpen(true);
         showSnackbar(validity.messages![0], "error");
         return;
       }
@@ -164,7 +160,6 @@ export default function LoginModal({
   }
   return (
     <>
-        <Snackbar message="Hello snackbar!" open={snackbarOpen} onClose={()=>{setSnackbarOpen(false)}} action={<button onClick={()=>{setSnackbarOpen(false)}}/>}/>
       {isOpen && (
         <dialog
           open
