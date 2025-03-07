@@ -72,7 +72,6 @@ export default function LoginModal({
       if (res) {
         toggleModal();
         navigate("/", { replace: true });
-        console.log("fasz");
       }
     }
   }
@@ -165,7 +164,7 @@ export default function LoginModal({
   }
   return (
     <>
-        <Snackbar message="fasz" open={snackbarOpen} onClose={()=>{setSnackbarOpen(false)}} action={<button onClick={()=>{setSnackbarOpen(false)}}/>}/>
+        <Snackbar message="Hello snackbar!" open={snackbarOpen} onClose={()=>{setSnackbarOpen(false)}} action={<button onClick={()=>{setSnackbarOpen(false)}}/>}/>
       {isOpen && (
         <dialog
           open

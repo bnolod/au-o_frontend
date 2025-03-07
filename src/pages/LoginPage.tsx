@@ -9,7 +9,6 @@ export default function LoginPage() {
   return (
     <>
       <DecoratedSection navigation={<NavBar />} innerClassName="justify-center">
-        {/* faszom a kódot a kurva anyád aki ezt írta meg a picsába a kódot*/}
         <div className="bg-backdropPrimary basis-full sm:basis-4/12 p-12 rounded-lg font-bold">
           <h1 className="text-5xl text-center p-5">
             {AuthTexts.login.heroText[language]}
