@@ -1,12 +1,11 @@
-import { MdAddComment } from 'react-icons/md';
-import { useCommentBoard } from '../../contexts/CommentContext';
-import { PostResponse } from '../../lib/types';
+import { PostResponse, User } from '../../lib/types';
 import { addReaction } from '../../lib/apiClient';
 import { useState, useEffect } from 'react';
 import CommentModal from '../commentboard/CommentModal';
+import { formatNumber } from '../../lib/functions';
+import { FaRegComment } from 'react-icons/fa6';
 
-export default function PostReactionBar({ post }: { post: PostResponse }) {
-  const { toggleOpen } = useCommentBoard();
+export default function PostReactionBar({ post, user, language }: {user: User, post: PostResponse, language: 'HU' | 'EN' }) {
   const typeMap = {
     FIRE: post.reactionTypeMap ? post.reactionTypeMap.FIRE : 0,
     COOL: post.reactionTypeMap !== null ? post.reactionTypeMap.COOL : 0,
@@ -31,10 +30,10 @@ export default function PostReactionBar({ post }: { post: PostResponse }) {
     console.log('postReactionBar', addedReaction);
   }, [addedReaction]);
   return (
-    <div key={addedReaction ? addedReaction : 'NONE' + post.postId} className="flex text-xs p-3 justify-between">
+    <div key={addedReaction ? addedReaction : 'NONE' + post.postId} className="flex text-xs flex-row p-3 justify-between">
       <button
         key={addedReaction ? addedReaction : 'NONE' + post.postId}
-        className={`outline-highlightPrimary text-xl  p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
+        className={`outline-highlightPrimary h-14 text-xl  p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
           addedReaction === 'FIRE'
             ? 'bg-highlightPrimary'
             : 'bg-backdropSecondary'
@@ -51,7 +50,7 @@ export default function PostReactionBar({ post }: { post: PostResponse }) {
             (post.reactedWith === 'FIRE' && addedReaction === null ? 1 : 0)}
       </button>
       <button
-        className={`outline-highlightPrimary text-xl bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
+        className={`outline-highlightPrimary h-14 text-xl bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
           addedReaction === 'COOL'
             ? 'bg-highlightPrimary'
             : 'bg-backdropSecondary'
@@ -63,10 +62,10 @@ export default function PostReactionBar({ post }: { post: PostResponse }) {
         disabled={addedReaction !== 'COOL' && addedReaction !== null}
       >
         😎{' '}
-        {typeMap.COOL}
+        {typeMap.COOL ? formatNumber(typeMap.COOL, language) : ""}
       </button>
       <button
-        className={`outline-highlightPrimary text-xl bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
+        className={`outline-highlightPrimary h-14 text-xl bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
           addedReaction === 'HEART'
             ? 'bg-highlightPrimary'
             : 'bg-backdropSecondary'
@@ -78,7 +77,7 @@ export default function PostReactionBar({ post }: { post: PostResponse }) {
         disabled={addedReaction !== 'HEART' && addedReaction !== null}
       >
         😍{' '}
-        {typeMap.HEART}
+        {typeMap.HEART ? formatNumber(typeMap.HEART, language): ""}
       </button>
       {/* <button
         className="outline-highlightPrimary text-xl bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md flex items-center "
@@ -89,9 +88,9 @@ export default function PostReactionBar({ post }: { post: PostResponse }) {
         <MdAddComment /> gomb
       </button> */}
       <div className=" flex flex-col flex-grow text-right">
-        <CommentModal comments={post.comments}/>
+        <CommentModal user={user} language={language} postId={post.postId} comments={post.comments}/>
         <p className="text-highlightPrimary">{post.location}</p>
-        <p>2</p>
+        
       </div>
     </div>
   );
