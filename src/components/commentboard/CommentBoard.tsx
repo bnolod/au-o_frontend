@@ -1,6 +1,6 @@
 import ProfileImage from "../ProfileImage"
 
-export default function CommentBoard({isOpen=false}:{isOpen:boolean}){
+export default function CommentBoard({ isOpen=false }:{isOpen:boolean}){
     return (
         isOpen && 
         <div className="bg-background rounded-xl my-2 max-h-[80vh] flex flex-col p-3">

@@ -23,41 +23,48 @@ export default function LoginModal({
 }) {
   const [formState, setFormState] = useState<RegisterRequest>();
   const { register, login, user } = useAuthentication();
-  const [errors, setErrors] = useState<string[]>(["todo: add errors"]);
   const {showSnackbar} = useSnackbar();
 
   const navigate = useNavigate();
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (registerMode) {
-      const request: RegisterRequest = {
-        dateOfBirth: "2000-01-01",
-        email: formState!.email,
-        password: formState!.password,
-        nickname: formState!.nickname,
-        username: formState!.username,
-      };
-      console.log(request);
-      const validity = validateRegister(
+      try {
+        const request: RegisterRequest = {
+          dateOfBirth: "2000-01-01",
+          email: formState!.email,
+          password: formState!.password,
+          nickname: formState!.nickname,
+          username: formState!.username,
+        };
+        console.log(request);
+        const validity = validateRegister(
         request.email,
         request.username,
         request.password,
         request.nickname,
         request.password,
-        request.dateOfBirth
+        request.dateOfBirth,
+        language
       );
+      console.log("MESSAGES",validity.messages)
       if (!validity.valid) {
-        console.log(validity.messages)
         showSnackbar(validity.messages![0], "error");
         return;
-      }
+      } else {
 
-      const res = await register!(request);
-      console.log(res);
-      if (res) {
-        toggleModal();
-        replace("/");
+        
+        const res = await register!(request);
+        console.log(res);
+        if (res) {
+          toggleModal();
+          replace("/");
+        }
       }
+    } catch (e: any) {
+      console.log("Please fill out all fields");
+      showSnackbar("Please fill out all fields", "error");
+    }
     } else {
       const request: LoginRequest = {
         usernameOrEmail: formState!.email,
@@ -184,7 +191,7 @@ export default function LoginModal({
             >
               <div className="flex w-full flex-col basis-2/3 justify-evenly py-10">
                 {registerMode ? registerForm : loginInputs}
-                {errors.length > 0 ? (
+                {/*errors.length > 0 ? (
                   <div className="pt-3">
                     <div className="text-center bg-highlightPrimary p-3 rounded-xl text-white">
                       {errors[0]}
@@ -192,7 +199,7 @@ export default function LoginModal({
                   </div>
                 ) : (
                   ""
-                )}
+                )*/}
               </div>
               <div className="text-center w-full basis-1/3">
                 <button
@@ -201,11 +208,13 @@ export default function LoginModal({
                 >
                   {AuthTexts.login.confirm[language]}
                 </button>
-                <p>{AuthTexts.login.notRegistered[language]}</p>
+                <p>
+              {!registerMode ? AuthTexts.login.notRegistered[language] : AuthTexts.signup.haveAccount[language]}
+                  </p>
               </div>
             </form>
             <button className="underline" onClick={() => toggleRegister()}>
-              {AuthTexts.login.confirmTabSwitch[language]}
+              {!registerMode ? AuthTexts.login.confirmTabSwitch[language] : AuthTexts.signup.confirmTabSwitch[language]}
             </button>
           </div>
         </dialog>

@@ -1,4 +1,4 @@
-import { CarType } from '@/constants/types';
+import { CarType } from '../types';
 import { User } from './User';
 
 export interface Car {

@@ -152,7 +152,11 @@ export interface PostCardProps {
   language: "EN" | "HU";
   colorScheme: "light" | "dark";
 }
-
+export type CommentContextType = {
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
+  toggleOpen: () => void;
+}
 export type ImageUploadType = {
   image: string;
   type: string;

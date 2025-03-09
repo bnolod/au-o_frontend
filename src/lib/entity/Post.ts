@@ -1,4 +1,4 @@
-import { Reactions } from '@/constants/types';
+import { Reactions } from '../types';
 import { Image } from './Image';
 import { Car } from './Car';
 import { Comment } from './Comment';

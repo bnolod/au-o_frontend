@@ -1,14 +1,13 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import LandingPage from "./pages/LandingPage.tsx";
-
 import LoginPage from "./pages/LoginPage.tsx";
 import MainPage from "./pages/MainPage.tsx";
 import { useAuthentication } from "./contexts/AuthenticationContext.tsx";
-import { useEffect } from "react";
 import ProtectedRoute from "./lib/ProtectedRoute.tsx";
 import GeneralLayout from "./pages/GeneralLayout.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import NewPost from "./pages/NewPost.tsx";
+import GroupFeed from "./pages/GroupFeed.tsx";
 
 function App() {
   const { user } = useAuthentication();
@@ -28,6 +27,10 @@ function App() {
             </Route>
             <Route path="/post">
               <Route index element={<NewPost />} />
+              <Route path=":id" element={<GeneralLayout />} />
+            </Route>
+            <Route path="/groups">
+              <Route index element={<GroupFeed />} />
               <Route path=":id" element={<GeneralLayout />} />
             </Route>
           </Route>

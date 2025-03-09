@@ -3,7 +3,6 @@ import { addReaction } from '../../lib/apiClient';
 import { useState, useEffect } from 'react';
 import CommentModal from '../commentboard/CommentModal';
 import { formatNumber } from '../../lib/functions';
-import { FaRegComment } from 'react-icons/fa6';
 
 export default function PostReactionBar({preview, post, user, language }: {preview: boolean, user: User, post: PostResponse, language: 'HU' | 'EN' }) {
   const typeMap = {

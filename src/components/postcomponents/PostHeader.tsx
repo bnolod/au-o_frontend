@@ -1,5 +1,4 @@
 import { MdMoreHoriz } from "react-icons/md";
-import ProfileImage from "../ProfileImage";
 import { UserPostResponseType } from "../../lib/types";
 import Avatar from "@mui/material/Avatar";
 import { grey } from "@mui/material/colors";

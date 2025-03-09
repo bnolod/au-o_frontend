@@ -1,9 +1,9 @@
 import Post from "../components/postcomponents/Post";
 import { useEffect, useState } from "react";
-import { PostResponse } from "../lib/types";
 import { apiFetch } from "../lib/apiClient";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuthentication } from "../contexts/AuthenticationContext";
+import { PostResponse } from "../lib/types";
 
 export default function MainPage() {
   const {language} = useLanguage();

@@ -1,13 +1,6 @@
-import React, { Children, ReactNode, useState } from "react";
-import { AuthTexts } from "../constants/texts";
-import Input from "./Input";
 import { MdClose } from "react-icons/md";
-import { LoginRequest, RegisterRequest } from "../lib/types";
-import { useAuthentication } from "../contexts/AuthenticationContext";
-import { redirect, replace } from "react-router";
 
 export default function LoginModal({
-  language = "EN",
   toggleModal,
   isOpen
 }: {

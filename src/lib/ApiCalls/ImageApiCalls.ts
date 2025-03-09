@@ -1,6 +1,5 @@
 import axios from "axios";
 import { ImageUploadResponse } from "../request/ImgurRequest";
-import dotenv from 'dotenv'
 
 export async function deleteImgurImage(deleteHash: string) {
   const req = await fetch(`https://api.imgur.com/3/image/${deleteHash}`, {

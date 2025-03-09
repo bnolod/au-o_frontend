@@ -38,7 +38,7 @@ import ReactionButton from '../reactions/ReactionButton';
 //     );
 // }
 
-export default function CommentElement({ comment, user, preview }: {preview: boolean, user: User; comment: Comment }) {
+export default function CommentElement({ comment, preview }: {preview: boolean, user: User; comment: Comment }) {
   const [isReplying, setIsReplying] = useState(false);
   const [reply, setReply] = useState<string>('');
   const [currentReaction, setCurrentReaction] = useState<null | 'FIRE' | 'HEART' | 'COOL'>(comment.reactedWith);

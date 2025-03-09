@@ -1,4 +1,4 @@
-import { Reactions } from '@/constants/types';
+import { Reactions } from '../types';
 import { User } from './User';
 
 export interface Reply {

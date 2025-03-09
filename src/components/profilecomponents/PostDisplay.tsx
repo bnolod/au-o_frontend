@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "../../lib/apiClient";
 import Card from "../Card";
-import { PostResponse, User } from "../../lib/types";
+import { PostResponse } from "../../lib/types";
 import { ImageList, ImageListItem } from "@mui/material";
 
 export default function PostDisplay({ userId }: { userId: number }) {

@@ -8,7 +8,6 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   Switch,
@@ -41,9 +40,9 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex items-center justify-center rounded-xl justify-self-center">
-          <div className="p-3 text-highlightPrimary font-bold cursor-pointer hover:opacity-50 transition-all">Home</div>
-          <div className="p-3 cursor-pointer hover:opacity-50 transition-all">Groups</div>
-          <div className="p-3 cursor-pointer hover:opacity-50 transition-all">Events</div>
+          <NavLink to={"/"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Home</NavLink>
+          <NavLink to={"/groups"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Groups</NavLink>
+          <NavLink to={"/events"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Events</NavLink>
         </div>
         <div className="flex justify-end gap-1 items-center">
           

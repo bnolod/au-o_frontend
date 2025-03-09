@@ -1,5 +1,4 @@
 import { MdSearch } from 'react-icons/md';
-import { useMediaQuery } from 'react-responsive';
 
 export default function LeftNavigation() {
   return (
