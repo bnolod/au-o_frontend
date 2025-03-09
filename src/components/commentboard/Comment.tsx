@@ -1,11 +1,11 @@
 import { FaChevronDown, FaChevronUp, FaRegPaperPlane, FaReply } from 'react-icons/fa6';
-import { Comment, Reply, User } from '../../lib/types';
+import { Comment, Reactions, Reply, User } from '../../lib/types';
 import ProfileImage from '../ProfileImage';
 import { useState } from 'react';
 import ReplyItem from './Reply';
 import { sendReply } from '../../lib/request/Reply';
-import { format } from 'path';
-import { CommentStyle } from 'typedoc';
+import { addReaction } from '../../lib/ApiCalls/ReactionApiCalls';
+import ReactionButton from '../reactions/ReactionButton';
 
 // export default function Comment({ replies }: { replies?: boolean }) {
 //     return (
@@ -38,20 +38,46 @@ import { CommentStyle } from 'typedoc';
 //     );
 // }
 
-export default function CommentElement({ comment, user }: { user: User, comment: Comment }) {
+export default function CommentElement({ comment, user, preview }: {preview: boolean, user: User; comment: Comment }) {
   const [isReplying, setIsReplying] = useState(false);
   const [reply, setReply] = useState<string>('');
-  const [replies, setReplies] = useState<Reply[]>(comment.replies ? comment.replies : []);
+  const [currentReaction, setCurrentReaction] = useState<null | 'FIRE' | 'HEART' | 'COOL'>(comment.reactedWith);
+  const [reactionState, setReactions] = useState<Reactions>({
+    FIRE: comment.reactionTypeMap && comment.reactionTypeMap.FIRE ? comment.reactionTypeMap.FIRE : 0,
+    HEART: comment.reactionTypeMap && comment.reactionTypeMap.HEART ? comment.reactionTypeMap.HEART : 0,
+    COOL: comment.reactionTypeMap && comment.reactionTypeMap.COOL ? comment.reactionTypeMap.COOL : 0,
+  });const [replies, setReplies] = useState<Reply[]>(comment.replies ? comment.replies : []);
 
-async function handleReply() {
+  async function handleReply() {
     const res = await sendReply(comment.id, reply);
 
     if (res) {
-        setReply('');
-        setReplies([...replies, res]);
+      setReply('');
+      setReplies([...replies, res]);
+    } else console.error('Reply failed');
+  }
+
+  async function handlePress(type: null | 'FIRE' | 'HEART' | 'COOL') {
+    if (currentReaction === type) {
+      await addReaction('comment', comment.id, type);
+      if (type) {
+        setReactions({
+          ...reactionState,
+          [type]: reactionState[type] - 1,
+        });
+      }
+      setCurrentReaction(null);
+    } else {
+      await addReaction('comment', comment.id!, type);
+      setCurrentReaction(type);
+      if (type) {
+        setReactions({
+          ...reactionState,
+          [type]: reactionState[type] + 1,
+        });
+      }
     }
-    else console.error('Reply failed');
-}
+  }
 
   return (
     <div className="h-full w-full p-2">
@@ -63,7 +89,7 @@ async function handleReply() {
             <p className="text-xs">@{comment.user.username}</p>
           </div>
           <div className="flex flex-row">
-            <p className="text-xs justify-self-end">{comment.time.split("T")[0]}</p>
+            <p className="text-xs justify-self-end">{comment.time.split('T')[0]}</p>
             <button
               onClick={() => {
                 setIsReplying((isReplying) => !isReplying);
@@ -79,20 +105,62 @@ async function handleReply() {
         {replies && <div className="w-1 my-2 bg-backdropSecondary min-h-full rounded" />}
         <div className="flex flex-col w-full">
           <p className="text-sm break-all pl-6">{comment.text}</p>
-          { comment.replies && comment.replies.length > 0 &&
+          <div className="flex flex-row-reverse self-start gap-2 ml-3 items-center">
+            {comment.replies && comment.replies.length > 0 && (
+              <button
+                className="primary rounded-xl items-center flex flex-row gap-2 m-2 w-fit px-2"
+                onClick={() => setIsReplying(!isReplying)}
+              >
+                + {comment.replies?.length}
+                {isReplying ? <FaChevronUp className="text-lg" /> : <FaChevronDown className="text-lg" />}
+              </button>
+            )}
+            <div className='flex flex-row gap-2 items-center scale-90'>
 
-              <button className='primary rounded-xl items-center flex flex-row gap-2 m-2 w-fit px-2' onClick={() => setIsReplying(!isReplying)}>
-            + {comment.replies?.length}
-            {
-                isReplying ?
-                <FaChevronUp className='text-lg' /> :
-                <FaChevronDown className='text-lg' />
-            }
-          </button>
-            }
-          <div className="w-11/12 self-end">
+             <ReactionButton
+                initialReactionState={currentReaction}
+                type="FIRE"
+                state={currentReaction !== 'FIRE' ? 'inactive' : 'active'}
+                count={reactionState.FIRE || 0}
+                onClick={
+                  !preview
+                    ? async () => {
+                        handlePress('FIRE');
+                      }
+                    : () => {}
+                }
+              />
+              <ReactionButton
+                initialReactionState={currentReaction}
+                type="HEART"
+                count={reactionState.HEART || 0}
+                onClick={
+                  !preview
+                  ? async () => {
+                    handlePress('HEART');
+                  }
+                    : () => {}
+                }
+                state={currentReaction !== 'HEART' ? 'inactive' : 'active'}
+                />
+              <ReactionButton
+                initialReactionState={currentReaction}
+                type="COOL"
+                count={reactionState.COOL || 0}
+                onClick={
+                  !preview
+                    ? async () => {
+                        handlePress('COOL');
+                      }
+                      : () => {}
+                    }
+                    state={currentReaction !== 'COOL' ? 'inactive' : 'active'}
+                    />
+                    </div>
+           </div>
+          <div className="w-full pl-6 self-end">
             {isReplying && (
-              <div className='flex flex-col my-2 gap-2'>
+              <div className="flex flex-col my-2 gap-2">
                 <div className="flex flex-row gap-2">
                   <ProfileImage className="aspect-square scale-90"></ProfileImage>
                   <input
@@ -106,16 +174,13 @@ async function handleReply() {
                     onClick={() => {
                       handleReply();
                     }}
-                  className="rounded-xl secondary p-2">
+                    className="rounded-xl secondary p-2"
+                  >
                     <FaRegPaperPlane className="text-2xl" />
                   </button>
                 </div>
                 <hr />
-                {replies && (
-                    replies.map((reply) => (
-                        <ReplyItem reply={reply} />
-))
-                )}
+                {replies && replies.map((reply) => <ReplyItem preview={preview} reply={reply} />)}
               </div>
             )}
           </div>

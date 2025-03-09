@@ -27,7 +27,7 @@ export default function MainPage() {
   return (
     <>
       {posts.map((post) => (
-        <Post user={user} language={language} post={post} />
+        <Post preview={false} user={user} language={language} post={post} />
       ))}
     </>
   );

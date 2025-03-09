@@ -6,7 +6,7 @@ import CommentElement from './Comment';
 import { AddCommentToPost } from '../../lib/request/Comment';
 import { formatNumber } from '../../lib/functions';
 
-export default function CommentModal({comments, user, language, postId}: {user: User, language: "EN" | "HU", comments: Comment[], postId: number}) {
+export default function CommentModal({preview, comments, user, language, postId}: {preview: boolean, user: User, language: "EN" | "HU", comments: Comment[], postId: number}) {
   const [open, setOpen] = useState(false);
   const [comment, setComment] = useState<string>('');
   const [commentList, setCommentList] = useState<Comment[]>(comments);
@@ -52,7 +52,7 @@ async function handleComment() {
 
         {
           commentList.map((comment) => (
-            <CommentElement user={user} comment={comment} />
+            <CommentElement preview={preview} user={user} comment={comment} />
           ))
           
         }</div>

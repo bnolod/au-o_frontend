@@ -162,11 +162,15 @@ export interface Comment {
   time: string;
   user: UserPostResponseType;
   text: string;
+  reactionTypeMap: Reactions;
+  reactedWith: null | "FIRE" | "HEART" | "COOL";
   replies: Reply[] | null;
 }
 export interface Reply {
   id: number;
   time: string;
+  reactionTypeMap: Reactions;
+  reactedWith: null | "FIRE" | "HEART" | "COOL";
   user: UserPostResponseType;
   text: string;
 }

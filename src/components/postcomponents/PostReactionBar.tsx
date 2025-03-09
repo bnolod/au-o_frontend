@@ -5,7 +5,7 @@ import CommentModal from '../commentboard/CommentModal';
 import { formatNumber } from '../../lib/functions';
 import { FaRegComment } from 'react-icons/fa6';
 
-export default function PostReactionBar({ post, user, language }: {user: User, post: PostResponse, language: 'HU' | 'EN' }) {
+export default function PostReactionBar({preview, post, user, language }: {preview: boolean, user: User, post: PostResponse, language: 'HU' | 'EN' }) {
   const typeMap = {
     FIRE: post.reactionTypeMap ? post.reactionTypeMap.FIRE : 0,
     COOL: post.reactionTypeMap !== null ? post.reactionTypeMap.COOL : 0,
@@ -88,7 +88,7 @@ export default function PostReactionBar({ post, user, language }: {user: User, p
         <MdAddComment /> gomb
       </button> */}
       <div className=" flex flex-col flex-grow text-right">
-        <CommentModal user={user} language={language} postId={post.postId} comments={post.comments}/>
+        <CommentModal preview={preview} user={user} language={language} postId={post.postId} comments={post.comments}/>
         <p className="text-highlightPrimary">{post.location}</p>
         
       </div>
