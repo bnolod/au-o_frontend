@@ -1,3 +1,4 @@
+import { url } from "inspector";
 import { EventTexts, GroupTexts } from "../../../constants/texts";
 import { formatNumber } from "../../../lib/functions";
 import { CommonStaticElementProps } from "../../../lib/types";
@@ -30,37 +31,26 @@ export default function SocialBanner({
       }
       style={{
         aspectRatio: header ? 1.7 : 3 / 1,
-        backgroundImage: "" //TODO: add image constants
+            objectFit: "cover",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundImage: `url(${"/examples/BannerPlaceholder.png"}`,
+            backgroundRepeat: "no-repeat",
+            
+        
       }}
-      className="social-banner-container"
+      className="relative bg-backdropSecondary rounded-xl social-banner-container "
+      
     
     >
-      {/* <ImageBackground
-        className="social-banner-image-placeholder"
-        source={Images.banner_placeholder}
-        contentFit="cover"
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderTopEndRadius: 12,
-          borderTopStartRadius: 12,
-          backgroundColor: Colors[colorScheme].secondary,
-          
-          gap: 8,
-          marginHorizontal: 'auto',
-        }}
-      >
-       */}  {count !== null && (
-          <p className="social-banner-image-text">
+  {count !== null && (
+          <p className="social-banner-image-text select-none">
             {formatNumber(count, language)} {type === 'EVENT' ? EventTexts.buttons.attend.attendeeCount[language] : GroupTexts.page.memberCount[language]}
           </p>
         )}
-        {!image && !name && <h3 className="text-3xl">???</h3>}
+        {!image && !name && <h3 className="text-3xl select-none">???</h3>}
         {!image && name && (
-          <h1 className={`${type === "GROUP" ? "text-5xl" : "text-3xl"} font-bold`}>
+          <h1 className={`${type === "GROUP" ? "text-5xl" : "text-3xl"} select-none font-bold`}>
             {' '}
             {name.length > 20 && name.split(' ').length > 4 ? name.split(' ') : name}
           </h1>
