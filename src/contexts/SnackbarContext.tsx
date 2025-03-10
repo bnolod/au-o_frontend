@@ -16,7 +16,11 @@ export const useSnackbar = () => {
 };
 
 export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
-  const [snackbar, setSnackbar] = useState({
+  const [snackbar, setSnackbar] = useState<{
+    message: string;
+    open: boolean;
+    severity: AlertColor;
+  }>({
     message: "",
     open: false,
     severity: "info",
@@ -43,7 +47,7 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
         autoHideDuration={6000}
         onClose={handleClose}
       >
-        <Alert onClose={handleClose}>
+        <Alert onClose={handleClose} severity={snackbar.severity}>
           {snackbar.message}
         </Alert>
       </Snackbar>

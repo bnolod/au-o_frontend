@@ -9,15 +9,14 @@ import { createImageForm } from '../lib/functions';
 import { imageUpload } from '../lib/ApiCalls/ImageApiCalls';
 import { CreatePostRequest } from '../lib/request/PostCreationRequest';
 import { publishPost } from '../lib/ApiCalls/PostApiCalls';
+import { useSnackbar } from '../contexts/SnackbarContext';
 
 export default function PostPage() {
   const user = useAuthentication();
 
   const [loading, setLoading] = useState<boolean>(true);
   const [newPostForm, setNewPostForm] = useState<CreatePostRequest>();
-  const [formLocation, setFormLocation] = useState<string>("");
-  const [formText, setFormText] = useState<string>("");
-  
+  const { showSnackbar } = useSnackbar();
 
   //nem hiszem el
   if (loading && user.user !== undefined) {
@@ -32,47 +31,88 @@ export default function PostPage() {
       vehicleId: null,
     });
   }
-  console.log('setloading' + loading);
+
   const [images, setImages] = useState<File[]>([]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    if (!formIsValid()) return null;
+
     const uploadedImages: ImageUploadResponse[] = [];
     for (const image of images) {
-      console.log(image);
+      showSnackbar(`Kép ${image.name} feltöltése folyamatban`, 'info');
       const res = await createImageForm(image, newPostForm!.description, user.user!);
       if (res) {
         const upload = await imageUpload(res);
-        if (upload) {
-          uploadedImages.push(upload);
+        if (upload !== null) {
+          uploadedImages.push(upload as ImageUploadResponse);
+          showSnackbar(`Kép ${image.name} sikeresen feltöltve`, 'success');
+        }
+        else{
+          showSnackbar('Hiba a kép feltöltése közben', 'error');
         }
       }
     }
-    publishPost({text: formText, postImages: uploadedImages, location: formLocation, vehicleId: null});
+    publishPost({
+      text: newPostForm!.description,
+      postImages: uploadedImages,
+      location: newPostForm!.location,
+      vehicleId: null,
+    });
+    showSnackbar('Sikeres posztolás', 'success');
   }
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
       const fileArray = Array.from(e.target.files);
+      for (const file of fileArray) {
+        //TODO: Other file types
+        if(file.type == 'image/webp'){
+          showSnackbar('WebP formátum nem támogatott', 'error');
+          return;
+        }
+      };
       setImages((image) => [...image, ...fileArray]);
     }
   }
 
+  function handleImageRemove(index: number) {
+    setImages((image) => image.filter((_, i) => i !== index));
+  }
+
+  function formIsValid() {
+    if (newPostForm?.description === '') {
+      showSnackbar('Hiányzó leírás', 'error');
+      return false;
+    }
+    if (newPostForm?.location === '') {
+      showSnackbar('Hiányzó lokáció', 'error');
+      return false;
+    }
+    if (images.length === 0) {
+      showSnackbar('Hiányzó képek', 'error');
+      return false;
+    }
+    return true;
+  }
+
   return (
-    <div className='h-full w-full flex flex-col justify-center align-middle items-center justify-items-center'>
+    <div className="h-full w-full flex flex-col justify-center align-middle items-center justify-items-center">
       {loading ? (
         <h1 className={'text-7xl text-center italic'}>spinner</h1>
       ) : (
-        <Card className=' mt-4 w-full self-center shadow-lg shadow-[#00000022]' >
+        <Card className=" w-full self-center shadow-lg shadow-[#00000022]">
           <h1 className="text-center text-3xl">New Post</h1>
           <section>
             <div>
               <PostImage
+                editMode={true}
                 images={images.map((image) => ({
                   url: URL.createObjectURL(image),
                   deleteHash: 'not',
                 }))}
+                onImageRemove={handleImageRemove}
               />
             </div>
             <form className="w-full flex flex-col gap-2" onSubmit={handleSubmit}>
@@ -84,9 +124,23 @@ export default function PostPage() {
                 Fotók feltöltése
               </label>
               <label htmlFor="text">Leírás:</label>
-              <textarea className="secondary rounded-xl p-3" placeholder="Leírás" name="text" />
+              <textarea
+                className="secondary rounded-xl p-3"
+                onChange={(e) => {
+                  setNewPostForm({ ...newPostForm!, description: e.currentTarget.value });
+                }}
+                placeholder="Leírás"
+                name="text"
+              />
               <label htmlFor="location">Lokáció:</label>
-              <input className="secondary rounded-xl p-3" type="text" name="location" />
+              <input
+                className="secondary rounded-xl p-3"
+                onChange={(e) => {
+                  setNewPostForm({ ...newPostForm!, location: e.currentTarget.value });
+                }}
+                type="text"
+                name="location"
+              />
               <span className="flex gap-3">
                 <span className="flex flex-grow flex-col">
                   <label htmlFor="event">Esemény:</label>

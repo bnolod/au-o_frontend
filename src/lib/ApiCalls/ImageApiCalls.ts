@@ -5,7 +5,7 @@ export async function deleteImgurImage(deleteHash: string) {
   const req = await fetch(`https://api.imgur.com/3/image/${deleteHash}`, {
     method: 'DELETE',
     headers: {
-      Authorization: `Client-ID ${process.env.EXPO_PUBLIC_IMGUR_CLIENT_ID}`,
+      Authorization: `Client-ID ${import.meta.env.VITE_IMGUR_CLIENT_ID}`,
     },
   });
   if (req.status === 200) {
@@ -25,6 +25,7 @@ export const imageUpload = async (image: FormData): Promise<ImageUploadResponse 
     if (response.status !== 200) {
       return null;
     }
+
     const data = response.data.data;
 
     return {
