@@ -287,29 +287,7 @@ export interface TextEditModalProps {
   placeholder?: string;
   lines?: number;
 }
-export interface Group {
-  id: string,
-  name: string,
-  alias: string,
-  bannerImage: string,
-  memberCount: number,
-  isPublic: boolean,
-  creationDate: string
-  isMember: boolean
-}
-export interface SocialEvent {
-  id: string,
-  name: string,
-  startDate: string,
-  endDate: string,
-  location: string,
-  attendees: number,
-  groupId?: string,
-  creationDate  : string,
-  bannerImage: string
-  isPublic: boolean
-  isAttending: boolean
-}
+
 export interface Car {
   id: string,
   manufacturer: string,
