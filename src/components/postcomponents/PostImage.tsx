@@ -25,7 +25,7 @@ export default function PostImage({
 
   return (
     <div className="relative w-full mx-auto  rounded-xl p-4">
-      <div className="overflow-hidden relative min-h-96 ">
+      <div className="overflow-hidden relative m-auto w-9/12 aspect-square ">
         {images.length > 0 ? (
           images.map((image, index) => (
             <div
@@ -34,7 +34,7 @@ export default function PostImage({
                 index === currentIndex ? 'translate-x-0' : 'translate-x-full'
               }`}
             >
-              <img src={image.url} alt={`Slide ${index}`} className="h-full rounded-2xl object-contain" />
+              <img src={image.url} alt={`Slide ${index}`} className=" rounded-2xl object-contain" />
             </div>
           ))
         ) : (

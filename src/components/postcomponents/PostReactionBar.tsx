@@ -32,7 +32,7 @@ export default function PostReactionBar({preview, post, user, language }: {previ
     <div key={addedReaction ? addedReaction : 'NONE' + post.postId} className="flex text-xs flex-row p-3 justify-between">
       <button
         key={addedReaction ? addedReaction : 'NONE' + post.postId}
-        className={`outline-highlightPrimary h-14 text-xl  p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
+        className={`outline-highlightPrimary aspect-[9/7] h-12 text-xl  p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
           addedReaction === 'FIRE'
             ? 'bg-highlightPrimary'
             : 'bg-backdropSecondary'
@@ -49,7 +49,7 @@ export default function PostReactionBar({preview, post, user, language }: {previ
             (post.reactedWith === 'FIRE' && addedReaction === null ? 1 : 0)}
       </button>
       <button
-        className={`outline-highlightPrimary h-14 text-xl bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
+        className={`outline-highlightPrimary aspect-[9/7] h-12 text-xl bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
           addedReaction === 'COOL'
             ? 'bg-highlightPrimary'
             : 'bg-backdropSecondary'
@@ -64,7 +64,7 @@ export default function PostReactionBar({preview, post, user, language }: {previ
         {typeMap.COOL ? formatNumber(typeMap.COOL, language) : ""}
       </button>
       <button
-        className={`outline-highlightPrimary h-14 text-xl bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
+        className={`outline-highlightPrimary aspect-[9/7] h-12 text-xl bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
           addedReaction === 'HEART'
             ? 'bg-highlightPrimary'
             : 'bg-backdropSecondary'
@@ -79,7 +79,7 @@ export default function PostReactionBar({preview, post, user, language }: {previ
         {typeMap.HEART ? formatNumber(typeMap.HEART, language): ""}
       </button>
       {/* <button
-        className="outline-highlightPrimary text-xl bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md flex items-center "
+        className="outline-highlightPrimary aspect-[9/7] text-12 bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#66666666] hover:opacity-50 active:hover:opacity-100 shadow-md flex items-center "
         onClick={() => {
           toggleOpen();
         }}

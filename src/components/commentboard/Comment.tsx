@@ -179,7 +179,6 @@ export default function CommentElement({ comment, preview }: {preview: boolean, 
                     <FaRegPaperPlane className="text-2xl" />
                   </button>
                 </div>
-                <hr />
                 {replies && replies.map((reply) => <ReplyItem preview={preview} reply={reply} />)}
               </div>
             )}
