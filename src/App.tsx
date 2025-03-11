@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router";
 import LandingPage from "./pages/LandingPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import MainPage from "./pages/MainPage.tsx";
@@ -22,8 +22,8 @@ function App() {
           <Route path="/" element={<GeneralLayout />}>
             <Route index element={<MainPage />} />
             <Route path="/profile/">
-              <Route index element={<ProfilePage userId={user?.id} />} />
-              <Route path=":id" element={<ProfilePage userId={user?.id} />} />
+              { user && <Route index element={<Navigate to={`/profile/${user!.id}`}/>} />}
+              <Route path=":id" element={<ProfilePage/>} />
             </Route>
             <Route path="/post">
               <Route index element={<NewPost />} />
