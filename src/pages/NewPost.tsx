@@ -10,9 +10,11 @@ import { imageUpload } from '../lib/ApiCalls/ImageApiCalls';
 import { CreatePostRequest } from '../lib/request/PostCreationRequest';
 import { publishPost } from '../lib/ApiCalls/PostApiCalls';
 import { useSnackbar } from '../contexts/SnackbarContext';
+import { useNavigate } from 'react-router';
 
 export default function PostPage() {
   const user = useAuthentication();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState<boolean>(true);
   const [newPostForm, setNewPostForm] = useState<CreatePostRequest>();
@@ -60,7 +62,9 @@ export default function PostPage() {
       location: newPostForm!.location,
       vehicleId: null,
     });
+    navigate('/profile');
     showSnackbar('Sikeres posztolás', 'success');
+    
   }
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
