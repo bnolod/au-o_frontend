@@ -88,8 +88,8 @@ export default function CommentElement({ comment, preview }: {preview: boolean, 
             <h1 className="font-bold">{comment.user.nickname}</h1>
             <p className="text-xs">@{comment.user.username}</p>
           </div>
-          <div className="flex flex-row">
-            <p className="text-xs justify-self-end">{comment.time.split('T')[0]}</p>
+          <div className="flex flex-row gap-4 ml-auto items-center justify-items-end">
+            <p className="text-xs">{comment.time.split('T')[0]}</p>
             <button
               onClick={() => {
                 setIsReplying((isReplying) => !isReplying);
