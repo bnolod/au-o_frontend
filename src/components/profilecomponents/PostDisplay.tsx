@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { apiFetch } from "../../lib/apiClient";
 import Card from "../Card";
 import { PostResponse } from "../../lib/types";
-import { ImageList, ImageListItem } from "@mui/material";
+import { ImageList, ImageListItem, Modal } from "@mui/material";
 
 export default function PostDisplay({ userId }: { userId: number }) {
   const [posts, setPosts] = useState<PostResponse[]>([]);
+  const [openModal, setOpenModal] = useState(false);
+
 
   useEffect(() => {
     async function load() {
@@ -17,18 +19,32 @@ export default function PostDisplay({ userId }: { userId: number }) {
     load();
   }, []);
 
+  function handlePostClick(event: React.MouseEvent<HTMLImageElement>) {
+    console.log('Post clicked');
+    setOpenModal(true);
+    
+  }
+
   console.log(posts[0]);
 
   return (
+    <>
+    <Modal 
+    open={openModal}
+    onClose={() => setOpenModal(false)}
+    >
+      <div>asd</div>
+    </Modal>
     <Card className="">
       {posts.length == 0 && <div className="text-center">jaj</div>}
       <ImageList variant="masonry" cols={2} gap={8}>
         {posts.length > 0 && posts.map((post) => (
           <ImageListItem key={post.postId}>
-            <img src={post.images[0].url} className="rounded-l"></img>
+            <img src={post.images[0].url} className="rounded-l" onClick={handlePostClick}></img>
           </ImageListItem>
         ))}
       </ImageList>
     </Card>
+    </>
   );
 }
