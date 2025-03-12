@@ -5,6 +5,8 @@ import { Comment, User } from '../../lib/types';
 import CommentElement from './Comment';
 import { AddCommentToPost } from '../../lib/request/Comment';
 import { formatNumber } from '../../lib/functions';
+import { NavLink } from 'react-router';
+import { grey } from '@mui/material/colors';
 
 export default function CommentModal({
   preview,
@@ -35,7 +37,10 @@ export default function CommentModal({
 
   return (
     <div className="flex flex-row self-end shadow-[#00000044] hover:opacity-50 shadow-md">
-      <button className="h-12 py-2 px-4 flex flex-row items-center gap-2 rounded-xl secondary px-2" onClick={handleOpen}>
+      <button
+        className="h-12 py-2 px-4 flex flex-row items-center gap-2 rounded-xl secondary px-2"
+        onClick={handleOpen}
+      >
         {comments.length > 0 && <p className="flex txl flex-row">{formatNumber(comments.length, language)}</p>}
         <FaRegComment className="text-2xl" />
       </button>
@@ -50,7 +55,11 @@ export default function CommentModal({
           <h1 className="self-center t2x">Kommentek</h1>
 
           <div className="m-4 flex items-center justify-between gap-1">
-            <Avatar className="scale-90" alt="TES" content={'tes'} />
+            <NavLink to={`/profile/${user.id}`} className={'mr-3'}>
+              <Avatar sx={{ bgcolor: grey[800], width: 48, height: 48 }} src={user.profileImg}>
+                {user.nickname.substring(0, 3).toUpperCase()}
+              </Avatar>
+            </NavLink>
             <input
               value={comment}
               onChange={(e) => setComment(e.currentTarget.value)}

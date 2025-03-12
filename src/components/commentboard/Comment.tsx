@@ -6,6 +6,9 @@ import ReplyItem from './Reply';
 import { sendReply } from '../../lib/request/Reply';
 import { addReaction } from '../../lib/ApiCalls/ReactionApiCalls';
 import ReactionButton from '../reactions/ReactionButton';
+import { Avatar } from '@mui/material';
+import { grey } from '@mui/material/colors';
+import { NavLink } from 'react-router';
 
 // export default function Comment({ replies }: { replies?: boolean }) {
 //     return (
@@ -38,7 +41,7 @@ import ReactionButton from '../reactions/ReactionButton';
 //     );
 // }
 
-export default function CommentElement({ comment, preview }: {preview: boolean, user: User; comment: Comment }) {
+export default function CommentElement({ comment, preview, user }: {preview: boolean, user: User; comment: Comment }) {
   const [isReplying, setIsReplying] = useState(false);
   const [reply, setReply] = useState<string>('');
   const [currentReaction, setCurrentReaction] = useState<null | 'FIRE' | 'HEART' | 'COOL'>(comment.reactedWith);
@@ -82,7 +85,11 @@ export default function CommentElement({ comment, preview }: {preview: boolean, 
   return (
     <div className="h-full w-full p-2">
       <div className="flex flex-row gap-2">
-        <ProfileImage className="aspect-square"></ProfileImage>
+      <NavLink to={`/profile/${user.id}`} className={'mr-3'}>
+        <Avatar sx={{ bgcolor: grey[800], width: 48, height: 48 }} src={user.profileImg}>
+          {user.nickname.substring(0, 3).toUpperCase()}
+        </Avatar>
+      </NavLink>
         <div className="flex flex-row w-full">
           <div className="flex flex-col flex-grow">
             <h1 className="font-bold">{comment.user.nickname}</h1>
