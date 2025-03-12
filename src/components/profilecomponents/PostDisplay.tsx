@@ -3,7 +3,6 @@ import { apiFetch } from '../../lib/apiClient';
 import Card from '../Card';
 import { PostResponse } from '../../lib/types';
 import { ImageList, ImageListItem, Modal } from '@mui/material';
-import { getPost } from '../../lib/ApiCalls/PostApiCalls';
 import Post from '../postcomponents/Post';
 import { useAuthentication } from '../../contexts/AuthenticationContext';
 
@@ -23,7 +22,7 @@ export default function PostDisplay({ userId }: { userId: number }) {
       }
     }
     load();
-  }, []);
+  }, [userId]);
 
 
   function handlePostClick(Post: PostResponse) {
