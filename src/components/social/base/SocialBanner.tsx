@@ -39,7 +39,7 @@ export default function SocialBanner({
             
         
       }}
-      className="relative bg-backdropSecondary rounded-xl social-banner-container "
+      className="relative bg-backdropSecondary social-banner-container "
       
     
     >
@@ -60,8 +60,6 @@ export default function SocialBanner({
             style={{
               height: '100%',
               width: '100%',
-              borderTopLeftRadius: 12,
-              borderTopRightRadius: 12,
               objectFit: "cover"
             }}
     

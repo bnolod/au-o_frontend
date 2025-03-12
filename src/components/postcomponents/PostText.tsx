@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function PostText({ text }: { text: string }) {
+export default function PostText({ text,username }: { text: string, username:string }) {
   const [displayedText, setDisplayedText] = useState<string>(text);
   const [isTextOpen, setIsTextOpen] = useState<boolean>(false);
   const isLongText = text.length > 200;
@@ -20,8 +20,8 @@ export default function PostText({ text }: { text: string }) {
   }
 
   return (
-    <div className="p-3 pt-0">
-      <p>{displayedText}</p>
+    <div className="p-4 pt-0">
+      <p><span className="font-bold">@{username} </span>{displayedText}</p>
       {!isTextOpen && isLongText ? <p className="underline" onClick={handleOpenText}>Több...</p> : ""}
     </div>
   );

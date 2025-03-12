@@ -7,9 +7,9 @@ import { useCommentBoard } from "../contexts/CommentContext";
 export default function GeneralLayout() {
   const {isOpen} = useCommentBoard()
   return (
-    <div className="bg-backgroundGradient bg-fixed min-h-screen flex flex-col text-textColor">
+    <div className="animatedbg min-h-screen flex flex-col text-textColor">
       <Header />
-      <main className="flex flex-col md:flex-row h-full items-center md:items-start justify-center pt-24 gap-6">
+      <main className="flex flex-col md:flex-row h-full items-center md:items-start justify-evenly pt-24 gap-">
         <div className="w-3/12 md:h-[90vh] min-h-max hidden md:flex left-3 flex-col items-center sticky top-24">
           <LeftNavigation />
         </div>

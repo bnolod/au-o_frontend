@@ -41,14 +41,14 @@ export default function SocialCard({
   if (item)
     return (
       <article
-        className="my-4"
+        className="my-4 bg-background rounded-xl overflow-hidden"
         style={{
           //shadowColor: colorScheme === 'dark' ? '#fff0f0' : '#1b1b1b',
           //shadowOffset: {
             //width: 0,
             //height: 10,
           //},
-          //shadowOpacity: 1,
+          //shadowOpacity: 1,0
           //shadowRadius: 20,
         }}
       >
@@ -63,13 +63,13 @@ export default function SocialCard({
             onClick={onCreateClick}
           />
         </div>
-        <div className="social-card">
+        <div className="p-4">
           <div className="social-card-container">
             <div className="basis-4/6">
-              <h3 className="tlg leading-tight">
+              <h3 className="text-xl font-bold leading-tight">
                 {group && !group.public && <MdLockOutline />}
                 {item.name}
-                <p className="tsm p-3 font-semibold muted "> {item.alias}</p>
+                <p className="text-sm font-semibold muted pb-2"> {item.alias}</p>
               </h3>
               <span className="opacity-85">{item.description}</span> {/*TODO: ADD EXPANDING TEXT FIELD*/}
             </div>

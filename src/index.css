@@ -12,30 +12,56 @@
 }*/
 
 /*Light mode colors*/
+
+.animatedbg {
+  background: var(--background-gradient);
+  background-size: 300% 300%;
+  animation: animateGradient 20s infinite alternate ease-in-out;
+  background-attachment: fixed;
+}
+
+
 :root {
   --background: 255,240,240;
   --backdrop-primary: 243,229,229;
   --backdrop-secondary: 231,218,218;
   --highlight-primary: 239,26,45;
   --highlight-secondary: 247,137,143;
-  --background-gradient: linear-gradient(127.4deg, #F7898F -200%, #FFF0F0 100%);
+  --background-gradient: radial-gradient(127.4deg, #F7898F -200%, #FFF0F0 100%);
   --text-color: 0,0,0;  
 }
 
-/*Dark mode colors*/
-/*Valoszinuleg nem lesz jo megoldas a media prefers color scheme*/
-@media(prefers-color-scheme: dark) {
-  :root .dark {
+@media (prefers-color-scheme: dark) {
+  :root {
     --background: 27,27,27;
     --backdrop-primary: 35,35,35;
     --backdrop-secondary: 43,43,43;
     --highlight-primary: 239,26,45;
     --highlight-secondary: 121,14,28;
-    --background-gradient: linear-gradient(143.907deg, #EF1A2D -200%, #1B1B1B 100%);
-
+    --background-gradient: linear-gradient(0deg, #010101 0%, #1a1010 100%);
     --text-color: 255,255,255;
   }
 }
+
+
+@keyframes animateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 0%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Dark Mode */
+
+
+
 
 
 

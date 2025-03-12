@@ -57,14 +57,14 @@ export default function Header() {
             </Avatar>
           </button>
           <Drawer
-            className=""
+            className="text-textColor"
             open={isDrawerOpen}
             anchor="right"
             onClose={() => {
               setDrawerOpen(false);
             }}
           >
-            <List className="flex flex-col sm:min-w-64 h-full justify-start bg-backdropSecondary gap-2">
+            <List className="flex flex-col sm:min-w-64 h-full justify-start bg-backdropSecondary gap-2 text-textColor">
               <ListItem className="">
                 <NavLink
                   to={'/profile'}

@@ -12,7 +12,7 @@ export default function Post ({post, language,preview = false, user} :{preview: 
             <PostHeader user={post.user}></PostHeader>
             <PostImage images={post.images}/>
             <PostReactionBar preview={preview} user={user} language={language} post={post}/>
-            <PostText text={post.text}/>
+            <PostText text={post.text} username={user.username}/>
         </div>
     )
 }
