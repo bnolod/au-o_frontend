@@ -3,6 +3,9 @@ import { Reactions, Reply } from '../../lib/types';
 import ProfileImage from '../ProfileImage';
 import ReactionButton from '../reactions/ReactionButton';
 import { addReaction } from '../../lib/ApiCalls/ReactionApiCalls';
+import { NavLink } from 'react-router';
+import { Avatar } from '@mui/material';
+import { grey } from '@mui/material/colors';
 
 export default function ReplyItem({ reply, preview }: { preview: boolean; reply: Reply }) {
   const [currentReaction, setCurrentReaction] = useState<null | 'FIRE' | 'HEART' | 'COOL'>(reply.reactedWith);
@@ -39,7 +42,11 @@ export default function ReplyItem({ reply, preview }: { preview: boolean; reply:
     <div className="w-full">
       <div className="w-1 bg-backdropSecondary h-full rounded-b"></div>
       <div className="flex justify-start">
-        <ProfileImage className="scale-90 aspect-square"></ProfileImage>
+      <NavLink to={`/profile/${reply.user.id}`} className={'mr-3'}>
+        <Avatar sx={{ bgcolor: grey[800], width: 48, height: 48 }} src={reply.user.profileImg}>
+          {reply.user.nickname.substring(0, 3).toUpperCase()}
+        </Avatar>
+      </NavLink>
         <div className="flex flex-col justify-center flex-grow ">
           <h1 className="font-bold">{reply.user.nickname}</h1>
           <p className="text-xs">@{reply.user.username}</p>

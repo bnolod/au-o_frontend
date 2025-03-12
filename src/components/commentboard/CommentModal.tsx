@@ -38,7 +38,7 @@ export default function CommentModal({
   return (
     <div className="flex flex-row self-end shadow-[#00000044] hover:opacity-50 shadow-md">
       <button
-        className="h-12 py-2 px-4 flex flex-row items-center gap-2 rounded-xl secondary px-2"
+        className="h-12 py-2 px-4 flex flex-row items-center gap-2 rounded-xl secondary"
         onClick={handleOpen}
       >
         {comments.length > 0 && <p className="flex txl flex-row">{formatNumber(comments.length, language)}</p>}

@@ -40,7 +40,7 @@ export default function LeftNavigation() {
         <div className="flex-row flex flex-wrap gap-2">
         {
           activeUsers.map(user => {
-            return <div className="flex items-center gap-2 px-2 " onClick={() => {navigate("/profile/"+user.id)}}>
+            return <div className="flex items-center gap-2 px-2 cursor-pointer hover:opacity-50 transition-all " onClick={() => {navigate("/profile/"+user.id)}}>
             <Avatar
               src={user.profileImg}
               sx={{ width: 24, height: 24 }}

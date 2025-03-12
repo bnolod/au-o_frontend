@@ -86,8 +86,8 @@ export default function CommentElement({ comment, preview, user }: {preview: boo
     <div className="h-full w-full p-2">
       <div className="flex flex-row gap-2">
       <NavLink to={`/profile/${user.id}`} className={'mr-3'}>
-        <Avatar sx={{ bgcolor: grey[800], width: 48, height: 48 }} src={user.profileImg}>
-          {user.nickname.substring(0, 3).toUpperCase()}
+        <Avatar sx={{ bgcolor: grey[800], width: 48, height: 48 }} src={comment.user.profileImg}>
+          {comment.user.nickname.substring(0, 3).toUpperCase()}
         </Avatar>
       </NavLink>
         <div className="flex flex-row w-full">
@@ -169,7 +169,11 @@ export default function CommentElement({ comment, preview, user }: {preview: boo
             {isReplying && (
               <div className="flex flex-col my-2 gap-2">
                 <div className="flex flex-row gap-2">
-                  <ProfileImage className="aspect-square scale-90"></ProfileImage>
+                <NavLink to={`/profile/${user.id}`} className={'mr-3'}>
+        <Avatar sx={{ bgcolor: grey[800], width: 48, height: 48 }} src={user.profileImg}>
+          {user.nickname.substring(0, 3).toUpperCase()}
+        </Avatar>
+      </NavLink>
                   <input
                     type="text"
                     className="rounded-xl p-2 flex-grow w-full bg-backdropSecondary"
