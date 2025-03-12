@@ -24,17 +24,17 @@ export default function PostImage({
   console.log(currentIndex)
 
   return (
-    <div className="relative w-full mx-auto  rounded-xl p-4">
-      <div className="overflow-hidden relative m-auto w-9/12 aspect-square ">
+    <div className="relative w-full mx-auto  rounded-xl ">
+      <div className="overflow-hidden relative m-auto w-full aspect-[8/5] ">
         {images.length > 0 ? (
           images.map((image, index) => (
             <div
               key={index}
-              className={`absolute inset-0 flex justify-center transition-transform transform ${
+              className={`absolute inset-0 w-full flex justify-center transition-transform transform ${
                 index === currentIndex ? 'translate-x-0' : 'translate-x-full'
               }`}
             >
-              <img src={image.url} alt={`Slide ${index}`} className=" rounded-2xl object-contain" />
+              <img src={image.url} alt={`Slide ${index}`} className=" rounded-2xl overflow-hidden object-contain h-full" />
             </div>
           ))
         ) : (

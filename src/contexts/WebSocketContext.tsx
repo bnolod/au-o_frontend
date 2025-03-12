@@ -25,7 +25,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (!user) return 
     const connectWebSocket = async () => {
       console.log('Mounting WebSocket');
-      const socket = new SockJS("http://localhost:8080/ws", null,
+      const socket = new SockJS(`${window.location.protocol}//${window.location.hostname}:8080/ws`, null,
         { withCredentials: true } as any); // SockJS
         console.log("socket: ",socket)
       const client = new Client({
