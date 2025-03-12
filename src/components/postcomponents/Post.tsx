@@ -4,7 +4,7 @@ import PostImage from "./PostImage";
 import PostReactionBar from "./PostReactionBar";
 import PostText from "./PostText";
 
-export default function Post ({post, language,preview = false, user} :{preview: boolean, user: User, post:  PostResponse, language: 'HU' | 'EN'}) {
+export default function Post ({post, language,preview = false, user} :{preview?: boolean, user: User, post:  PostResponse, language: 'HU' | 'EN'}) {
     //todo: multiple image support
     console.log(post)
     return (
