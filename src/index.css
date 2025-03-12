@@ -38,7 +38,7 @@
     --backdrop-secondary: 43,43,43;
     --highlight-primary: 239,26,45;
     --highlight-secondary: 121,14,28;
-    --background-gradient: linear-gradient(0deg, #010101 0%, #101010 100%);
+    --background-gradient: linear-gradient(0deg, #010101 0%, #1a1010 100%);
     --text-color: 255,255,255;
   }
 }

@@ -3,6 +3,8 @@ import { addReaction } from '../../lib/apiClient';
 import { useState, useEffect } from 'react';
 import CommentModal from '../commentboard/CommentModal';
 import { formatNumber } from '../../lib/functions';
+import { Icon } from '@mui/material';
+import { MdLocationPin } from 'react-icons/md';
 
 export default function PostReactionBar({
   preview,
@@ -93,10 +95,14 @@ export default function PostReactionBar({
       >
         <MdAddComment /> gomb
       </button> */}
-      <div className=" flex flex-col flex-grow text-right">
+      <div className=" flex flex-col flex-1">
         <CommentModal preview={preview} user={user} language={language} postId={post.postId} comments={post.comments} />
-        <p className="text-highlightPrimary">{post.location}</p>
       </div>
+      {post.location?
+      <div className='absolute -mt-12 ml-2 text-[1.05rem] text-textColor bg-backdropPrimary opacity-75 px-2 gap-1 py-2 rounded-xl flex flex-row items-center'>
+      <MdLocationPin className='text-textColor'></MdLocationPin>
+      {post.location}</div>
+      :("")}
     </div>
   );
 }
