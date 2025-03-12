@@ -3,6 +3,7 @@ import CommentBoard from "../components/commentboard/CommentBoard";
 import Header from "../components/Header";
 import LeftNavigation from "../components/leftnavigation/LeftNavigation";
 import { useCommentBoard } from "../contexts/CommentContext";
+import MessageBoard from "../components/messages/MessageBoard";
 
 export default function GeneralLayout() {
   const {isOpen} = useCommentBoard()
@@ -17,7 +18,7 @@ export default function GeneralLayout() {
           <Outlet />
         </div>
         <div className={" md:w-3/12 hidden md:flex  w-11/12 right-3 items-start "}> 
-          <CommentBoard isOpen={isOpen}></CommentBoard>
+          <MessageBoard/>
         </div>
       </main>
     </div>
