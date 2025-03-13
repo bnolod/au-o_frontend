@@ -1,7 +1,7 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { LoginRequest, RegisterRequest, User } from "../lib/types";
-import { apiLogin, apiRegister, getUserByToken } from "../lib/apiClient";
-import { replace } from "react-router";
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { LoginRequest, RegisterRequest, User } from '../lib/types';
+import { apiLogin, apiRegister, getUserByToken } from '../lib/apiClient';
+import { replace } from 'react-router';
 
 interface AuthenticationContextType {
   user: User | null | undefined; //defined ha talált, null ha nem és visszadobja login screenre, undefined ha tölt
@@ -9,29 +9,22 @@ interface AuthenticationContextType {
   logout: () => Promise<void>;
   register: (request: RegisterRequest) => Promise<boolean>;
 }
-const AuthenticationContext = createContext<
-  AuthenticationContextType | undefined
->(undefined);
-export const AuthenticationProvider = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
+const AuthenticationContext = createContext<AuthenticationContextType | undefined>(undefined);
+export const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null | undefined>(undefined);
-
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     //ha van jwt token, akkor lekéri a user adatait
-  if(localStorage.getItem("jwtToken")){
     getUserByToken().then((res) => {
       setUser(res);
-    }
-    )
-  }},[])
+    });
+    setLoading(false);
+  }, []);
 
   async function login(request: LoginRequest) {
     const res = await apiLogin(request);
     if (res) {
-      localStorage.setItem("jwtToken", res);
+      localStorage.setItem('jwtToken', res);
       const tokenUser = await getUserByToken();
       setUser(tokenUser);
       return true;
@@ -41,14 +34,14 @@ export const AuthenticationProvider = ({
 
   async function logout() {
     setUser(null);
-    localStorage.removeItem("jwtToken");
-    replace("/");
+    localStorage.removeItem('jwtToken');
+    replace('/');
   }
 
   async function register(request: RegisterRequest) {
     const res = await apiRegister(request);
     if (res) {
-      localStorage.setItem("jwtToken", res);
+      localStorage.setItem('jwtToken', res);
       const tokenUser = await getUserByToken();
       setUser(tokenUser);
       return true;
@@ -58,7 +51,7 @@ export const AuthenticationProvider = ({
 
   return (
     <AuthenticationContext.Provider value={{ user, login, register, logout }}>
-      {children}
+      {loading ? <div className='w-screen h-screen text-textColor bg-background'>Loading...</div> : children}
     </AuthenticationContext.Provider>
   );
 };
@@ -66,7 +59,7 @@ export const AuthenticationProvider = ({
 export const useAuthentication = () => {
   const context = useContext(AuthenticationContext);
   if (!context) {
-    throw new Error("Context used outside provider");
+    throw new Error('Context used outside provider');
   }
   return context;
 };
