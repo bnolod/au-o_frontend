@@ -59,6 +59,7 @@ export default function MessageBoard() {
 
   return (
     <div className="w-full gap-2 flex flex-col max-h-[90vh] overflow-y-scroll p-4">
+      <h1 className='text-2xl pb-4 font-semibold text-textColor/50'>Latest messages</h1>
       {latestMessages.map((item) => (
         <LatestMessageItem key={item.username} latestMessage={item} />
       ))}

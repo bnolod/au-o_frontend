@@ -43,9 +43,12 @@ export default function Header() {
           <NavLink to={"/"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Home</NavLink>
           <NavLink to={"/groups"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Groups</NavLink>
           <NavLink to={"/events"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Events</NavLink>
+          <NavLink to={"/messages"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Chat</NavLink>
         </div>
         <div className="flex justify-end gap-1 items-center">
           
+        
+
           <button className='flex flex-row items-center gap-2 transition-all px-4 py-2'
             onClick={() => {
               setDrawerOpen(!isDrawerOpen);

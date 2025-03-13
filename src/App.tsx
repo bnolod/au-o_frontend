@@ -8,6 +8,7 @@ import GeneralLayout from "./pages/GeneralLayout.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import NewPost from "./pages/NewPost.tsx";
 import GroupFeed from "./pages/GroupFeed.tsx";
+import MessagesPage from "./pages/MessagesPage.tsx";
 
 function App() {
   const { user } = useAuthentication();
@@ -34,7 +35,10 @@ function App() {
               <Route path=":id" element={<GeneralLayout />} />
             </Route>
           </Route>
-
+          <Route path="/messages">
+            <Route index element={<MessagesPage/>}/>
+            <Route path=":id" element={<div>id</div>}/>
+          </Route>
           <Route path="/layout" element={<GeneralLayout />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
