@@ -42,10 +42,10 @@ export default function PrivateMessages({ username }: { username: string }) {
       sub = stompClient.subscribe(`/user/queue/chat/${username}`, (msg: { body: string }) => {
         const incomingMessage = JSON.parse(msg.body) as ChatMessage;
         // Filter messages to include only those exchanged with username
-        setMessages((prev) => [ incomingMessage, ...prev]);
+        setMessages((prev) => [incomingMessage, ...prev]);
         console.log('message received: ', incomingMessage);
         console.log('messages: ', messages);
-        console.log('latest message in list:')
+        console.log('latest message in list:');
       });
     }
     return () => {
@@ -55,12 +55,11 @@ export default function PrivateMessages({ username }: { username: string }) {
     };
   }, [user, username, stompClient]);
 
-
   const sendMessage = () => {
     console.log('message sending');
     console.log(message);
     if (stompClient && message.trim() !== '' && user) {
-      const targetedMessage = { username:username, message:message };
+      const targetedMessage = { username: username, message: message };
       stompClient.publish({
         destination: '/app/chat/user/',
         body: JSON.stringify(targetedMessage),
@@ -85,27 +84,18 @@ export default function PrivateMessages({ username }: { username: string }) {
                   key={item.id}
                   message={item.message}
                   isLast={
-                    !messages[index + 1] || 
-                    (messages[index + 1] && messages[index + 1].user.username !== user.username)
+                    !messages[index + 1] || (messages[index + 1] && messages[index + 1].user.username !== user.username)
                   }
-                  isFirst={
-                    !messages[index - 1] || 
-                    messages[index - 1].user.username !== user.username
-                  }
+                  isFirst={!messages[index - 1] || messages[index - 1].user.username !== user.username}
                 />
               ) : (
                 <RecipientMessage
                   key={item.id}
                   message={item.message}
                   isLast={
-                    !messages[index + 1] || 
-                    (messages[index + 1] && messages[index + 1].user.username !== username)
+                    !messages[index + 1] || (messages[index + 1] && messages[index + 1].user.username !== username)
                   }
-                  isFirst={
-                    !messages[index - 1] || 
-                    messages[index - 1].user.username !== username
-                  }
-                  
+                  isFirst={!messages[index - 1] || messages[index - 1].user.username !== username}
                 />
               )
             )}
@@ -117,6 +107,11 @@ export default function PrivateMessages({ username }: { username: string }) {
             value={message}
             onChange={(e) => {
               setMessage(e.currentTarget.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                sendMessage()
+              }
             }}
           ></input>
           <button className="bg-highlightSecondary px-4 rounded-xl" onClick={sendMessage}>
