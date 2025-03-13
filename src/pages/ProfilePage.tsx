@@ -6,7 +6,7 @@ import { User } from '../lib/types';
 import { apiFetch } from '../lib/apiClient';
 import { useParams } from 'react-router';
 
-export default function ProfilePage({ userId }: { userId?: number | undefined }) {
+export default function ProfilePage({ userId }: { userId: number }) {
   const [user, setUser] = useState<User>();
   const { id } = useParams();
   const [selectedPage, setSelectedPage] = useState<'posts' | 'groups' | 'car' | 'saved'>('posts');
@@ -38,7 +38,7 @@ export default function ProfilePage({ userId }: { userId?: number | undefined })
   if (user) {
     switch (selectedPage) {
       case 'posts':
-        bottomDisplay = <PostDisplay userId={user.id} />;
+        bottomDisplay = <PostDisplay userId={parseInt(id!)}/>;
         break;
       case 'groups':
         bottomDisplay = <div>Groups</div>;
@@ -47,7 +47,7 @@ export default function ProfilePage({ userId }: { userId?: number | undefined })
         bottomDisplay = <div>Car</div>;
         break;
       case 'saved':
-        bottomDisplay = <div>Saved</div>;
+        bottomDisplay = <PostDisplay userId={parseInt(id!)} saved />;
         break;
     }
   }
