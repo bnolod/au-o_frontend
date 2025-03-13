@@ -32,7 +32,7 @@ export default function PostDisplay({ userId, saved = false }: {userId:number, s
 
     }
     load();
-  }, [userId]);
+  }, [saved, userId]);
 
 
   function handlePostClick(Post: PostResponse) {
