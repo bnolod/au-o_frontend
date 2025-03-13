@@ -1,15 +1,17 @@
-import { Avatar } from '@mui/material';
+import { Avatar, Modal } from '@mui/material';
 import { MdBackupTable, MdBookmark, MdCarRepair, MdGroups, MdMoreHoriz } from 'react-icons/md';
 import PostDisplay from '../components/profilecomponents/PostDisplay';
 import { useEffect, useState } from 'react';
 import { User } from '../lib/types';
 import { apiFetch } from '../lib/apiClient';
 import { useParams } from 'react-router';
+import DriversLicense from '../components/DriversLicense';
 
 export default function ProfilePage({ userId }: { userId: number }) {
   const [user, setUser] = useState<User>();
   const { id } = useParams();
   const [selectedPage, setSelectedPage] = useState<'posts' | 'groups' | 'car' | 'saved'>('posts');
+  const [openEditModal, setEditModal] = useState(false);
 
   function handlePageChange(event: React.MouseEvent<HTMLButtonElement>, value: 'posts' | 'groups' | 'car' | 'saved') {
     // event.currentTarget.style.color = "red";
@@ -30,7 +32,8 @@ export default function ProfilePage({ userId }: { userId: number }) {
   }, [id, userId]);
 
   function handleProfileClick() {
-    console.log('Profile clicked');
+    setEditModal(true);
+
   }
 
   //
@@ -62,6 +65,9 @@ export default function ProfilePage({ userId }: { userId: number }) {
               {user?.nickname.substring(0, 3).toUpperCase()}
             </Avatar>
           </button>
+          <Modal open={openEditModal} onClose={() => setEditModal(false)} className='flex justify-center items-center'>
+            <DriversLicense></DriversLicense>
+          </Modal>
           <div className="flex-grow">
             <h3 className="text-4xl">{user?.username}</h3>
             <p className="text-sm">@{user?.nickname}</p>
