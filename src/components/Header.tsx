@@ -34,7 +34,7 @@ export default function Header() {
   return (
     <header className="fixed backdrop-blur-xl w-full p-3 z-50 text-lg">
       <nav className="max-w-screen flex flex-wrap items-center justify-between">
-        <div className=" flex justify-start">
+        <div className=" justify-start hidden md:flex">
           <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
             <img src={isDark ? '/assets/auoLogo_white.svg' : '/assets/auoLogo_black.svg'} className="" alt="AUO logo" />
           </Link>

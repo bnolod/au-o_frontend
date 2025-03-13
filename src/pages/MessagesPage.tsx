@@ -23,12 +23,15 @@ export default function MessagesPage() {
             <PrivateMessages userId={Number(id)} />
             :
             <div className='w-full h-full flex items-center justify-items-center mb-4 border-r-4 border-backdropSecondary'>
-                        <p className='text-center w-full'>Select user to message with.</p>
+                                  <MessageBoard msgOnClick/>
+
             </div>
         }
         </div>
         <div className="w-3/12 h-full hidden md:flex flex-col items-center overflow-y-scroll ">
+        {id?
           <MessageBoard msgOnClick/>
+:""}
 
         </div>
       </main>
