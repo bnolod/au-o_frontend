@@ -27,7 +27,7 @@ export default function ProfilePage({ userId }: { userId: number }) {
       }
     }
     load();
-  }, [id]);
+  }, [id, userId]);
 
   function handleProfileClick() {
     console.log('Profile clicked');
