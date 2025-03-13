@@ -9,6 +9,8 @@ export interface ChatMessage {
    * @type {string}
    */
   message: string;
+
+  id: number;
   /**
    * Felhasználó adatai
    * @type {object}

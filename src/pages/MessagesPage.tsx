@@ -5,10 +5,12 @@ import PrivateMessages from '../components/messages/PrivateMessages';
 import { User } from '../lib/types';
 import { useAuthentication } from '../contexts/AuthenticationContext';
 import { useParams } from 'react-router';
+import { useEffect } from 'react';
+import { apiFetch } from '../lib/apiClient';
 
 export default function MessagesPage() {
   const { user } = useAuthentication();
-  const { id } = useParams();
+  const { username } = useParams();
 
   return (
     <div className="bg-background h-screen flex flex-col text-textColor">
@@ -19,10 +21,10 @@ export default function MessagesPage() {
 
           </MessageBoard>
         </div>
-        <div className=" w-9/12 flex flex-col h-full mx-4">
+        <div className="w-full md:w-9/12 flex flex-col h-full mx-4">
         {
-            id && !isNaN(Number(id)) ?
-            <PrivateMessages userId={Number(id)} />
+            username  ?
+            <PrivateMessages username={username} />
             :
             <div className='w-full h-full flex items-center justify-items-center rounded-2xl bg-backdropSecondary'>
                         <p className='text-center w-full'>Select an user to send a message.</p>

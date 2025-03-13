@@ -37,7 +37,7 @@ function App() {
           </Route>
           <Route path="/messages">
             <Route index element={<MessagesPage/>}/>
-            <Route path=":id" element={<MessagesPage/>}/>
+            <Route path=":username" element={<MessagesPage/>}/>
           </Route>
           <Route path="/layout" element={<GeneralLayout />} />
         </Route>

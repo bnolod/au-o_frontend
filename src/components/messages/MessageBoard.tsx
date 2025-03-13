@@ -63,7 +63,7 @@ export default function MessageBoard({msgOnClick}:{msgOnClick?:boolean}) {
       <h1 className='text-2xl pb-4 font-semibold text-textColor/50'>Latest messages</h1>
       {latestMessages.map((item) => (
         msgOnClick?
-        <NavLink className='hover:opacity-50 active:opacity-75' to={`/messages/${item.id}`}>
+        <NavLink className='hover:opacity-50 active:opacity-75' to={`/messages/${item.username}`}>
         <LatestMessageItem key={item.username} latestMessage={item} />
         </NavLink>
         :
