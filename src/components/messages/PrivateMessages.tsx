@@ -120,6 +120,7 @@ export default function PrivateMessages({ userId }: { userId: number }) {
         <div className="w-full flex justify-between gap-4 border-background border-t-4 bg-backdropPrimary p-3 place-self-end text-xl">
           <input
             className="flex-1 p-2 bg-backdropSecondary outline-none rounded-xl px-4"
+            maxLength={255}
             placeholder="Send a message..."
             value={message}
             onChange={(e) => {
