@@ -42,9 +42,10 @@ export default function PrivateMessages({ username }: { username: string }) {
       sub = stompClient.subscribe(`/user/queue/chat/${username}`, (msg: { body: string }) => {
         const incomingMessage = JSON.parse(msg.body) as ChatMessage;
         // Filter messages to include only those exchanged with username
-        setMessages((prev) => [...prev, incomingMessage]);
+        setMessages((prev) => [ incomingMessage, ...prev]);
         console.log('message received: ', incomingMessage);
         console.log('messages: ', messages);
+        console.log('latest message in list:')
       });
     }
     return () => {
@@ -54,12 +55,12 @@ export default function PrivateMessages({ username }: { username: string }) {
     };
   }, [user, username, stompClient]);
 
-  
+
   const sendMessage = () => {
     console.log('message sending');
     console.log(message);
     if (stompClient && message.trim() !== '' && user) {
-      const targetedMessage = { username, message };
+      const targetedMessage = { username:username, message:message };
       stompClient.publish({
         destination: '/app/chat/user/',
         body: JSON.stringify(targetedMessage),
@@ -113,6 +114,7 @@ export default function PrivateMessages({ username }: { username: string }) {
           <input
             className="flex-1 p-2 bg-backdropSecondary outline-none rounded-xl px-4"
             placeholder="Send a message..."
+            value={message}
             onChange={(e) => {
               setMessage(e.currentTarget.value);
             }}

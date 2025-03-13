@@ -19,4 +19,6 @@ export interface ChatMessage {
   user: {
     username: string;
   };
+
+  recipient: string;
 }

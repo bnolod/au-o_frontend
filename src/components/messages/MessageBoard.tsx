@@ -19,21 +19,27 @@ export default function MessageBoard({msgOnClick}:{msgOnClick?:boolean}) {
 
   const handleIncomingMessage = (incomingMessage: LatestMessage) => {
     setLatestMessages((prevMessages) => {
-      const existingIndex = prevMessages.findIndex(
-        (msg) => msg.username === incomingMessage.username
-      );
+
+
+
+      const existingIndex = prevMessages.findIndex((msg) => {
+        // If user is the recipient, find by sender (incomingMessage.username)
+        if (incomingMessage.message.recipient === user?.username) {
+          return msg.username === incomingMessage.username;
+        }
+        // Otherwise, find by recipient
+        return msg.username === incomingMessage.message.recipient;
+      });
 
       if (existingIndex !== -1) {
-        // Update existing user's latest message
-        const updatedMessages = [...prevMessages];
-        updatedMessages[existingIndex] = {
-          ...updatedMessages[existingIndex],
-          message: incomingMessage.message,
-          active: incomingMessage.active, // Ensure active status is updated
-        };
-        return updatedMessages;
+        // Update the existing conversation
+        return prevMessages.map((msg, index) =>
+          index === existingIndex
+            ? { ...msg, message: incomingMessage.message, active: incomingMessage.active }
+            : msg
+        );
       } else {
-        // Add new entry if user doesn't exist
+        // If the conversation does not exist, add it to the top
         return [incomingMessage, ...prevMessages];
       }
     });
