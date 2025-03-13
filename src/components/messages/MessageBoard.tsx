@@ -5,8 +5,9 @@ import LatestMessage from '../../lib/entityWs/LatestMessage';
 import LatestMessageItem from './LatestMessageItem';
 import { useWebSocket } from '../../contexts/WebSocketContext';
 import { ChatMessage } from '../../lib/entityWs/ChatMessage';
+import { NavLink } from 'react-router';
 
-export default function MessageBoard() {
+export default function MessageBoard({msgOnClick}:{msgOnClick?:boolean}) {
   const [latestMessages, setLatestMessages] = useState<LatestMessage[]>([]);
   const { user } = useAuthentication();
   const { stompClient } = useWebSocket();
@@ -61,7 +62,13 @@ export default function MessageBoard() {
     <div className="w-full gap-2 flex flex-col max-h-[90vh] overflow-y-scroll p-4">
       <h1 className='text-2xl pb-4 font-semibold text-textColor/50'>Latest messages</h1>
       {latestMessages.map((item) => (
+        msgOnClick?
+        <NavLink className='hover:opacity-50 active:opacity-75' to={`/messages/${item.id}`}>
         <LatestMessageItem key={item.username} latestMessage={item} />
+        </NavLink>
+        :
+        <LatestMessageItem key={item.username} latestMessage={item} />
+
       ))}
     </div>
   );
