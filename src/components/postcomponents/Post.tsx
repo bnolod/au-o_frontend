@@ -9,7 +9,7 @@ export default function Post ({post, language,preview = false, user} :{preview?:
     console.log(post)
     return (
         <div className="bg-background rounded-3xl mb-6 flex flex-col shadow-[#00000055] shadow-lg p-3 gap-2">
-            <PostHeader user={post.user}></PostHeader>
+            <PostHeader user={post.user} postId={post.postId}></PostHeader>
             <PostImage images={post.images}/>
             <PostReactionBar preview={preview} user={user} language={language} post={post}/>
             <PostText text={post.text} username={user.username}/>
