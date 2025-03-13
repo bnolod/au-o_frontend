@@ -18,7 +18,7 @@ export default function RecipientMessage({ profilePic, message, isLast, isFirst 
           ${isLast ? ' rounded-tl-[1.5rem] ' : ''}`}
       >
         {(message.startsWith('{{GROUP_') || message.startsWith('{{POST_')) && message.endsWith('_}}') ? (
-            <p>message not supported</p>
+            <p className="opacity-50 text-sm">message not supported</p>
           ) : (
             <p className="text-lg leading-tight break-all">{message}</p>
           )}

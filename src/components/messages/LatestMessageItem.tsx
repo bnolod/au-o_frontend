@@ -11,7 +11,7 @@ export default function LatestMessageItem({ latestMessage }: { latestMessage: La
         ''
       )}
       <div className="pl-4 flex flex-col overflow-x-hidden">
-        <h1 className="text-lg font-semibold text-textColor">{latestMessage.username}</h1>
+        <h1 className="text-lg font-semibold text-textColor">{latestMessage.nickname}</h1>
         <p className='truncate text-textColor/80'>{latestMessage.message.message}</p>
       </div>
     </div>

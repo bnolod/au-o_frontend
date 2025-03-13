@@ -18,7 +18,7 @@ export default function GeneralLayout() {
           <Outlet />
         </div>
         <div className={" md:w-3/12 hidden md:flex  w-11/12 right-3 items-start "}> 
-          <MessageBoard/>
+          <MessageBoard msgOnClick/>
         </div>
       </main>
     </div>
