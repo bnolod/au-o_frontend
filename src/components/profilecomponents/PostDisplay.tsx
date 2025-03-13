@@ -1,25 +1,35 @@
 import { useEffect, useState } from 'react';
-import { apiFetch } from '../../lib/apiClient';
 import Card from '../Card';
 import { PostResponse } from '../../lib/types';
 import { ImageList, ImageListItem, Modal } from '@mui/material';
 import Post from '../postcomponents/Post';
 import { useAuthentication } from '../../contexts/AuthenticationContext';
+import { getFavoritesOfUser, getPostsOfUser } from '../../lib/ApiCalls/PostApiCalls';
 
-export default function PostDisplay({ userId }: { userId: number }) {
+export default function PostDisplay({ userId, saved = false }: {userId:number, saved?: boolean }) {
   const [posts, setPosts] = useState<PostResponse[]>([]);
   const [openModal, setOpenModal] = useState(false);
-  const [selectedPostIndex, setSelectedPostIndex] = useState<number>(0);
   const [selectedPost, setSelectedPost] = useState<PostResponse>();
 
   const { user } = useAuthentication();
 
+  /**
+   * Load posts of user / favorites of user
+   * @returns PostREsponse[]
+   */
+
   useEffect(() => {
     async function load() {
-      const res = await apiFetch<PostResponse[]>(`users/user/${userId}/posts`);
-      if (res && res.data) {
-        setPosts(res.data);
+      let res;
+      if (saved) {
+        res = await getFavoritesOfUser(userId);
+      } else {
+        res = await getPostsOfUser(userId);
       }
+      if (res) {
+        setPosts(res);
+      }
+
     }
     load();
   }, [userId]);
