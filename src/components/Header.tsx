@@ -17,11 +17,13 @@ import { BiLogOut } from 'react-icons/bi';
 import { logout } from '../lib/apiClient';
 import { PiPlus } from 'react-icons/pi';
 import { MdMessage, MdOutlineComment, MdOutlineMessage } from 'react-icons/md';
+import { useWebSocket } from '../contexts/WebSocketContext';
 
 export default function Header() {
   const { user } = useAuthentication();
   const [isDark, setIsDark] = useState(false);
   const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const {stompClient} = useWebSocket();
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -104,6 +106,7 @@ export default function Header() {
               <ListItem>
                 <button className={'w-9/12 flex flex-row items-center bg-backdropPrimary p-2 rounded-xl shadow-md shadow-[#00000022] hover:opacity-50 transition-all text-left'}
                   onClick={() => {
+                    stompClient?.forceDisconnect();
                     logout();
                   }}
                 >
