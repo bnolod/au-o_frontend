@@ -2,42 +2,45 @@ import { useEffect, useState } from "react";
 import { useWebSocket } from "../../../contexts/WebSocketContext";
 import { useAuthentication } from "../../../contexts/AuthenticationContext";
 import { Group } from "../../../lib/entity/Group";
+import { GroupMessage } from "../../../lib/types";
 
 export default function GroupChatTab({group} : {group: Group}) {
-    const { messages, sendMessage, subscribeToTopic, stompClient } = useWebSocket();
+    const {sendMessage, stompClient } = useWebSocket();
   const [message, setMessage] = useState<string>('');
   const {user} = useAuthentication()
-  const [chatMessages, setChatMessages] = useState<string[]>([]);
+  const [chatMessages, setChatMessages] = useState<GroupMessage[]>([]);
 
-  // Subscribe to the group topic when the component mounts
   const onSend = (message: string) => {
     if (!message || message.length < 0) return;
     sendMessage(`group/${group.id}`, message);
   };
-  // Update chat messages when messages change for this group
-  useEffect(() => {
-    console.log('Messages:', messages);
-    const groupMessages = messages[`group/${group.id}`] || [];
-    setChatMessages(groupMessages.toReversed()); //van ilyen funkció nem ez a baj trust
 
-  }, [messages, group.id, stompClient?.connected]);
    useEffect(() => {
-      subscribeToTopic(`group/${group?.id}`);
-  
+
+     let sub: { unsubscribe: () => void } | null = null;
+
+        if (user && stompClient && stompClient.connected && group && sub == null) {
+          sub = stompClient?.subscribe((`/topic/group/${group?.id}`), (incomingMessage) => {
+            const parsedMessage = JSON.parse(incomingMessage.body) as GroupMessage;
+            setChatMessages(prev => 
+               [...prev, parsedMessage]
+            )
+          });
+        }
       return () => {
-        stompClient?.unsubscribe(`group/${group?.id}`);
+        sub?.unsubscribe();
     };
-    }, [group?.id]);
+    }, [group?.id,stompClient]);
 
   return (
     <>
         <div className="flex flex-col h-full">
             <div className="flex-1 overflow-auto">
             {chatMessages.map((msg, i) => (
-                <div key={i} className="flex gap-2">
+                <div key={msg.message + i} className="flex gap-2">
                 <div className="flex flex-col">
-                    <span className="font-bold">{}</span>
-                    <span>{msg}</span>
+                    <span className="font-bold">@{msg.user.username}</span>
+                    <span>{msg.message}</span>
                 </div>
                 </div>
             ))}

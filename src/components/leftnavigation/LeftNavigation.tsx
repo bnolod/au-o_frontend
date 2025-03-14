@@ -3,7 +3,7 @@ import { MdSearch } from 'react-icons/md';
 import { User } from '../../lib/types';
 import { Avatar } from '@mui/material';
 import { getActiveUsers } from '../../lib/ApiCalls/WsApiCalls';
-import { Navigate, useNavigate } from 'react-router';
+import { Navigate, NavLink, useNavigate } from 'react-router';
 import { apiFetch } from '../../lib/apiClient';
 import { searchUsers } from '../../lib/ApiCalls/SearchApiCalls';
 
@@ -52,19 +52,22 @@ export default function LeftNavigation() {
             <MdSearch className="text-xl"></MdSearch>
           </button>
         </div>
-        <div className='overflow-y-scroll max-h-96'>
+        <div className="overflow-y-scroll max-h-96">
           {searchResults.map((result) => {
             return (
-              <div className="flex flex-row gap-2 items-center my-4">
+              <NavLink to={`/profile/${result.id}`} className="flex flex-row gap-2 items-center my-4">
                 <Avatar src={result.profileImg} />
-                {result.username}
-              </div>
+                <div>
+                  <p>{result.nickname}</p>
+                  <p className='text-textColor/50'>@{result.username}</p>
+                </div>
+              </NavLink>
             );
           })}
         </div>
       </div>
       <div className="h-full overflow-y-scroll flex-col flex">
-          <p className="w-full text-textColor/40">Currently Active</p>
+        <p className="w-full text-textColor/40">Currently Active</p>
         <div className=" flex flex-wrap-reverse gap-2 h-full ">
           {activeUsers.map((user) => {
             return (
