@@ -26,6 +26,33 @@ export async function getAllGroups() {
   }
   return null;
 }
+export async function modifyGroup(groupId: number, request: GroupEditRequest) {
+  const req = await apiFetch<Group>(`groups/group/${groupId}`, "PUT", true, request )
+  return req!.status === 200
+}
+export interface GroupEditRequest {
+  /**
+   * Csoport neve
+   * @type {string}
+   */
+  name: string;
+  /**
+   * Csoport leírása
+   * @type {string}
+   */
+
+  description: string;
+  /**
+   * Csoport rövidített neve
+   * @type {string}
+   */
+  alias: string;
+  /**
+   * Csoport láthatósága (publikus?)
+   * @type {boolean}
+   */
+  public: boolean;
+}
 
 export async function getOwnGroups() {
   const req = await apiFetch<Group[]>('groups/own', 'GET', true);

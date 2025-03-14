@@ -7,6 +7,7 @@ import GroupPostTab from '../components/social/tabs/GroupPostTab';
 import GroupMembersTab from '../components/social/tabs/GroupMembersTab';
 import GroupChatTab from '../components/social/tabs/GroupChat';
 import { useWebSocket } from '../contexts/WebSocketContext';
+import GroupOptionsTab from '../components/social/tabs/GroupOptionsTab';
 export default function GroupPage() {
   const { id } = useParams<{ id: string }>();
   if (!id) {
@@ -129,6 +130,7 @@ export default function GroupPage() {
         {tab === 'posts' && <GroupPostTab validMember={group.validMember} tab={tab} id={group.id} />}
         {tab === 'members' && <GroupMembersTab validMember={group.validMember} tab={tab} id={group.id} />}
         {tab === 'chat' && <GroupChatTab group={group} />}
+        {tab === 'options' && <GroupOptionsTab group={group} language={"EN"} />}
       </article>
     </section>
   );
