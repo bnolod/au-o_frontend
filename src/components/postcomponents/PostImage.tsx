@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ImageUploadResponse } from '../../lib/types';
 import { MdArrowBackIos, MdArrowForwardIos, MdClose } from 'react-icons/md';
+import { Modal } from '@mui/material';
 
 export default function PostImage({
   images,
@@ -24,6 +25,7 @@ export default function PostImage({
   console.log(currentIndex)
 
   return (
+    
     <div className="relative w-full mx-auto  bg-background pt-4">
       <div className="overflow-hidden relative m-auto w-full aspect-[8/5] ">
         {images.length > 0 ? (
