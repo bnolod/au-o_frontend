@@ -307,3 +307,8 @@ export type CarType =
   |"PICKUP"
   |"ROADSTER"
   |"SUV"
+
+  export interface GroupMessage {
+    message: string;
+    user: User
+  }

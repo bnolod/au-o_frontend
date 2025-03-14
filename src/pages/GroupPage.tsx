@@ -3,10 +3,10 @@ import { Group } from '../lib/entity/Group';
 import { useEffect, useState } from 'react';
 import { getGroup } from '../lib/ApiCalls/GroupApiCalls';
 import { FaInfo, FaRegMessage, FaStar, FaUsers, FaWrench } from 'react-icons/fa6';
-import button from '../components/button';
 import GroupPostTab from '../components/social/tabs/GroupPostTab';
 import GroupMembersTab from '../components/social/tabs/GroupMembersTab';
-
+import GroupChatTab from '../components/social/tabs/GroupChat';
+import { useWebSocket } from '../contexts/WebSocketContext';
 export default function GroupPage() {
   const { id } = useParams<{ id: string }>();
   if (!id) {
@@ -17,6 +17,8 @@ export default function GroupPage() {
   useEffect(() => {
     init();
   }, []);
+  
+ 
   async function init() {
     const group = await getGroup(id!);
     if (group) {
@@ -126,6 +128,7 @@ export default function GroupPage() {
       <article className="secondary p-2 flex-col w-full mx-auto my-2 justify-center">
         {tab === 'posts' && <GroupPostTab validMember={group.validMember} tab={tab} id={group.id} />}
         {tab === 'members' && <GroupMembersTab validMember={group.validMember} tab={tab} id={group.id} />}
+        {tab === 'chat' && <GroupChatTab group={group} />}
       </article>
     </section>
   );
