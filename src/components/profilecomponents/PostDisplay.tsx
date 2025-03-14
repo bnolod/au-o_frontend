@@ -6,62 +6,57 @@ import Post from '../postcomponents/Post';
 import { useAuthentication } from '../../contexts/AuthenticationContext';
 import { getFavoritesOfUser, getPostsOfUser } from '../../lib/ApiCalls/PostApiCalls';
 
-export default function PostDisplay({ userId, saved = false }: {userId:number, saved?: boolean }) {
+export default function PostDisplay({ userId, saved = false }: { userId: number; saved?: boolean }) {
   const [posts, setPosts] = useState<PostResponse[]>([]);
   const [openModal, setOpenModal] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<PostResponse>();
+  const [selectedPost, setSelectedPost] = useState<PostResponse | null>(null);
 
   const { user } = useAuthentication();
 
-  /**
-   * Load posts of user / favorites of user
-   * @returns PostREsponse[]
-   */
-
   useEffect(() => {
     async function load() {
-      let res;
-      if (saved) {
-        res = await getFavoritesOfUser(userId);
-      } else {
-        res = await getPostsOfUser(userId);
-      }
-      if (res) {
-        setPosts(res);
-      }
-
+      const res = saved ? await getFavoritesOfUser(userId) : await getPostsOfUser(userId);
+      if (res) setPosts(res);
     }
     load();
   }, [saved, userId]);
 
-
-  function handlePostClick(Post: PostResponse) {
-    setSelectedPost(Post);
+  function handlePostClick(post: PostResponse) {
+    setSelectedPost(post);
     setOpenModal(true);
   }
 
-  //TODO: modal overflows on wide screens
+  function getAspectRatio(width: number, height: number) {
+    const ratio = width / height;
+    if (ratio > 1.5) return 'aspect-[3/2]'; // Wide
+    if (ratio < 0.67) return 'aspect-[6/8]'; // Tall
+    return 'aspect-[6/7]'; // Medium
+  }
 
   return (
     <>
-      <Modal open={openModal} onClose={() => setOpenModal(false)} className="w-5/6 m-auto h-5/6 text-textColor">
-        <Post post={selectedPost!} language="HU" user={user!} />
+      <Modal open={openModal} onClose={() => setOpenModal(false)} className="flex items-center justify-center p-4">
+        {selectedPost ? <div className='w-1/2'><Post post={selectedPost} language="HU" user={user!} /> </div> : <div />}
       </Modal>
-      <Card className="">
-        {posts.length == 0 && <div className="text-center">jaj</div>}
-        <ImageList variant="masonry" cols={2} gap={8}>
-          {posts.length > 0 &&
-            posts.map((post) => (
-              <ImageListItem key={post.postId}>
-                <img
-                  src={post.images[0].url}
-                  className="rounded-l"
-                  onClick={() => {
-                    handlePostClick(post);
-                  }}
-                ></img>
-              </ImageListItem>
-            ))}
+
+      <Card>
+        {posts.length === 0 && <div className="text-center">No posts found.</div>}
+        <ImageList variant="masonry" cols={2} gap={16}>
+          {posts.slice().reverse().map((post) => (
+            <ImageListItem key={post.postId}>
+              <img
+                src={post.images[0]?.url}
+                className="rounded-xl w-full object-center"
+                onLoad={(e) => {
+                  const img = e.target as HTMLImageElement;
+                  const aspectClass = getAspectRatio(img.naturalWidth, img.naturalHeight);
+                  img.classList.add(aspectClass);
+                }}
+                onClick={() => handlePostClick(post)}
+                alt="Post"
+              />
+            </ImageListItem>
+          ))}
         </ImageList>
       </Card>
     </>

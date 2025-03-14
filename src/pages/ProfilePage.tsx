@@ -1,14 +1,16 @@
 import { Avatar, Modal } from '@mui/material';
-import { MdBackupTable, MdBookmark, MdCarRepair, MdGroups, MdMoreHoriz } from 'react-icons/md';
+import { MdBackupTable, MdBookmark, MdCarRepair, MdGroups, MdMessage, MdMoreHoriz } from 'react-icons/md';
 import PostDisplay from '../components/profilecomponents/PostDisplay';
 import { useEffect, useState } from 'react';
-import { User } from '../lib/types';
 import { apiFetch } from '../lib/apiClient';
-import { useParams } from 'react-router';
+import { NavLink, useParams } from 'react-router';
 import DriversLicense from '../components/DriversLicense';
+import { User } from '../lib/entity/User';
+import { useAuthentication } from '../contexts/AuthenticationContext';
 
 export default function ProfilePage({ userId }: { userId: number }) {
   const [user, setUser] = useState<User>();
+  const {user: authUser} = useAuthentication();
   const { id } = useParams();
   const [selectedPage, setSelectedPage] = useState<'posts' | 'groups' | 'car' | 'saved'>('posts');
   const [openEditModal, setEditModal] = useState(false);
@@ -33,7 +35,6 @@ export default function ProfilePage({ userId }: { userId: number }) {
 
   function handleProfileClick() {
     setEditModal(true);
-
   }
 
   //
@@ -41,7 +42,7 @@ export default function ProfilePage({ userId }: { userId: number }) {
   if (user) {
     switch (selectedPage) {
       case 'posts':
-        bottomDisplay = <PostDisplay userId={parseInt(id!)}/>;
+        bottomDisplay = <PostDisplay userId={parseInt(id!)} />;
         break;
       case 'groups':
         bottomDisplay = <div>Groups</div>;
@@ -57,47 +58,65 @@ export default function ProfilePage({ userId }: { userId: number }) {
 
   return (
     <>
-      <div className="bg-background rounded-xl my-2 flex flex-col p-3 gap-3 shadow-md shadow-[#00000066]">
-        <MdMoreHoriz className="text-2xl self-end" />
+      <div className="bg-background rounded-2xl  flex flex-col p-5 gap-3 shadow-md shadow-[#00000066]">
         <div className="flex justify-start items-center w-full gap-3">
           <button className="hover:animate-spin" onClick={handleProfileClick}>
             <Avatar src={user?.profileImg} sx={{ height: 76, width: 76 }}>
               {user?.nickname.substring(0, 3).toUpperCase()}
             </Avatar>
           </button>
-          <Modal open={openEditModal} onClose={() => setEditModal(false)} className='flex justify-center items-center'>
+          <Modal open={openEditModal} onClose={() => setEditModal(false)} className="flex justify-center items-center">
             <DriversLicense></DriversLicense>
           </Modal>
           <div className="flex-grow">
-            <h3 className="text-4xl">{user?.username}</h3>
-            <p className="text-sm">@{user?.nickname}</p>
+            <h3 className="text-3xl font-semibold">{user?.nickname} </h3>
+            <p className="text-md text-textColor/75">@{user?.username}</p>
           </div>
           <div className="justify-self-end text-right">
             <p>{8} Followers</p>
             <p>{1111} Following</p>
           </div>
         </div>
-        <div className="flex text-3xl bg-backdropSecondary rounded-xl p-2 justify-center divide-x-2 shadow-md shadow-[#00000066]">
+        <div className="p-4 ">
+          <p className="text-textColor/90">{user?.bio}Helló ez a bio hali hali!</p>
+        </div>
+        <div className="w-full flex flex-row justify-between text-base">
+          <button className='hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-8 rounded-xl  bg-highlightPrimary'>Follow</button>
+          <div className='gap-2 flex flex-row'>
+            {user?.id == authUser?.id ?
+            <button className='hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-4 rounded-xl  bg-backdropSecondary'>
+              Edit Profile
+            </button>
+            :
+            <NavLink to={`/messages/${user?.id}`} className='hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-4 rounded-xl  bg-backdropSecondary'>Message</NavLink>
+            }
+            
+            <button className='py-2 px-4 rounded-xl hover:opacity-75 shadow-md shadow-[#00000066] transition-all bg-backdropSecondary'>
+              <MdMoreHoriz size={24}></MdMoreHoriz>
+            </button>
+          </div>
+        </div>
+        <div className="flex text-3xl bg-backdropSecondary rounded-xl p-5 w-full self-center  justify-center divide-x-2 divide-textColor/15 shadow-md shadow-[#00000066]">
           <button
-            className={`flex-grow flex justify-center ${selectedPage == 'posts' ? ' text-red-500' : ''} `}
+            className={`flex-grow flex justify-center ${selectedPage == 'posts' ? ' text-highlightPrimary' : ''} `}
             onClick={(event) => handlePageChange(event, 'posts')}
           >
             <MdBackupTable />
           </button>
           <button
-            className={`flex-grow flex justify-center ${selectedPage == 'groups' ? ' text-red-500' : ''} `}
+            className={`flex-grow flex justify-center ${selectedPage == 'groups' ? ' text-highlightPrimary' : ''} `}
             onClick={(event) => handlePageChange(event, 'groups')}
           >
             <MdGroups />
           </button>
           <button
-            className={`flex-grow flex justify-center ${selectedPage == 'saved' ? ' text-red-500' : ''} `}
+            className={`flex-grow flex justify-center ${selectedPage == 'saved' ? ' text-highlightPrimary' : ''} `}
             onClick={(event) => handlePageChange(event, 'saved')}
           >
             <MdBookmark />
           </button>
           <button
-            className={`flex-grow flex justify-center ${selectedPage == 'car' ? ' text-red-500' : ''} `}
+            className={`flex-grow flex justify-center ${selectedPage == 'car' ? ' text-highlightPrimary' : ''} `}
             onClick={(event) => handlePageChange(event, 'car')}
           >
             <MdCarRepair />

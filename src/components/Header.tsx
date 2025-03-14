@@ -5,6 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import { grey } from '@mui/material/colors';
 import {
   Drawer,
+  Icon,
   List,
   ListItem,
   ListItemAvatar,
@@ -15,6 +16,7 @@ import {
 import { BiLogOut } from 'react-icons/bi';
 import { logout } from '../lib/apiClient';
 import { PiPlus } from 'react-icons/pi';
+import { MdMessage, MdOutlineComment, MdOutlineMessage } from 'react-icons/md';
 
 export default function Header() {
   const { user } = useAuthentication();
@@ -43,18 +45,21 @@ export default function Header() {
           <NavLink to={"/"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Home</NavLink>
           <NavLink to={"/groups"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Groups</NavLink>
           <NavLink to={"/events"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Events</NavLink>
-          <NavLink to={"/messages"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Chat</NavLink>
+          
         </div>
         <div className="flex justify-end gap-1 items-center">
           
         
+        <NavLink to={"/messages"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>
+        <MdOutlineComment size={32}/>
+        </NavLink>
 
           <button className='flex flex-row items-center gap-2 transition-all px-4 py-2'
             onClick={() => {
               setDrawerOpen(!isDrawerOpen);
             }}
           >
-            <h3 className="text-center hidden md:flex text-xl hover:opacity-50 transition-all  font-medium">{user?.nickname}</h3>
+            
             <Avatar sx={{ bgcolor: grey[800], width:48, height:48 }} src={user?.profileImg} className='hover:opacity-50 transition-all'>
               {user?.nickname.substring(0, 3).toUpperCase()}
             </Avatar>
