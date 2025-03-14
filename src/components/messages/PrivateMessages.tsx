@@ -85,7 +85,7 @@ export default function PrivateMessages({ userId }: { userId: number }) {
 
   return (
     <>
-      <NavLink to={`/profile/${userId}`} className="w-full bg-backdropPrimary border-background border-b-4 flex flex-row p-4 rounded-t-2xl hover:opacity-50">
+      <NavLink to={`/profile/${userId}`} className="w-full bg-backdropPrimary border-background border-b-4 flex flex-row p-4 rounded-t-2xl hover:opacity-50 transition-opacity">
         <Avatar src={targetUser?.profileImg} sx={{height:48,width:48}} />
         <h2 className="text-xl self-center pl-4 font-semibold">{targetUser?.nickname}</h2>
       </NavLink>
