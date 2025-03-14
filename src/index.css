@@ -72,6 +72,12 @@
 ::-webkit-scrollbar-track {
     background: none;
 }
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+.scroll-hidden {
+  scrollbar-width: none;
+}
 
 ::-webkit-scrollbar-thumb {
     background: none

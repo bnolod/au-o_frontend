@@ -3,6 +3,7 @@ import { SocialCardProps } from "../props";
 import { GroupTexts } from "../../../constants/texts";
 import { joinGroup } from "../../../lib/ApiCalls/GroupApiCalls";
 import SocialBanner from "./SocialBanner";
+import { useNavigate } from "react-router";
 
 export default function SocialCard({
   language,
@@ -13,6 +14,7 @@ export default function SocialCard({
   onCreateClick,
 }:  SocialCardProps) {
   if (!group && !event) return null;
+  const navigate = useNavigate()
   const item =
     group && !event
       ? {
@@ -87,17 +89,8 @@ export default function SocialCard({
               )}
               <button
                 className="social-card-secondary-button"
-                onClick={
-                  !preview
-                    ? () => {
-                        if (type === 'EVENT') {
-                            //TODO: add routing to event page
-                        }
-                        else {   
-                            //TODO: add routing to event page
-                        }
-                      }
-                    : () => {}
+                onClick={() =>
+                  navigate("/groups/" + group?.id)
                 }
               >
                 {type === 'GROUP' &&

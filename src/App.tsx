@@ -9,6 +9,7 @@ import ProfilePage from "./pages/ProfilePage.tsx";
 import NewPost from "./pages/NewPost.tsx";
 import GroupFeed from "./pages/GroupFeed.tsx";
 import MessagesPage from "./pages/MessagesPage.tsx";
+import GroupPage from "./pages/GroupPage.tsx";
 
 function App() {
   const { user } = useAuthentication();
@@ -32,7 +33,7 @@ function App() {
             </Route>
             <Route path="/groups">
               <Route index element={<GroupFeed />} />
-              <Route path=":id" element={<GeneralLayout />} />
+              <Route path=":id" element={<GroupPage />} />
             </Route>
           </Route>
           <Route path="/messages">

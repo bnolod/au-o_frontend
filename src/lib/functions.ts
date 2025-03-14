@@ -31,3 +31,10 @@ export async function createImageForm(image: File, description: string, user: Us
     }
     return formatted >= 100 ? Math.round(formatted) + suffix[lang][i] : formatted.toFixed(1) + suffix[lang][i];
   }
+  export function getAspectRatio(width: number, height: number) {
+      const ratio = width / height;
+      if (ratio > 1.5) return 'aspect-[3/2]'; // Wide
+      if (ratio < 0.67) return 'aspect-[6/8]'; // Tall
+      return 'aspect-[6/7]'; // Medium
+    }
+  

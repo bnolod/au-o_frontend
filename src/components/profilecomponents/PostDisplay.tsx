@@ -5,6 +5,7 @@ import { ImageList, ImageListItem, Modal } from '@mui/material';
 import Post from '../postcomponents/Post';
 import { useAuthentication } from '../../contexts/AuthenticationContext';
 import { getFavoritesOfUser, getPostsOfUser } from '../../lib/ApiCalls/PostApiCalls';
+import { getAspectRatio } from '../../lib/functions';
 
 export default function PostDisplay({ userId, saved = false }: { userId: number; saved?: boolean }) {
   const [posts, setPosts] = useState<PostResponse[]>([]);
@@ -24,13 +25,6 @@ export default function PostDisplay({ userId, saved = false }: { userId: number;
   function handlePostClick(post: PostResponse) {
     setSelectedPost(post);
     setOpenModal(true);
-  }
-
-  function getAspectRatio(width: number, height: number) {
-    const ratio = width / height;
-    if (ratio > 1.5) return 'aspect-[3/2]'; // Wide
-    if (ratio < 0.67) return 'aspect-[6/8]'; // Tall
-    return 'aspect-[6/7]'; // Medium
   }
 
   return (
