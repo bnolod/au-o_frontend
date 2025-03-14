@@ -20,7 +20,7 @@ export default function PostHeader({ user, postId }: { user: UserPostResponseTyp
 
 
   return (
-    <div className="flex basis-2/12 items-center justify-start w-full ">
+    <NavLink to={`/profile/${user.id}`} className=" py-3 px-3 bg-backdropPrimary hover:opacity-50 transition-opacity flex basis-2/12 items-center justify-start w-full">
       <NavLink to={`/profile/${user.id}`} className={'mr-3'}>
         <Avatar sx={{ bgcolor: grey[800], width: 48, height: 48 }} src={user.profileImg}>
           {user.nickname.substring(0, 3).toUpperCase()}
@@ -42,6 +42,6 @@ export default function PostHeader({ user, postId }: { user: UserPostResponseTyp
           </MenuList>
         </Menu>
       </div>
-    </div>
+    </NavLink>
   );
 }

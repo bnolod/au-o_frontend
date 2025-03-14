@@ -46,7 +46,7 @@ export default function PostDisplay({ userId, saved = false }: { userId: number;
             <ImageListItem key={post.postId}>
               <img
                 src={post.images[0]?.url}
-                className="rounded-xl w-full object-center"
+                className="rounded-xl w-full object-center cursor-pointer hover:opacity-75 transition-opacity"
                 onLoad={(e) => {
                   const img = e.target as HTMLImageElement;
                   const aspectClass = getAspectRatio(img.naturalWidth, img.naturalHeight);

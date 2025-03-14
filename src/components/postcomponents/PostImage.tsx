@@ -24,7 +24,7 @@ export default function PostImage({
   console.log(currentIndex)
 
   return (
-    <div className="relative w-full mx-auto  rounded-xl ">
+    <div className="relative w-full mx-auto  bg-background pt-4">
       <div className="overflow-hidden relative m-auto w-full aspect-[8/5] ">
         {images.length > 0 ? (
           images.map((image, index) => (

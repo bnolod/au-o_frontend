@@ -43,7 +43,7 @@ export default function PostReactionBar({
   return (
     <div
       key={addedReaction ? addedReaction : 'NONE' + post.postId}
-      className="flex text-xs flex-row p-3 justify-between"
+      className="flex text-xs flex-row p-3 justify-between bg-background"
     >
       <button
         key={addedReaction ? addedReaction : 'NONE' + post.postId}

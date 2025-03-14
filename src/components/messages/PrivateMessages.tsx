@@ -8,6 +8,7 @@ import { ChatMessage } from '../../lib/entityWs/ChatMessage';
 import { useAuthentication } from '../../contexts/AuthenticationContext';
 import { User } from '../../lib/types';
 import { NavLink } from 'react-router';
+import { MdSend } from 'react-icons/md';
 
 export default function PrivateMessages({ userId }: { userId: number }) {
   const [targetUser, setTargetUser] = useState<User | null>(null);
@@ -132,8 +133,8 @@ export default function PrivateMessages({ userId }: { userId: number }) {
               }
             }}
           ></input>
-          <button className="bg-highlightSecondary px-4 rounded-xl" onClick={sendMessage}>
-            Send
+          <button className="bg-highlightSecondary px-4 rounded-xl hover:opacity-50 transition-opacity" onClick={sendMessage}>
+            <MdSend></MdSend>
           </button>
         </div>
       </div>

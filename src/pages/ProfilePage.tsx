@@ -58,8 +58,10 @@ export default function ProfilePage({ userId }: { userId: number }) {
 
   return (
     <>
-      <div className="bg-background rounded-2xl  flex flex-col p-5 gap-3 shadow-md shadow-[#00000066]">
-        <div className="flex justify-start items-center w-full gap-3">
+      <div className=" rounded-2xl  flex flex-col p-5 gap-3">
+      <div className='bg-backdropPrimary pt-4 pb-4 rounded-2xl px-4 shadow-md shadow-[#00000066]'>
+
+        <div className="flex justify-start items-center w-full gap-3  py-8 px-4 rounded-2xl ">
           <button className="hover:animate-spin" onClick={handleProfileClick}>
             <Avatar src={user?.profileImg} sx={{ height: 76, width: 76 }}>
               {user?.nickname.substring(0, 3).toUpperCase()}
@@ -77,7 +79,7 @@ export default function ProfilePage({ userId }: { userId: number }) {
             <p>{1111} Following</p>
           </div>
         </div>
-        <div className="p-4 ">
+        <div className="p-4">
           <p className="text-textColor/90">{user?.bio}Helló ez a bio hali hali!</p>
         </div>
         <div className="w-full flex flex-row justify-between text-base">
@@ -92,34 +94,35 @@ export default function ProfilePage({ userId }: { userId: number }) {
             }
             
             <button className='py-2 px-4 rounded-xl hover:opacity-75 shadow-md shadow-[#00000066] transition-all bg-backdropSecondary'>
-              <MdMoreHoriz size={24}></MdMoreHoriz>
+              <MdMoreHoriz className='hover:opacity-50 transition-opacity' size={24}></MdMoreHoriz>
             </button>
           </div>
         </div>
-        <div className="flex text-3xl bg-backdropSecondary rounded-xl p-5 w-full self-center  justify-center divide-x-2 divide-textColor/15 shadow-md shadow-[#00000066]">
+        </div>
+        <div className="flex text-3xl bg-backdropPrimary rounded-xl p-5 w-full self-center  justify-center divide-x-2 divide-textColor/15 shadow-md shadow-[#00000066]">
           <button
             className={`flex-grow flex justify-center ${selectedPage == 'posts' ? ' text-highlightPrimary' : ''} `}
             onClick={(event) => handlePageChange(event, 'posts')}
           >
-            <MdBackupTable />
+            <MdBackupTable className='hover:opacity-50 transition-opacity' />
           </button>
           <button
             className={`flex-grow flex justify-center ${selectedPage == 'groups' ? ' text-highlightPrimary' : ''} `}
             onClick={(event) => handlePageChange(event, 'groups')}
           >
-            <MdGroups />
+            <MdGroups className='hover:opacity-50 transition-opacity' />
           </button>
           <button
             className={`flex-grow flex justify-center ${selectedPage == 'saved' ? ' text-highlightPrimary' : ''} `}
             onClick={(event) => handlePageChange(event, 'saved')}
           >
-            <MdBookmark />
+            <MdBookmark className='hover:opacity-50 transition-opacity' />
           </button>
           <button
             className={`flex-grow flex justify-center ${selectedPage == 'car' ? ' text-highlightPrimary' : ''} `}
             onClick={(event) => handlePageChange(event, 'car')}
           >
-            <MdCarRepair />
+            <MdCarRepair className='hover:opacity-50 transition-opacity' />
           </button>
         </div>
         <div className="min-h-[50vh]">{bottomDisplay}</div>

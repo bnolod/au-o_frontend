@@ -20,7 +20,7 @@ export default function PostText({ text,username }: { text: string, username:str
   }
 
   return (
-    <div className="p-4 pt-0">
+    <div className="p-4 pt-0 bg-background">
       <p><span className="font-bold">@{username} </span>{displayedText}</p>
       {!isTextOpen && isLongText ? <p className="underline" onClick={handleOpenText}>Több...</p> : ""}
     </div>

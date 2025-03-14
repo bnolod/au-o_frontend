@@ -8,7 +8,7 @@ export default function Post ({post, language,preview = false, user} :{preview?:
     //todo: multiple image support
     console.log(post)
     return (
-        <div className="bg-background rounded-3xl mb-6 flex flex-col shadow-[#00000055] shadow-lg p-3 gap-2">
+        <div className="outline-none bg-background rounded-3xl mb-6 flex flex-col shadow-[#00000055] shadow-lg overflow-hidden text-textColor">
             <PostHeader user={post.user} postId={post.postId}></PostHeader>
             <PostImage images={post.images}/>
             <PostReactionBar preview={preview} user={user} language={language} post={post}/>
