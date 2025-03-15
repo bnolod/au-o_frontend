@@ -124,7 +124,7 @@ export default function PostPage() {
                 htmlFor="fileUpload"
                 className="secondary p-3 w-full rounded-xl tx-l text-center hover:cursor-pointer"
               >
-                <input className="hidden" multiple type="file" id="fileUpload" onChange={handleImageChange} />
+                <input className="hidden" multiple type="file"  accept="image/png, image/jpg, image/jpeg" id="fileUpload" onChange={handleImageChange} />
                 Fotók feltöltése
               </label>
               <label htmlFor="text">Leírás:</label>

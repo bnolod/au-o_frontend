@@ -35,7 +35,7 @@ export default function GroupPage() {
             style={{
               backgroundImage: `url(${group.bannerImage})`,
             }}
-            className="w-full aspect-[5/2] rounded-t-2xl secondary flex items-center justify-center mx-auto bg-cover bg-center bg-no-repeat"
+            className="w-full aspect-[7/2] rounded-t-2xl secondary flex items-center justify-center mx-auto bg-cover bg-center bg-no-repeat"
           >
             <h1 className="text-6xl text-center  text-white/50 font-bold">{group.alias}</h1>
           </div>
@@ -126,7 +126,7 @@ export default function GroupPage() {
           </button>
         </div>
       </div>
-      <article className="secondary p-2 flex-col w-full mx-auto my-2 justify-center">
+      <article className=" flex-col w-full mx-auto my-2 justify-center">
         {tab === 'posts' && <GroupPostTab validMember={group.validMember} tab={tab} id={group.id} />}
         {tab === 'members' && <GroupMembersTab validMember={group.validMember} tab={tab} id={group.id} />}
         {tab === 'chat' && <GroupChatTab group={group} />}

@@ -77,7 +77,7 @@ export default function SocialCard({
             </div>
             <div className="flex items-start gap-3">
               {!item.isUserRelated && (
-                <button onClick={!preview ? () => {type === "GROUP" ? joinGroup(group!.id) : {}} : () => {}} className="social-card-action-button">
+                <button onClick={!preview ? () => {type === "GROUP" ? joinGroup(group!.id) : {}} : () => {}} className="social-card-secondary-button bg-highlightSecondary">
                   {type === 'GROUP'
                     ? group?.public
                       ? GroupTexts.buttons.join[language]

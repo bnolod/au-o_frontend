@@ -38,9 +38,10 @@ export default function PostDisplay({ userId, saved = false }: { userId: number;
         <ImageList variant="masonry" cols={2} gap={16}>
           {posts.slice().reverse().map((post) => (
             <ImageListItem key={post.postId}>
+              <div className='w-full bg-backdropSecondary rounded-xl'>
               <img
                 src={post.images[0]?.url}
-                className="rounded-xl w-full object-center cursor-pointer hover:opacity-75 transition-opacity"
+                className="rounded-xl w-full object-center cursor-pointer hover:opacity-75 transition-opacity bg-backdropPrimary"
                 onLoad={(e) => {
                   const img = e.target as HTMLImageElement;
                   const aspectClass = getAspectRatio(img.naturalWidth, img.naturalHeight);
@@ -49,6 +50,8 @@ export default function PostDisplay({ userId, saved = false }: { userId: number;
                 onClick={() => handlePostClick(post)}
                 alt="Post"
               />
+              <p className='px-3 text-textColor/50 py-2 truncate'>{saved? <span className='text-textColor/90 font-semibold'>@{post.user.username}:</span> : ""} {post.text}</p>
+              </div>
             </ImageListItem>
           ))}
         </ImageList>
