@@ -53,7 +53,7 @@ export default function PrivateMessages({ userId }: { userId: number }) {
 
   useEffect(() => {
     let sub: { unsubscribe: () => void } | null = null;
-    if (user && stompClient && stompClient.connected && targetUser && !sub) {
+    if (user && stompClient && stompClient.connected && targetUser) {
       sub = stompClient.subscribe(`/user/queue/chat/${targetUser.username}`, (msg: { body: string }) => {
         const incomingMessage = JSON.parse(msg.body) as ChatMessage;
         // Filter messages to include only those exchanged with username
