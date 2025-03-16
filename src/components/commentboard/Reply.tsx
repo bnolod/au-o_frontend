@@ -42,8 +42,8 @@ export default function ReplyItem({ reply, preview }: { preview: boolean; reply:
     <div className="w-full">
       <div className="w-1 bg-backdropSecondary h-full rounded-b"></div>
       <div className="flex justify-start">
-      <NavLink to={`/profile/${reply.user.id}`} className={'mr-3'}>
-        <Avatar sx={{ bgcolor: grey[800], width: 48, height: 48 }} src={reply.user.profileImg}>
+      <NavLink to={`/profile/${reply.user.id}`} className={' mr-3 mt-1'}>
+        <Avatar sx={{ bgcolor: grey[800], width: 40, height: 40 }} src={reply.user.profileImg}>
           {reply.user.nickname.substring(0, 3).toUpperCase()}
         </Avatar>
       </NavLink>
@@ -51,8 +51,13 @@ export default function ReplyItem({ reply, preview }: { preview: boolean; reply:
           <h1 className="font-bold">{reply.user.nickname}</h1>
           <p className="text-xs">@{reply.user.username}</p>
         </div>
-        <p className="text-xs justify-self-end items-center flex">{reply.time.split('T')[0]}</p>
-          <div className="flex flex-row gap-2 items-center scale-90">
+        <p className="text-xs justify-self-end items-center flex text-textColor/50">{reply.time.split('T')[0]}</p>
+          
+      </div>
+      <div className="flex flex-col">
+        <p className="ml-12">{reply.text}</p>
+        <div className="flex flex-row gap-2 scale-75 self-start">
+
             <ReactionButton
               initialReactionState={currentReaction}
               type="FIRE"
@@ -93,9 +98,6 @@ export default function ReplyItem({ reply, preview }: { preview: boolean; reply:
               state={currentReaction !== 'COOL' ? 'inactive' : 'active'}
             />
           </div>
-      </div>
-      <div className="">
-        <p className="ml-12">{reply.text}</p>
         <div className="flex flex-row-reverse self-start gap-2 ml-3 items-center">
         </div>
       </div>

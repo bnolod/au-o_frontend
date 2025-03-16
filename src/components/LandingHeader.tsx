@@ -22,7 +22,7 @@ export default function LandingHeader({
   return (
     <header className="relative">
       <nav className="max-w-screen flex flex-wrap flex-row items-center justify-between">
-        <div className=" flex p-5 w-1/3">
+        {/* <div className=" flex p-5 w-1/3">
           <Link
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
@@ -35,8 +35,8 @@ export default function LandingHeader({
               alt="AUO logo"
             />
           </Link>
-        </div>
-        <div className=" items-center p-5 w-1/3 text-textColor">
+        </div> */}
+        <div className=" items-center p-5 w-full text-textColor">
           <div className="hidden  md:block md:w-auto" id="navbar-default">
             <ul className="font-medium flex flex-row justify-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
               <li className="flex items-center">

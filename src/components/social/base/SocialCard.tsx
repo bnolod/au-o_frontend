@@ -43,7 +43,7 @@ export default function SocialCard({
   if (item)
     return (
       <article
-        className="my-4 bg-background rounded-xl overflow-hidden"
+        className=" bg-background rounded-2xl p-2 overflow-hidden cursor-pointer hover:scale-[1.025] hover:bg-backdropSecondary transition-all"
         style={{
           //shadowColor: colorScheme === 'dark' ? '#fff0f0' : '#1b1b1b',
           //shadowOffset: {
@@ -53,8 +53,11 @@ export default function SocialCard({
           //shadowOpacity: 1,0
           //shadowRadius: 20,
         }}
+        onClick={() =>
+          navigate("/groups/" + group?.id)
+        }
       >
-        <div className={`${preview !== 'DISPLAY' ? ' ' : 'pointer-events-none'}`}>
+        <div className={`${preview !== 'DISPLAY' ? ' ' : 'pointer-events-none'} opacity-75 overflow-hidden rounded-xl`}>
           <SocialBanner
             id={Number(item.id)}
             language={language}
@@ -76,7 +79,7 @@ export default function SocialCard({
               <span className="opacity-85">{item.description}</span> {/*TODO: ADD EXPANDING TEXT FIELD*/}
             </div>
             <div className="flex items-start gap-3">
-              {!item.isUserRelated && (
+              {/* {!item.isUserRelated && (
                 <button onClick={!preview ? () => {type === "GROUP" ? joinGroup(group!.id) : {}} : () => {}} className="social-card-secondary-button bg-highlightSecondary">
                   {type === 'GROUP'
                     ? group?.public
@@ -86,8 +89,8 @@ export default function SocialCard({
                       : GroupTexts.page.apply[language]
                     : 'Attend'}
                 </button>
-              )}
-              <button
+              )} */}
+              {/* <button
                 className="social-card-secondary-button"
                 onClick={() =>
                   navigate("/groups/" + group?.id)
@@ -101,7 +104,7 @@ export default function SocialCard({
                   : group?.public
                   ? GroupTexts.actions.visit[language]
                   : GroupTexts.actions.details[language]}
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

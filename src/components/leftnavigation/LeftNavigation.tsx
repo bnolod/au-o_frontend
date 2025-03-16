@@ -31,7 +31,7 @@ export default function LeftNavigation() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-5 w-full h-[90vh] rounded-3xl px-4 ">
+    <div className="flex flex-col gap-5 w-full h-full rounded-3xl px-4 ">
       <div className="bg-background/75 shadow-lg shadow-[#00000022] p-4 rounded-2xl">
         <h1 className=" pl-2 text-xl font-bold">Search Users</h1>
         <div className="flex items-center justify-between backdrop-blur-7xl rounded-xl mt-2 ">
@@ -67,8 +67,8 @@ export default function LeftNavigation() {
         </div>
       </div>
       <div className="h-full overflow-y-scroll flex-col flex">
-        <p className="w-full text-textColor/40">Currently Active</p>
-        <div className=" flex flex-wrap-reverse gap-2 h-full ">
+        <p className="w-full h-full text-textColor/40">Currently Active</p>
+        <div className=" flex flex-wrap-reverse gap-2 ">
           {activeUsers.map((user) => {
             return (
               <div
@@ -82,6 +82,7 @@ export default function LeftNavigation() {
               </div>
             );
           })}
+         
         </div>
       </div>
     </div>

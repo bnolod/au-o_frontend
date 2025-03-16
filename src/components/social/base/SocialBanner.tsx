@@ -30,7 +30,7 @@ export default function SocialBanner({
             }
       }
       style={{
-        aspectRatio: header ? 1.7 : 3 / 1,
+        aspectRatio: header ? 1.7 : 2.5 ,
             objectFit: "cover",
             backgroundSize: "cover",
             backgroundPosition: "center",

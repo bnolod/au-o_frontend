@@ -17,7 +17,7 @@ export default function GeneralLayout() {
         <div className="w-11/12 md:w-5/12 flex flex-col">
           <Outlet />
         </div>
-        <div className={" md:w-3/12 hidden md:flex  w-11/12 right-3 items-start "}> 
+        <div className={" md:w-3/12 hidden md:flex md:h-[90vh] sticky top-24  w-11/12 right-3 items-start "}> 
           <MessageBoard msgOnClick/>
         </div>
       </main>

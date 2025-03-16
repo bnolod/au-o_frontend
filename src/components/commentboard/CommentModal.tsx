@@ -1,5 +1,5 @@
 import { Avatar, Modal } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaRegComment, FaRegPaperPlane } from 'react-icons/fa6';
 import { Comment, User } from '../../lib/types';
 import CommentElement from './Comment';
@@ -7,6 +7,7 @@ import { AddCommentToPost } from '../../lib/request/Comment';
 import { formatNumber } from '../../lib/functions';
 import { NavLink } from 'react-router';
 import { grey } from '@mui/material/colors';
+import { MdClose } from 'react-icons/md';
 
 export default function CommentModal({
   preview,
@@ -26,6 +27,7 @@ export default function CommentModal({
   const [commentList, setCommentList] = useState<Comment[]>(comments);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const latestRef = useRef<HTMLDivElement>(null);
 
   async function handleComment() {
     const res = await AddCommentToPost(postId, comment);
@@ -34,6 +36,10 @@ export default function CommentModal({
       setCommentList([...commentList, res]);
     } else console.error('Comment failed');
   }
+
+  useEffect(() => {
+    latestRef.current?.scrollIntoView();
+  },[commentList])
 
   return (
     <div className="flex flex-row self-end shadow-[#00000044] hover:opacity-50 shadow-md">
@@ -51,12 +57,21 @@ export default function CommentModal({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <div className="bg-background flex flex-col p-3 rounded-xl w-2/3 h-2/3 overflow-y-scroll">
-          <h1 className="self-center t2x">Kommentek</h1>
-
-          <div className="m-4 flex items-center justify-between gap-1">
-            <NavLink to={`/profile/${user.id}`} className={'mr-3'}>
-              <Avatar sx={{ bgcolor: grey[800], width: 48, height: 48 }} src={user.profileImg}>
+        <div className="bg-background flex flex-col rounded-2xl w-full h-5/6 md:w-2/4 md:h-3/4 overflow-y-scroll">
+        <div className='w-full flex flex-row p-4 justify-between bg-backdropSecondary'>
+          <h1 className="self-center t2x">Comments
+          </h1>
+          <MdClose size={24} className='self-center text-textColor hover:opacity-50 cursor-pointer' onClick={handleClose}></MdClose>
+          </div>
+          <div className="flex flex-col-reverse overflow-y-scroll flex-1 p-4">
+            {commentList.map((comment) => (
+              <CommentElement preview={preview} user={user} comment={comment} />
+            ))}
+            <div ref={latestRef}></div>
+          </div>
+          <div className="px-2 py-2 flex items-center bg-backdropPrimary justify-between gap-1">
+            <NavLink to={`/profile/${user.id}`} className={''}>
+              <Avatar sx={{ bgcolor: grey[800] }} src={user.profileImg}>
                 {user.nickname.substring(0, 3).toUpperCase()}
               </Avatar>
             </NavLink>
@@ -65,17 +80,13 @@ export default function CommentModal({
               onChange={(e) => setComment(e.currentTarget.value)}
               type="text"
               className="rounded-xl p-2 secondary flex-grow w-full"
-              placeholder="Írj valamit"
+              placeholder="Comment something..."
             />
             <button className="rounded-xl secondary p-2" onClick={() => handleComment()}>
               <FaRegPaperPlane className="text-2xl" />
             </button>
           </div>
-          <div className="flex flex-col overflow-y-scroll">
-            {commentList.map((comment) => (
-              <CommentElement preview={preview} user={user} comment={comment} />
-            ))}
-          </div>
+          
         </div>
       </Modal>
     </div>
