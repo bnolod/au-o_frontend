@@ -68,7 +68,7 @@ export default function ProfilePage({ userId }: { userId: number }) {
             </Avatar>
           </button>
           <Modal open={openEditModal} onClose={() => setEditModal(false)} className="flex justify-center items-center">
-            <DriversLicense></DriversLicense>
+            <DriversLicense user={user}></DriversLicense>
           </Modal>
           <div className="flex-grow">
             <h3 className="text-3xl font-semibold">{user?.nickname} </h3>
