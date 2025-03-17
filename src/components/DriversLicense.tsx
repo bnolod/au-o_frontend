@@ -71,43 +71,45 @@ export default function DriversLicense({ user }: { user: UserResponse }) {
   };
 
   return (
-    <div className="bg-backdropSecondary text-textColor rounded-xl p-3 w-4/12 aspect-[90/55]">
+    <div className="bg-backdropSecondary flex flex-col gap-2 text-textColor rounded-xl p-3 w-6/12 aspect-[90/55]">
       <div className="flex items-center">
         <img
           src={isDark ? '/assets/auoLogo_white.svg' : '/assets/auoLogo_black.svg'}
           className="w-1/3"
           alt="AUO logo"
         />
-        <h1 className="text-5xl text-center flex-grow">_igazolvány</h1>
+        <h1 className="text-5xl text-right text-textColor/50 flex-grow">_igazolvány</h1>
       </div>
-      <form className="flex h-full" onSubmit={handleSubmit}>
-        <input type="file" name="image" className="hidden" id="image" ref={fileInputRef} onChange={onImageChange} />
-        <div className="w-1/3 h-3/4 justify-start flex" onClick={handleAvatarClick}>
+      <form className="flex flex-col" onSubmit={handleSubmit}>
+        <div className='flex flex-row gap-6'>
+        <input type="file" name="image" className="hidden" accept="image/png, image/jpg, image/jpeg" id="image" ref={fileInputRef} onChange={onImageChange} />
+        <div className="w-1/2 cursor-pointer hover:opacity-75 rounded-2xl overflow-hidden" onClick={handleAvatarClick}>
           <Avatar src={displayedImage} sx={{ width: '100%', height: '100%' }} variant="square">
             {userRequest?.nickname.substring(0, 3).toUpperCase()}
           </Avatar>
         </div>
-        <div className="w-2/3">
-          <label htmlFor="nickname">Nickname: </label>
+        <div className="flex flex-col flex-1">
+          <label  htmlFor="username">Username: </label>
+          <input type="text" name="username" disabled value={`@${userRequest?.username}`} className="w-full  bg-backdropSecondary p-2" />
+          <br />
+          <label  htmlFor="nickname">Nickname: </label>
           <input
             type="text"
             name="nickname"
             value={userRequest?.nickname}
-            className="bg-backdropPrimary"
+            className="border-b-2 w-full border-b-black outline-none focus:border-b-highlightPrimary bg-backdropSecondary p-2"
             onChange={(e) => setUserRequest({ ...userRequest, nickname: e.target.value })}
           />
           <br />
-          <label htmlFor="username">Username: </label>
-          <input type="text" name="username" value={`@${userRequest?.username}`} className="bg-backdropPrimary" />
-          <br />
-          <label htmlFor="nickname">Nickname: </label>
-          <input type="text" name="nickname" value={userRequest?.nickname} className="bg-backdropPrimary" />
+          <label  htmlFor="nickname">Bio: </label>
+          <input type="text" name="nickname" value={userRequest?.bio} className="border-b-2 w-full border-b-black outline-none focus:border-b-highlightPrimary bg-backdropSecondary p-2" />
           <br />
         </div>
-        <button className="bg-highlightPrimary rounded-full" type="submit">
-          gomb
-        </button>
+        </div>
       </form>
+        <button className="bg-highlightPrimary p-2 rounded-full" type="submit">
+          Edit
+        </button>
     </div>
   );
 }
