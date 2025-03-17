@@ -6,17 +6,20 @@ import { NavLink } from 'react-router';
 import { useState } from 'react';
 import { ListItemIcon, ListItemText, Menu, MenuItem, MenuList } from '@mui/material';
 import { favoritePost } from '../../lib/ApiCalls/PostApiCalls';
+import { Post } from '../../lib/entity/Post';
 
 export default function PostHeader({
   user,
   postId,
   favorite,
+  post,
 }: {
   user: UserPostResponseType;
   postId: number;
   favorite: boolean;
+  post: Post;
 }) {
-  const [isFavorite, setIsFavorite] = useState<boolean>(favorite)
+  const [isFavorite, setIsFavorite] = useState<boolean>(favorite);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const open = anchorEl != null ? true : false;
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -29,12 +32,28 @@ export default function PostHeader({
 
   return (
     <div className=" py-3 px-3 bg-backdropPrimary hover:opacity-50 transition-opacity flex basis-2/12 items-center justify-start w-full">
-      <NavLink to={`/profile/${user.id}`} className={'mr-3 gap-3 flex flex-row items-center w-full'}>
-        <Avatar sx={{ bgcolor: grey[800], width: 48, height: 48 }} src={user.profileImg}>
-          {user.nickname.substring(0, 3).toUpperCase()}
-        </Avatar>
-        <p className="txl flex-1 self-center">{user.nickname}</p>
-      </NavLink>
+      {post && post.group != null ? (
+        <NavLink to={`/groups/${post.group.id}`} className={'mr-3 gap-3 flex flex-row items-center w-full'}>
+          <img src={post.group.bannerImage} className='h-14 w-14 rounded-xl'>
+            {/* {user.nickname.substring(0, 3).toUpperCase()} */}
+          </img>
+          <div className='flex flex-col flex-1'>
+          <p className='txl flex-1'>{post.group.name}
+            <span className='text-base text-textColor/50 pl-2'>{post.group.alias}</span>
+          </p>
+          <p className=" text-textColor/50 flex-1">{user.nickname}</p>
+          </div>
+        </NavLink>
+      ) : (
+        <NavLink to={`/profile/${user.id}`} className={'mr-3 gap-3 flex flex-row items-center w-full'}>
+          <Avatar sx={{ bgcolor: grey[800], width: 48, height: 48 }} src={user.profileImg}>
+            {user.nickname.substring(0, 3).toUpperCase()}
+          </Avatar>
+          <p className="txl flex-1 self-center">{user.nickname}</p>
+          <p>{post.postType}</p>
+        </NavLink>
+      )}
+
       <div className="justify-self-end flex justify-center text-xl px-4">
         <button onClick={handleClick}>
           <MdMoreHoriz size={32} />
@@ -45,14 +64,14 @@ export default function PostHeader({
               onClick={async () => {
                 handleClose();
                 await favoritePost(postId);
-                setIsFavorite(prev => !prev);
+                setIsFavorite((prev) => !prev);
               }}
               className="bg-background"
             >
               <ListItemIcon>
                 <MdBookmark className={`text-3xl ${isFavorite ? 'text-highlightPrimary ' : ''}`} />
               </ListItemIcon>
-              <ListItemText>{isFavorite ? "Unfavorite" : "Favorite"}</ListItemText>
+              <ListItemText>{isFavorite ? 'Unfavorite' : 'Favorite'}</ListItemText>
             </MenuItem>
           </MenuList>
         </Menu>

@@ -10,10 +10,10 @@ export default function Post ({post, language,preview = false, user} :{preview?:
     console.log(post)
     return (
         <div className="outline-none bg-background rounded-3xl mb-6 flex flex-col shadow-[#00000055] shadow-lg overflow-hidden text-textColor">
-            <PostHeader favorite={post.favorite} user={post.user} postId={post.postId}></PostHeader>
+            <PostHeader favorite={post.favorite} user={post.user} post={post} postId={post.postId}></PostHeader>
             <PostImage images={post.images}/>
             <PostReactionBar preview={preview} user={user} language={language} post={post}/>
-            <PostText text={post.text} username={post.user.username}/>
+            <PostText text={post.text} user={post.user}/>
         </div>
     )
 }

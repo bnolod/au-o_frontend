@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { User } from "../../lib/entity/User";
+import { NavLink } from "react-router";
 
-export default function PostText({ text,username }: { text: string, username:string }) {
+export default function PostText({ text, user }: { text: string, user:User }) {
   const [displayedText, setDisplayedText] = useState<string>(text);
   const [isTextOpen, setIsTextOpen] = useState<boolean>(false);
   const isLongText = text.length > 200;
@@ -21,7 +23,7 @@ export default function PostText({ text,username }: { text: string, username:str
 
   return (
     <div className="p-4 pt-0 bg-background">
-      <p><span className="font-bold">@{username} </span>{displayedText}</p>
+      <p><NavLink to={`/profile/${user.id}`} className="font-bold">@{user.username} </NavLink>{displayedText}</p>
       {!isTextOpen && isLongText ? <p className="underline" onClick={handleOpenText}>Több...</p> : ""}
     </div>
   );
