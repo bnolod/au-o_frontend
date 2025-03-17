@@ -47,7 +47,7 @@ export default function PostReactionBar({
     >
       <button
         key={addedReaction ? addedReaction : 'NONE' + post.postId}
-        className={`outline-highlightPrimary h-12 items-center flex flex-row text-xl    p-2 mx-1 rounded-2xl shadow-[#00000044] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
+        className={`outline-highlightPrimary aspect-square justify-center h-12 items-center flex flex-row text-xl    p-2 mx-1 rounded-2xl shadow-[#00000044] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
           addedReaction === 'FIRE' ? 'bg-highlightSecondary' : 'bg-backdropSecondary'
         }`}
         onClick={() => {
@@ -62,7 +62,7 @@ export default function PostReactionBar({
   
       </button>
       <button
-        className={`outline-highlightPrimary h-12 items-center flex flex-row text-xl   bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#00000044] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
+        className={`outline-highlightPrimary aspect-square justify-center h-12 items-center flex flex-row text-xl   bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#00000044] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
           addedReaction === 'COOL' ? 'bg-highlightSecondary' : 'bg-backdropSecondary'
         }`}
         onClick={() => {
@@ -75,7 +75,7 @@ export default function PostReactionBar({
         <p>{typeMap.COOL ? formatNumber(typeMap.COOL, language) : ''}</p>
       </button>
       <button
-        className={`outline-highlightPrimary h-12 items-center flex flex-row text-xl   bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#00000044] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
+        className={`outline-highlightPrimary aspect-square justify-center h-12 items-center flex flex-row text-xl   bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#00000044] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
           addedReaction === 'HEART' ? 'bg-highlightSecondary' : 'bg-backdropSecondary'
         }`}
         onClick={() => {
