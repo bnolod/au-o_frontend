@@ -3,7 +3,7 @@ import { getAspectRatio } from '../../../lib/functions';
 import { useEffect, useState } from 'react';
 import { getGroupPosts } from '../../../lib/ApiCalls/GroupApiCalls';
 import { PostResponse } from '../../../lib/types';
-import { useNavigate } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import Button from '../../Button';
 import Post from '../../postcomponents/Post';
 import { useAuthentication } from '../../../contexts/AuthenticationContext';
@@ -35,9 +35,9 @@ export default function GroupPostTab({
     <div className="my-2 flex flex-col gap-6">
       {posts.length === 0 && <div className="text-center text-textColor">No posts found.</div>}
       {validMember && (
-        <Button className="w-full p-2 text-center" onClick={() => navigate('/group/' + id + '/post/create')}>
+        <NavLink className=" bg-highlightSecondary p-4 rounded-xl text-xl text-center" to={'/groups/' + id + '/post/create'}>
           Create a post
-        </Button>
+        </NavLink>
       )}
       {/* <ImageList variant="masonry" cols={2} gap={16}> */}
         {posts

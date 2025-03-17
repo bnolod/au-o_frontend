@@ -10,6 +10,7 @@ import NewPost from "./pages/NewPost.tsx";
 import GroupFeed from "./pages/GroupFeed.tsx";
 import MessagesPage from "./pages/MessagesPage.tsx";
 import GroupPage from "./pages/GroupPage.tsx";
+import NewGroupPost from "./components/social/tabs/NewGroupPost.tsx";
 
 function App() {
   const { user } = useAuthentication();
@@ -34,6 +35,7 @@ function App() {
             <Route path="/groups">
               <Route index element={<GroupFeed />} />
               <Route path=":id" element={<GroupPage />} />
+              <Route path=":id/post/create" element={<NewGroupPost/>}/>
             </Route>
           </Route>
           <Route path="/messages">
