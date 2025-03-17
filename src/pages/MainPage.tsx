@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import { apiFetch } from "../lib/apiClient";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useAuthentication } from "../contexts/AuthenticationContext";
-import { PostResponse } from "../lib/types";
+import { Post as PostEntity } from "../lib/entity/Post";
 
 export default function MainPage() {
   const {language} = useLanguage();
   const {user} = useAuthentication()
-  const [posts, setPosts] = useState<PostResponse[]>([]);
+  const [posts, setPosts] = useState<PostEntity[]>([]);
 
-  async function fetchPosts(): Promise<PostResponse[]> {
-    const post = await apiFetch<PostResponse[]>("posts/all", "GET", true);
+  async function fetchPosts(): Promise<PostEntity[]> {
+    const post = await apiFetch<PostEntity[]>("posts/all", "GET", true);
     if (post && post.data) {
       return post.data;
     }

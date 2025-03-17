@@ -11,6 +11,7 @@ import GroupFeed from "./pages/GroupFeed.tsx";
 import MessagesPage from "./pages/MessagesPage.tsx";
 import GroupPage from "./pages/GroupPage.tsx";
 import NewGroupPost from "./components/social/tabs/NewGroupPost.tsx";
+import PostsFeed from "./pages/Feed.tsx";
 
 function App() {
   const { user } = useAuthentication();
@@ -23,7 +24,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/landing" element={<LandingPage />} />
           <Route path="/" element={<GeneralLayout />}>
-            <Route index element={<MainPage />} />
+            <Route index element={<PostsFeed />} />
             <Route path="/profile/">
               { user && <Route index element={<Navigate to={`/profile/${user!.id}`}/>} />}
               <Route path=":id" element={<ProfilePage/>} />
