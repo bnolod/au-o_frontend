@@ -50,7 +50,6 @@ export default function PostHeader({
             {user.nickname.substring(0, 3).toUpperCase()}
           </Avatar>
           <p className="txl flex-1 self-center">{user.nickname}</p>
-          <p>{post.postType}</p>
         </NavLink>
       )}
 
