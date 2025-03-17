@@ -7,13 +7,18 @@ import { NavLink, useParams } from 'react-router';
 import DriversLicense from '../components/DriversLicense';
 import { User } from '../lib/entity/User';
 import { useAuthentication } from '../contexts/AuthenticationContext';
+import { followUser, getFollows, unfollowUser } from '../lib/ApiCalls/UserApiCalls';
 
-export default function ProfilePage({ userId }: { userId: number }) {
+export default function ProfilePage() {
   const [user, setUser] = useState<User>();
   const {user: authUser} = useAuthentication();
   const { id } = useParams();
   const [selectedPage, setSelectedPage] = useState<'posts' | 'groups' | 'car' | 'saved'>('posts');
   const [openEditModal, setEditModal] = useState(false);
+  const [follows, setFollows] = useState<User[]>([]);
+  const [followers, setFollowers] = useState<User[]>([]);
+
+
 
   function handlePageChange(event: React.MouseEvent<HTMLButtonElement>, value: 'posts' | 'groups' | 'car' | 'saved') {
     // event.currentTarget.style.color = "red";
@@ -22,20 +27,43 @@ export default function ProfilePage({ userId }: { userId: number }) {
     // Add logic to handle page change here
   }
 
+  async function handleFollowClick() {
+    if (user) {
+      const isFollowing = followers.some(follower => follower.id === user?.id);
+      console.log(user?.id)
+      if (isFollowing) {
+        await unfollowUser(parseInt(id!));
+      } else {
+        await followUser(parseInt(id!));
+      }
+      await loadFollows(parseInt(id!))
+  }}
+
+  async function loadFollows(userId: number) {
+    const res = await getFollows(userId);
+    if (res) {
+      setFollows(res.following);
+      setFollowers(res.followers);
+    }
+  }
+
+
   useEffect(() => {
     async function load() {
-      const res = await apiFetch<User>(`users/user/${id || userId}`);
+      const res = await apiFetch<User>(`users/user/${id}`);
       if (res && res.data) {
         console.log(res.data);
         setUser(res.data);
       }
     }
     load();
-  }, [id, userId]);
+    loadFollows(parseInt(id!));
+  }, [id]);
 
   function handleProfileClick() {
     setEditModal(true);
   }
+
 
   //
   let bottomDisplay;
@@ -75,15 +103,15 @@ export default function ProfilePage({ userId }: { userId: number }) {
             <p className="text-md text-textColor/75">@{user?.username}</p>
           </div>
           <div className="justify-self-end text-right">
-            <p>{8} Followers</p>
-            <p>{1111} Following</p>
+            <p>{followers && followers.length} Followers</p>
+            <p>{follows && follows.length} Following</p>
           </div>
-        </div>
+        </div>  
         <div className="p-4">
-          <p className="text-textColor/90">{user?.bio}Helló ez a bio hali hali!</p>
+          <p className="text-textColor/90">{user?.bio ? user?.bio : "Empty bio :c"}</p>
         </div>
         <div className="w-full flex flex-row justify-between text-base">
-          <button className='hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-8 rounded-xl  bg-highlightPrimary'>Follow</button>
+          <button className='hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-8 rounded-xl  bg-highlightPrimary' onClick={handleFollowClick}>Follow</button>
           <div className='gap-2 flex flex-row'>
             {user?.id == authUser?.id ?
             <button className='hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-4 rounded-xl  bg-backdropSecondary'>
