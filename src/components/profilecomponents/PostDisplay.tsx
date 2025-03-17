@@ -6,11 +6,12 @@ import Post from '../postcomponents/Post';
 import { useAuthentication } from '../../contexts/AuthenticationContext';
 import { getFavoritesOfUser, getPostsOfUser } from '../../lib/ApiCalls/PostApiCalls';
 import { getAspectRatio } from '../../lib/functions';
+import { Post as PostEntity } from '../../lib/entity/Post';
 
 export default function PostDisplay({ userId, saved = false }: { userId: number; saved?: boolean }) {
-  const [posts, setPosts] = useState<PostResponse[]>([]);
+  const [posts, setPosts] = useState<PostEntity[]>([]);
   const [openModal, setOpenModal] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<PostResponse | null>(null);
+  const [selectedPost, setSelectedPost] = useState<PostEntity | null>(null);
 
   const { user } = useAuthentication();
 
@@ -22,7 +23,7 @@ export default function PostDisplay({ userId, saved = false }: { userId: number;
     load();
   }, [saved, userId]);
 
-  function handlePostClick(post: PostResponse) {
+  function handlePostClick(post: PostEntity) {
     setSelectedPost(post);
     setOpenModal(true);
   }

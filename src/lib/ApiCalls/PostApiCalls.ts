@@ -1,7 +1,7 @@
 import { ImageStoreRequest } from '../request/ImgurRequest';
 import { apiFetch } from '../apiClient';
 import { Feed } from '../entity/Feed';
-import { PostResponse } from '../types';
+import { Post } from '../entity/Post';
 
 export async function editPost(text: string, location: string, vehicleId: number | null, id: string) {
   const res = await apiFetch(`/posts/post/${id}`, 'PUT', true, {
@@ -47,7 +47,7 @@ export async function deletePost(postId: number) {
 }
 
 export async function getFavoritesOfUser(userId: number) {
-  const req = await apiFetch<PostResponse[] | null>(`posts/favorites/user/${userId}`, 'GET', true);
+  const req = await apiFetch<Post[] | null>(`posts/favorites/user/${userId}`, 'GET', true);
    if (req && req.status === 200) {
      return req.data;
    }
@@ -63,7 +63,7 @@ export async function favoritePost(postId: number) {
 }
 
 export async function getPostsOfUser(userId: number) {
-  const req = await apiFetch<PostResponse[] | null>(`users/user/${userId}/posts`, 'GET', true);
+  const req = await apiFetch<Post[] | null>(`users/user/${userId}/posts`, 'GET', true);
   if (req && req.status === 200) {
     return req.data;
   }

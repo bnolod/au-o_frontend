@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 import Button from '../../Button';
 import Post from '../../postcomponents/Post';
 import { useAuthentication } from '../../../contexts/AuthenticationContext';
+import { Post as PostEntity } from '../../../lib/entity/Post';
 
 export default function GroupPostTab({
   tab,
@@ -23,7 +24,7 @@ export default function GroupPostTab({
     init();
   }, [tab === 'posts']);
   const navigate = useNavigate();
-  const [posts, setPosts] = useState<PostResponse[]>([]);
+  const [posts, setPosts] = useState<PostEntity[]>([]);
   async function init() {
     const res = await getGroupPosts(id);
     if (res) {
