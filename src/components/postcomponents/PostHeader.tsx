@@ -13,11 +13,13 @@ export default function PostHeader({
   postId,
   favorite,
   post,
+  groupView,
 }: {
   user: UserPostResponseType;
   postId: number;
   favorite: boolean;
   post: Post;
+  groupView?:boolean;
 }) {
   const [isFavorite, setIsFavorite] = useState<boolean>(favorite);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -32,7 +34,7 @@ export default function PostHeader({
 
   return (
     <div className=" py-3 px-3 bg-backdropPrimary hover:opacity-50 transition-opacity flex basis-2/12 items-center justify-start w-full">
-      {post && post.group != null ? (
+      {post && post.group != null && groupView != true ? (
         <NavLink to={`/groups/${post.group.id}`} className={'mr-3 gap-3 flex flex-row items-center w-full'}>
           <img src={post.group.bannerImage} className='h-14 w-14 rounded-xl'>
             {/* {user.nickname.substring(0, 3).toUpperCase()} */}

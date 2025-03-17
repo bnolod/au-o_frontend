@@ -44,7 +44,7 @@ export default function GroupPostTab({
           .slice()
           .reverse()
           .map((post) => (
-            <Post user={user!} post={post} language='EN'>
+            <Post groupView user={user!} post={post} language='EN'>
 
             </Post>
             // <ImageListItem key={post.postId}>
