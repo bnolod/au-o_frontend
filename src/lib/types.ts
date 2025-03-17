@@ -120,6 +120,7 @@ export interface PostResponse {
   text: string;
   user: UserPostResponseType;
   comments: Comment[];
+  favorite: boolean;
   reactedWith: null | "FIRE" | "HEART" | "COOL";
 }
 export interface ImageStoreRequest {

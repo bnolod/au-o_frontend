@@ -7,7 +7,16 @@ import { useState } from 'react';
 import { ListItemIcon, ListItemText, Menu, MenuItem, MenuList } from '@mui/material';
 import { favoritePost } from '../../lib/ApiCalls/PostApiCalls';
 
-export default function PostHeader({ user, postId }: { user: UserPostResponseType, postId: number }) {
+export default function PostHeader({
+  user,
+  postId,
+  favorite,
+}: {
+  user: UserPostResponseType;
+  postId: number;
+  favorite: boolean;
+}) {
+  const [isFavorite, setIsFavorite] = useState<boolean>(favorite)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const open = anchorEl != null ? true : false;
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -18,14 +27,13 @@ export default function PostHeader({ user, postId }: { user: UserPostResponseTyp
     setAnchorEl(null);
   };
 
-
   return (
     <div className=" py-3 px-3 bg-backdropPrimary hover:opacity-50 transition-opacity flex basis-2/12 items-center justify-start w-full">
       <NavLink to={`/profile/${user.id}`} className={'mr-3 gap-3 flex flex-row items-center w-full'}>
         <Avatar sx={{ bgcolor: grey[800], width: 48, height: 48 }} src={user.profileImg}>
           {user.nickname.substring(0, 3).toUpperCase()}
         </Avatar>
-      <p className="txl flex-1 self-center">{user.nickname}</p>
+        <p className="txl flex-1 self-center">{user.nickname}</p>
       </NavLink>
       <div className="justify-self-end flex justify-center text-xl px-4">
         <button onClick={handleClick}>
@@ -33,11 +41,18 @@ export default function PostHeader({ user, postId }: { user: UserPostResponseTyp
         </button>
         <Menu id="profleMenu" anchorEl={anchorEl} open={open} onClose={handleClose}>
           <MenuList>
-            <MenuItem onClick={async()=>{handleClose(); await favoritePost(postId)}} className="bg-background">
+            <MenuItem
+              onClick={async () => {
+                handleClose();
+                await favoritePost(postId);
+                setIsFavorite(prev => !prev);
+              }}
+              className="bg-background"
+            >
               <ListItemIcon>
-                <MdBookmark className="text-3xl" />
+                <MdBookmark className={`text-3xl ${isFavorite ? 'text-highlightPrimary ' : ''}`} />
               </ListItemIcon>
-              <ListItemText>Mentés</ListItemText>
+              <ListItemText>{isFavorite ? "Unfavorite" : "Favorite"}</ListItemText>
             </MenuItem>
           </MenuList>
         </Menu>
