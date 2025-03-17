@@ -6,7 +6,7 @@ import { useAuthentication } from './AuthenticationContext';
 
 interface WebSocketContextType {
   messages: { [topic: string]: string[] };
-  sendMessage: (topic: string, message: string) => void;
+  sendMessage: (topic: string, message: any) => void;
   subscribeToTopic: (topic: string) => void;
   stompClient : Client | null;
 }
@@ -109,11 +109,11 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   };
   
 
-  const sendMessage = (topic: string, message: string) => {
+  const sendMessage = (topic: string, message: any) => {
     if (stompClient && stompClient.connected) {
       stompClient.publish({
         destination: `/app/${topic}`,
-        body: JSON.stringify({ message }),
+        body: JSON.stringify( message ),
       });
     } else {
       console.error('WebSocket is not connected!');

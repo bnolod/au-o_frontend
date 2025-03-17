@@ -4,6 +4,7 @@ import { useAuthentication } from '../../../contexts/AuthenticationContext';
 import { Group } from '../../../lib/entity/Group';
 import { GroupMessage } from '../../../lib/types';
 import { Avatar } from '@mui/material';
+import { apiFetch } from '../../../lib/apiClient';
 
 export default function GroupChatTab({ group }: { group: Group }) {
   const { sendMessage, stompClient } = useWebSocket();
@@ -12,10 +13,28 @@ export default function GroupChatTab({ group }: { group: Group }) {
   const [chatMessages, setChatMessages] = useState<GroupMessage[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const onSend = (message: string) => {
+  const onSend = () => {
     if (!message || message.length < 0) return;
-    sendMessage(`group/${group.id}`, message);
+    sendMessage(`group/${group.id}`, {
+      message: message,
+      groupId: group.id
+    });
   };
+
+  const handleFetch = async() => {
+    const res = await apiFetch<GroupMessage[]>(`/groups/group/${group.id}/messages`)
+    if (res) {
+      setChatMessages(res.data? res.data.reverse() : []);
+    }
+    console.log("üzenetek fetchelve")
+    console.log(res)
+  }
+
+  useEffect(()=>{
+    if (group) {
+      handleFetch();
+    }
+  },[group])
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -56,7 +75,7 @@ export default function GroupChatTab({ group }: { group: Group }) {
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={(e) => {
             if (e.key === 'Enter') {
-              onSend(message);
+              onSend();
               setMessage('');
             }
           }}
@@ -65,7 +84,7 @@ export default function GroupChatTab({ group }: { group: Group }) {
         />
         <button
           onClick={() => {
-            onSend(message);
+            onSend();
             setMessage('');
           }}
           className="btn-primary"
