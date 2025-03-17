@@ -21,7 +21,7 @@ export default function GroupOptionsTab({ group, language }: { group: Group; lan
     } else showSnackbar('Nem sikerült módosítani a csoportot', 'error');
   }
   return (
-      <section className='secondary rounded-xl'>
+      <section className='secondary rounded-2xl p-4'>
 
         <Input type='text' inputPlaceholder='Név' labelText='Név' value={editGroup.name} onChange={(e) => setEditGroup({ ...editGroup, name: e.target.value })} />
         <Input type='text' inputPlaceholder='Leírás' labelText='Leírás' value={editGroup.description} onChange={(e) => setEditGroup({ ...editGroup, description: e.target.value })} />
@@ -36,7 +36,7 @@ export default function GroupOptionsTab({ group, language }: { group: Group; lan
         : <FaDoorClosed className='text-xl'/>}
         <p className='text-sm'>
             
-            {editGroup.public ? 'Publikus' : 'Privát'}
+            {editGroup.public ? 'Public' : 'Private'}
         </p>
 
         </button>
