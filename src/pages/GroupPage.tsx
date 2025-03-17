@@ -14,6 +14,7 @@ export default function GroupPage() {
     return <Navigate to="/groups" />;
   }
   const [group, setGroup] = useState<Group>();
+  
   const [tab, setTab] = useState<'posts' | 'members' | 'about' | 'chat' | 'options'>('posts');
   useEffect(() => {
     init();

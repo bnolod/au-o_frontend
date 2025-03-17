@@ -1,6 +1,18 @@
 import { Avatar } from '@mui/material';
 import LatestMessage from '../../lib/entityWs/LatestMessage';
 
+function startsWith(str: string, prefix: string) {
+  return str.slice(0, prefix.length) === prefix;
+}
+
+function endsWith(str: string, suffix: string) {
+  return str.slice(-suffix.length) === suffix;
+}
+
+function isUnsupportedMessage(message: string) {
+  return (startsWith(message, '{{GROUP_') || startsWith(message, '{{POST_')) && endsWith(message, '_}}');
+}
+
 export default function LatestMessageItem({ latestMessage }: { latestMessage: LatestMessage }) {
   return (
     <div className="w-full flex flex-row">
@@ -12,8 +24,12 @@ export default function LatestMessageItem({ latestMessage }: { latestMessage: La
       )}
       <div className="pl-4 flex flex-col overflow-x-hidden">
         <h1 className="text-lg font-semibold text-textColor">{latestMessage.nickname}</h1>
-        <p className='truncate text-textColor/80'>{latestMessage.message.message}</p>
+        {isUnsupportedMessage(latestMessage.message.message) ? (
+          <p className="text-textColor/50">message not supported</p>
+        ) : (
+          <p className="truncate text-textColor/80">{latestMessage.message.message}</p>
+        )}
       </div>
     </div>
   );
-}0
+}

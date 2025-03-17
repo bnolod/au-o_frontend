@@ -41,7 +41,7 @@ export default function PostDisplay({ userId, saved = false }: { userId: number;
               <div className='w-full bg-backdropSecondary rounded-xl'>
               <img
                 src={post.images[0]?.url}
-                className="rounded-xl w-full object-center cursor-pointer hover:opacity-75 transition-opacity bg-backdropPrimary"
+                className="rounded-xl w-full object-cover cursor-pointer hover:opacity-75 transition-opacity bg-backdropPrimary"
                 onLoad={(e) => {
                   const img = e.target as HTMLImageElement;
                   const aspectClass = getAspectRatio(img.naturalWidth, img.naturalHeight);
