@@ -5,6 +5,7 @@ import { useAuthentication } from '../../contexts/AuthenticationContext';
 import { getUserGarageById } from '../../lib/ApiCalls/CarApiCalls';
 import VehiclePageItem from './VehiclePageItem';
 import { Modal } from '@mui/material';
+import VehicleCard from './VehicleCard';
 
 export default function ProfileVehiclePage({ user }: { user: User }) {
   const { user: AuthUser } = useAuthentication();
@@ -25,19 +26,6 @@ export default function ProfileVehiclePage({ user }: { user: User }) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   const handleFetch = async () => {
     const res = await getUserGarageById(user.id);
     if (res) {
@@ -52,10 +40,8 @@ export default function ProfileVehiclePage({ user }: { user: User }) {
   return (
     <div className="flex flex-col w-full bg-background p-4 rounded-2xl shadow-md shadow-[#00000066]">
             <Modal open={openModal} onClose={() => setOpenModal(false)} className="flex items-center justify-center p-4 text-textColor">
-                    {selectedCar ? <div className='w-1/2'>
-                        {selectedCar.model}
-                       <p>FAASZ</p>
-                    </div> : <></>}
+                    {selectedCar ? <VehicleCard closeFn={()=> {setOpenModal(false)}} car={selectedCar}/>
+                     : <></>}
                   </Modal>
             
       {cars.length > 0 ? (
