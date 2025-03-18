@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ImageUploadResponse } from '../../lib/types';
-import { MdArrowBackIos, MdArrowForwardIos, MdClose } from 'react-icons/md';
+import { MdArrowBackIos, MdArrowForwardIos, MdCarCrash, MdClose, MdOutlineArrowRight } from 'react-icons/md';
 import { Modal } from '@mui/material';
 import VehicleCard from '../vehicle/VehicleCard';
 import { Car } from '../../lib/entity/Car';
@@ -15,12 +15,10 @@ export default function PostImage({
   images: ImageUploadResponse[];
   editMode?: boolean;
   onImageRemove: (index: number) => void;
-  car?: Car
+  car?: Car;
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
-
-
 
   function nextSlide() {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -28,29 +26,39 @@ export default function PostImage({
   function prevSlide() {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   }
-  console.log(currentIndex)
+  console.log(currentIndex);
 
   return (
-    
     <div className="relative w-full mx-auto  bg-background pt-4">
-      {car &&
-      
-      <Modal open={openModal} onClose={() => setOpenModal(false)} className="flex items-center justify-center p-4 text-textColor">
-                     <VehicleCard closeFn={()=> {setOpenModal(false)}} car={car}/>
-                    
-                  </Modal>
-      }
-      {car &&
-      <div className='absolute w-full bg-backdropSecondary/75 h-16 px-6 z-50 bottom-0 flex flex-row cursor-pointer hover:opacity-50 items-center transition-opacity'
-      onClick={()=> {
-        setOpenModal(true);
-      }}>
-        <div>
-          <p className=' font-bold'>{car.manufacturer}</p>
-          <p>{car.model}</p>
+      {car && (
+        <Modal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          className="flex items-center justify-center p-4 text-textColor"
+        >
+          <VehicleCard
+            closeFn={() => {
+              setOpenModal(false);
+            }}
+            car={car}
+          />
+        </Modal>
+      )}
+      {car && (
+        <div
+          className="absolute w-full bg-backdropSecondary/75 h-16 px-2 z-50 bottom-0 flex flex-row cursor-pointer hover:opacity-50 items-center transition-opacity"
+          onClick={() => {
+            setOpenModal(true);
+          }}
+        >
+          <MdCarCrash size={48} className="mr-4" />
+          <div>
+            <p className="font-bold text-lg">{car.manufacturer}</p>
+            <p>{car.model}</p>
+          </div>
+          <MdOutlineArrowRight className="ml-auto mr-2" size={32} />
         </div>
-      </div>
-      }
+      )}
       <div className="overflow-hidden relative m-auto w-full aspect-[8/5] ">
         {images.length > 0 ? (
           images.map((image, index) => (
@@ -60,7 +68,11 @@ export default function PostImage({
                 index === currentIndex ? 'translate-x-0' : 'translate-x-full'
               }`}
             >
-              <img src={image.url} alt={`Slide ${index}`} className=" rounded-2xl overflow-hidden object-contain h-full" />
+              <img
+                src={image.url}
+                alt={`Slide ${index}`}
+                className=" rounded-2xl overflow-hidden object-contain h-full"
+              />
             </div>
           ))
         ) : (
@@ -81,7 +93,6 @@ export default function PostImage({
             if (currentIndex > 0) {
               setCurrentIndex(currentIndex - 1);
             }
-
           }}
         >
           <MdClose />
