@@ -7,6 +7,7 @@ import { NavLink, useParams } from 'react-router';
 import DriversLicense from '../components/DriversLicense';
 import { User } from '../lib/entity/User';
 import { useAuthentication } from '../contexts/AuthenticationContext';
+import ProfileVehiclePage from '../components/vehicle/ProfileVehiclePage';
 
 export default function ProfilePage({ userId }: { userId: number }) {
   const [user, setUser] = useState<User>();
@@ -48,7 +49,7 @@ export default function ProfilePage({ userId }: { userId: number }) {
         bottomDisplay = <div>Groups</div>;
         break;
       case 'car':
-        bottomDisplay = <div>Car</div>;
+        bottomDisplay = <ProfileVehiclePage user={user}/>;
         break;
       case 'saved':
         bottomDisplay = <PostDisplay userId={parseInt(id!)} saved />;
@@ -57,8 +58,7 @@ export default function ProfilePage({ userId }: { userId: number }) {
   }
 
   return (
-    <>
-      <div className=" rounded-2xl  flex flex-col p-5 gap-3">
+      <div className=" rounded-2xl w-full  flex flex-col gap-3">
       <div className='bg-backdropPrimary pt-4 pb-4 rounded-2xl px-4 shadow-md shadow-[#00000066]'>
 
         <div className="flex justify-start items-center w-full gap-3  py-8 px-4 rounded-2xl ">
@@ -127,6 +127,5 @@ export default function ProfilePage({ userId }: { userId: number }) {
         </div>
         <div className="min-h-[50vh]">{bottomDisplay}</div>
       </div>
-    </>
   );
 }

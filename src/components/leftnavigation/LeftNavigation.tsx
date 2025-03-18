@@ -55,7 +55,7 @@ export default function LeftNavigation() {
         <div className="overflow-y-scroll max-h-96">
           {searchResults.map((result) => {
             return (
-              <NavLink to={`/profile/${result.id}`} className="flex flex-row gap-2 items-center my-4">
+              <NavLink to={`/profile/${result.id}`} className="flex flex-row gap-2 items-center my-4" key={result.id}>
                 <Avatar src={result.profileImg} />
                 <div>
                   <p>{result.nickname}</p>
@@ -73,6 +73,7 @@ export default function LeftNavigation() {
             return (
               <div
                 className="flex items-center h-12 gap-2 px-2 cursor-pointer hover:opacity-50 transition-all "
+                key={user.id}
                 onClick={() => {
                   navigate('/profile/' + user.id);
                 }}
