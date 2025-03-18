@@ -1,18 +1,53 @@
-import { MdClose, MdEdit } from 'react-icons/md';
+import {
+  Md10Mp,
+  MdAndroid,
+  MdBadge,
+  MdCalendarMonth,
+  MdClose,
+  MdEdit,
+  MdEngineering,
+  MdKey,
+  MdOutlineEngineering,
+  MdSettingsAccessibility,
+  MdSpeaker,
+  MdSpeakerGroup,
+  MdSpellcheck,
+} from 'react-icons/md';
 import { Car } from '../../lib/entity/Car';
 import { NavLink } from 'react-router';
 import { useAuthentication } from '../../contexts/AuthenticationContext';
+import { useEffect, useState } from 'react';
+import { Post } from '../../lib/entity/Post';
+import { getPostsByVehicleId } from '../../lib/ApiCalls/CarApiCalls';
+import { ImageList, ImageListItem } from '@mui/material';
+import { getAspectRatio } from '../../lib/functions';
 
 export default function VehicleCard({ car, closeFn }: { car: Car; closeFn?: () => void }) {
   const { user: authUser } = useAuthentication();
+  const [posts, setPosts] = useState<Post[] | null>(null);
+
+  const handlePostFetch = async () => {
+    const res = await getPostsByVehicleId(car.id);
+    if (res != null) {
+      setPosts(res);
+    }
+  };
+
+  useEffect(() => {
+    handlePostFetch();
+  }, [car]);
 
   return (
     <div className="w-full m-4 md:w-1/2 flex flex-col bg-background h-full rounded-2xl overflow-hidden gap-6">
       <header className="w-full flex flex-row justify-between p-4 bg-backdropSecondary items-center">
-        <p className="text-xl">
-          Car of
-          <span className="font-bold"> @{car.owner?.username}</span>
-        </p>
+        {car.owner ? (
+          <p className="text-xl">
+            Car of
+            <span className="font-bold"> @{car.owner?.username}</span>
+          </p>
+        ) : (
+          <p className="text-xl">Car</p>
+        )}
         {closeFn && (
           <MdClose
             className="cursor-pointer hover:opacity-75"
@@ -23,8 +58,8 @@ export default function VehicleCard({ car, closeFn }: { car: Car; closeFn?: () =
           />
         )}
       </header>
-      <main className="overflow-y-scroll ">
-        <section className="bg-backdropSecondary mx-4 p-4 rounded-xl flex flex-col">
+      <main className="overflow-y-scroll flex flex-col gap-4">
+        <section className="bg-backdropSecondary dshadow mx-4 p-4 rounded-xl flex flex-col">
           <div className="flex flex-row">
             <div>
               <p className="text-2xl font-bold">{car.manufacturer}</p>
@@ -39,6 +74,63 @@ export default function VehicleCard({ car, closeFn }: { car: Car; closeFn?: () =
                 Edit car
               </button>
             </div>
+          )}
+        </section>
+        <section className="pb-4 flex flex-col gap-4">
+          <div className="flex flex-row mx-4 p-4 rounded-2xl bg-backdropPrimary dshadow items-center gap-4">
+            <MdEngineering size={32} />
+            <p className="text-textColor/75">Horsepower:</p>
+            <p className="ml-auto px-4 text-lg font-bold">{car.horsepower} HP</p>
+          </div>
+          <div className="flex flex-row mx-4 p-4 rounded-2xl bg-backdropPrimary dshadow items-center gap-4">
+            <MdKey size={32} />
+            <p className="text-textColor/75">Displacement:</p>
+            <p className="ml-auto px-4 text-lg font-bold">{car.displacement} L</p>
+          </div>
+          <div className="flex flex-row mx-4 p-4 rounded-2xl bg-backdropPrimary dshadow items-center gap-4">
+            <MdCalendarMonth size={32} />
+            <p className="text-textColor/75">Horsepower:</p>
+            <p className="ml-auto px-4 text-lg font-bold">{car.productionYear}</p>
+          </div>
+          <div className="flex flex-col mx-4 p-4 rounded-2xl bg-backdropPrimary dshadow items-center gap-4">
+            <div className="flex flex-row w-full gap-4">
+              <MdSpellcheck size={32} />
+              <p className="text-textColor/75">Description:</p>
+            </div>
+            <p className="w-full break-words">{car.description}</p>
+          </div>
+        </section>
+        <section className=" px-4 pb-16">
+          {posts != null && posts.length > 0 ? (
+            <div>
+              <h1 className="text-center text-2xl pb-4">Featured in:</h1>
+
+              <ImageList variant="masonry" cols={2} gap={16}>
+                {posts
+                  .slice()
+                  .reverse()
+                  .map((post) => (
+                    <ImageListItem key={post.postId}>
+                      <div className="w-full bg-backdropSecondary rounded-xl">
+                        <img
+                          src={post.images[0]?.url}
+                          className="rounded-xl w-full object-cover cursor-pointer hover:opacity-75 transition-opacity bg-backdropPrimary"
+                          onLoad={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            const aspectClass = getAspectRatio(img.naturalWidth, img.naturalHeight);
+                            img.classList.add(aspectClass);
+                          }}
+                          onClick={() => handlePostClick(post)}
+                          alt="Post"
+                        />
+                        <p className="px-3 text-textColor/50 py-2 truncate"> {post.text}</p>
+                      </div>
+                    </ImageListItem>
+                  ))}
+              </ImageList>
+            </div>
+          ) : (
+            <p className="text-center text-textColor/50">No posts with this vehicle found.</p>
           )}
         </section>
       </main>
