@@ -21,7 +21,7 @@ export default function GroupFeed() {
     return (
         <div className="flex flex-col gap-6">
             <SocialHeader />
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
 
             {
                 groups.map(g => {

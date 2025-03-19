@@ -1,10 +1,11 @@
-import { PostResponse, User } from '../../lib/types';
+import { User } from '../../lib/types';
 import { addReaction } from '../../lib/apiClient';
 import { useState, useEffect } from 'react';
 import CommentModal from '../commentboard/CommentModal';
 import { formatNumber } from '../../lib/functions';
 import { Icon } from '@mui/material';
 import { MdLocationPin } from 'react-icons/md';
+import { Post } from '../../lib/entity/Post';
 
 export default function PostReactionBar({
   preview,
@@ -14,7 +15,7 @@ export default function PostReactionBar({
 }: {
   preview: boolean;
   user: User;
-  post: PostResponse;
+  post: Post;
   language: 'HU' | 'EN';
 }) {
   const typeMap = {
@@ -47,7 +48,7 @@ export default function PostReactionBar({
     >
       <button
         key={addedReaction ? addedReaction : 'NONE' + post.postId}
-        className={`outline-highlightPrimary h-12 items-center flex flex-row text-xl    p-2 mx-1 rounded-2xl shadow-[#00000044] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
+        className={`outline-highlightPrimary aspect-square justify-center h-12 items-center flex flex-row text-xl    p-2 mx-1 rounded-2xl shadow-[#00000044] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
           addedReaction === 'FIRE' ? 'bg-highlightSecondary' : 'bg-backdropSecondary'
         }`}
         onClick={() => {
@@ -62,7 +63,7 @@ export default function PostReactionBar({
   
       </button>
       <button
-        className={`outline-highlightPrimary h-12 items-center flex flex-row text-xl   bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#00000044] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
+        className={`outline-highlightPrimary aspect-square justify-center h-12 items-center flex flex-row text-xl   bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#00000044] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
           addedReaction === 'COOL' ? 'bg-highlightSecondary' : 'bg-backdropSecondary'
         }`}
         onClick={() => {
@@ -75,7 +76,7 @@ export default function PostReactionBar({
         <p>{typeMap.COOL ? formatNumber(typeMap.COOL, language) : ''}</p>
       </button>
       <button
-        className={`outline-highlightPrimary h-12 items-center flex flex-row text-xl   bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#00000044] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
+        className={`outline-highlightPrimary aspect-square justify-center h-12 items-center flex flex-row text-xl   bg-backdropSecondary p-2 mx-1 rounded-2xl shadow-[#00000044] hover:opacity-50 active:hover:opacity-100 shadow-md disabled:opacity-50 ${
           addedReaction === 'HEART' ? 'bg-highlightSecondary' : 'bg-backdropSecondary'
         }`}
         onClick={() => {
@@ -99,7 +100,7 @@ export default function PostReactionBar({
         <CommentModal preview={preview} user={user} language={language} postId={post.postId} comments={post.comments} />
       </div>
       {post.location?
-      <div className='absolute -mt-12 ml-2 text-[1.05rem] text-textColor bg-backdropPrimary opacity-75 px-2 gap-1 py-2 rounded-xl flex flex-row items-center'>
+      <div className={`absolute  ml-2 text-[1.05rem] text-textColor bg-backdropPrimary opacity-75 px-2 gap-1 py-2 rounded-xl flex flex-row items-center ${ post.vehicle? " -mt-28 " : " -mt-12 "}`}>
       <MdLocationPin className='text-textColor'></MdLocationPin>
       {post.location}</div>
       :("")}

@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router';
+import { Navigate, useNavigate, useParams } from 'react-router';
 import { Group } from '../lib/entity/Group';
 import { useEffect, useState } from 'react';
 import { getGroup, joinGroup } from '../lib/ApiCalls/GroupApiCalls';
@@ -10,6 +10,7 @@ import { useWebSocket } from '../contexts/WebSocketContext';
 import GroupOptionsTab from '../components/social/tabs/GroupOptionsTab';
 export default function GroupPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   if (!id) {
     return <Navigate to="/groups" />;
   }
@@ -111,7 +112,7 @@ export default function GroupPage() {
               onClick={async () => {
                 const res = await joinGroup(group.id);
                 if (res) {
-                  setGroup(res);
+                  navigate(`/groups/${id}`)
                 }
               }}
                className="border-2 border-background/25 hover:opacity-50 transition-opacity  rounded-xl bg-highlightPrimary  flex items-center flex-1 p-2 gap-2 text-lg font-semibold">

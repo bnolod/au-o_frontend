@@ -89,6 +89,10 @@
 
 
 @layer components {
+  .dshadow {
+    @apply shadow-md shadow-[#00000022];
+  }
+
   .new-social-button {
     @apply button w-11/12 my-2 mx-auto highlight-themed;
   }

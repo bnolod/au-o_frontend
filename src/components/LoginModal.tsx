@@ -58,7 +58,7 @@ export default function LoginModal({
         console.log(res);
         if (res) {
           toggleModal();
-          replace("/");
+          navigate("/");
         }
       }
     } catch (e: any) {

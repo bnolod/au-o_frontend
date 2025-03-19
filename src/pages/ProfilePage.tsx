@@ -8,6 +8,7 @@ import DriversLicense from '../components/DriversLicense';
 import { User } from '../lib/entity/User';
 import { useAuthentication } from '../contexts/AuthenticationContext';
 import { followUser, getFollows, unfollowUser } from '../lib/ApiCalls/UserApiCalls';
+import ProfileVehiclePage from '../components/vehicle/ProfileVehiclePage';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<User>();
@@ -76,7 +77,7 @@ export default function ProfilePage() {
         bottomDisplay = <div>Groups</div>;
         break;
       case 'car':
-        bottomDisplay = <div>Car</div>;
+        bottomDisplay = <ProfileVehiclePage user={user}/>;
         break;
       case 'saved':
         bottomDisplay = <PostDisplay userId={parseInt(id!)} saved />;
@@ -109,6 +110,7 @@ export default function ProfilePage() {
               <p>{followers && followers.length} Followers</p>
               <p>{follows && follows.length} Following</p>
             </div>
+
           </div>
           <div className="p-4">
             <p className="text-textColor/90">{user?.bio ? user?.bio : 'Empty bio :c'}</p>
@@ -168,6 +170,5 @@ export default function ProfilePage() {
         </div>
         <div className="min-h-[50vh]">{bottomDisplay}</div>
       </div>
-    </>
   );
 }
