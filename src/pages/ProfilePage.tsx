@@ -170,5 +170,6 @@ export default function ProfilePage() {
         </div>
         <div className="min-h-[50vh]">{bottomDisplay}</div>
       </div>
+      </>
   );
 }
