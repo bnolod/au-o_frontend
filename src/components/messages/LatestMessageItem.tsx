@@ -25,9 +25,9 @@ export default function LatestMessageItem({ latestMessage }: { latestMessage: La
       <div className="pl-4 flex flex-col overflow-x-hidden">
         <h1 className="text-lg font-semibold text-textColor">{latestMessage.nickname}</h1>
         {isUnsupportedMessage(latestMessage.message.message) ? (
-          <p className="text-textColor/50">message not supported</p>
+          <p className="text-textColor/50">{latestMessage.message.user.username}: message not supported</p>
         ) : (
-          <p className="truncate text-textColor/80">{latestMessage.message.message}</p>
+          <p className="truncate text-textColor/80">{latestMessage.message.user.username}: {latestMessage.message.message}</p>
         )}
       </div>
     </div>

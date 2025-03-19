@@ -5,6 +5,7 @@ import { Group } from '../../../lib/entity/Group';
 import { GroupMessage } from '../../../lib/types';
 import { Avatar } from '@mui/material';
 import { apiFetch } from '../../../lib/apiClient';
+import { MdSend } from 'react-icons/md';
 
 export default function GroupChatTab({ group }: { group: Group }) {
   const { sendMessage, stompClient } = useWebSocket();
@@ -60,7 +61,7 @@ export default function GroupChatTab({ group }: { group: Group }) {
         {chatMessages.map((msg, i) => (
           <div key={msg.message + i}>
             <div className="flex flex-row my-2 items-center gap-2">
-              <Avatar sx={{height:32,width:32}} src={user?.profileImg}></Avatar>
+              <Avatar sx={{height:32,width:32}} src={msg.user.profileImg}></Avatar>
               <span className="font-bold text-textColor/75">@{msg.user.username}:</span>
               <span>{msg.message}</span>
             </div>
@@ -87,9 +88,9 @@ export default function GroupChatTab({ group }: { group: Group }) {
             onSend();
             setMessage('');
           }}
-          className="btn-primary"
+          className="btn-primary p-2 bg-highlightSecondary rounded-xl"
         >
-          Send
+          <MdSend size={24}/>
         </button>
       </div>
     </div>
