@@ -7,7 +7,7 @@ import { useWebSocket } from '../../contexts/WebSocketContext';
 import { ChatMessage } from '../../lib/entityWs/ChatMessage';
 import { NavLink } from 'react-router';
 
-export default function MessageBoard({msgOnClick}:{msgOnClick?:boolean}) {
+export default function MessageBoard({ msgOnClick }: { msgOnClick?: boolean }) {
   const [latestMessages, setLatestMessages] = useState<LatestMessage[]>([]);
   const { user } = useAuthentication();
   const { stompClient } = useWebSocket();
@@ -19,16 +19,12 @@ export default function MessageBoard({msgOnClick}:{msgOnClick?:boolean}) {
 
   const handleIncomingMessage = (incomingMessage: LatestMessage) => {
     setLatestMessages((prevMessages) => {
-
-
-
       const existingIndex = prevMessages.findIndex((msg) => {
-        // If user is the recipient, find by sender (incomingMessage.username)
-        if (incomingMessage.message.recipient === user?.username) {
-          return msg.username === incomingMessage.username;
-        }
-        // Otherwise, find by recipient
-        return msg.username === incomingMessage.message.recipient;
+        // Check if the incoming message is from or to the authenticated user
+        return (
+          (msg.username === incomingMessage.username && incomingMessage.message.recipient.username === user?.username) ||
+          (msg.username === incomingMessage.message.recipient.username && incomingMessage.username === user?.username)
+        );
       });
 
       if (existingIndex !== -1) {
@@ -40,7 +36,13 @@ export default function MessageBoard({msgOnClick}:{msgOnClick?:boolean}) {
         );
       } else {
         // If the conversation does not exist, add it to the top
-        return [incomingMessage, ...prevMessages];
+        const formattedMessage = incomingMessage;
+        if(formattedMessage.message.user.username === user?.username) {
+          formattedMessage.username = formattedMessage.message.recipient.username;
+          formattedMessage.nickname = formattedMessage.message.recipient.nickname
+          formattedMessage.id = formattedMessage.message.recipient.id;
+        }
+        return [formattedMessage, ...prevMessages];
       }
     });
   };
@@ -51,7 +53,7 @@ export default function MessageBoard({msgOnClick}:{msgOnClick?:boolean}) {
     let sub: { unsubscribe: () => void } | null = null;
     if (user && stompClient && stompClient.connected) {
       sub = stompClient.subscribe(`/user/queue/notifications/`, (msg: { body: string }) => {
-            console.log("helloo")
+        console.log("helloo");
         const incomingMessage = JSON.parse(msg.body) as LatestMessage;
         handleIncomingMessage(incomingMessage);
       });
@@ -65,17 +67,18 @@ export default function MessageBoard({msgOnClick}:{msgOnClick?:boolean}) {
   }, [user, stompClient]);
 
   return (
-    <div className="w-full  gap-2 flex flex-col h-full mb-4 overflow-y-scroll p-4">
+
+    <div className="w-full gap-2 flex flex-col h-full mb-4 overflow-y-scroll p-4">
       <h1 className='text-2xl pb-4 font-semibold text-textColor/50'>Latest messages</h1>
       {latestMessages.map((item) => (
-        msgOnClick?
-        <NavLink className='hover:opacity-50 active:opacity-75' to={`/messages/${item.id}`}>
-        <LatestMessageItem key={item.username} latestMessage={item} />
-        </NavLink>
-        :
-        <LatestMessageItem key={item.username} latestMessage={item} />
-
+        msgOnClick ?
+          <NavLink className='hover:opacity-50 active:opacity-75' to={`/messages/${item.id}`} key={item.username}>
+            <LatestMessageItem latestMessage={item} />
+          </NavLink>
+          :
+          <LatestMessageItem key={item.username} latestMessage={item} />
       ))}
     </div>
+
   );
 }

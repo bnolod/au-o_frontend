@@ -1,3 +1,5 @@
+import { User } from "../entity/User";
+
 /**
  * Chat üzenetek típusa
  * @interface
@@ -20,5 +22,5 @@ export interface ChatMessage {
     username: string;
   };
 
-  recipient: string;
+  recipient: User;
 }
