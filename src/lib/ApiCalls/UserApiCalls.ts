@@ -2,7 +2,7 @@ import { apiFetch } from '../apiClient';
 import { Post } from '../entity/Post';
 import { User } from '../entity/User';
 
-export async function getFollows(userId: string): Promise<{ following: User[]; followers: User[] } | null> {
+export async function getFollows(userId: number): Promise<{ following: User[]; followers: User[] } | null> {
   const followingRes = await apiFetch<User[]>(`users/user/${userId}/following`, 'GET', true);
   const followersRes = await apiFetch<User[]>(`users/user/${userId}/followers`, 'GET', true);
   if (followingRes && followersRes) {
@@ -14,13 +14,13 @@ export async function getFollows(userId: string): Promise<{ following: User[]; f
   return null;
 }
 
-export async function followUser(userId: string) {
+export async function followUser(userId: number) {
   const res = await apiFetch<User>(`users/user/${userId}/follow`, 'POST', true);
   if (res && res.status === 200) {
     return true;
   } else return false;
 }
-export async function unfollowUser(userId: string) {
+export async function unfollowUser(userId: number) {
   const res = await apiFetch<User>(`users/user/${userId}/unfollow`, 'DELETE', true);
   if (res && res.status === 200) {
     return true;
