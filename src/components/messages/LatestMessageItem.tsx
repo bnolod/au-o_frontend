@@ -10,7 +10,7 @@ function endsWith(str: string, suffix: string) {
 }
 
 function isUnsupportedMessage(message: string) {
-  return (startsWith(message, '{{GROUP_') || startsWith(message, '{{POST_')) && endsWith(message, '_}}');
+  return (startsWith(message, '{{') || startsWith(message, '{{')) && endsWith(message, '_}}');
 }
 
 export default function LatestMessageItem({ latestMessage }: { latestMessage: LatestMessage }) {

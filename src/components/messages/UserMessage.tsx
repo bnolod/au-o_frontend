@@ -22,7 +22,7 @@ export default function UserMessage({
           ${isFirst ? 'rounded-br-[1.5rem] ' : ''}
           ${isLast ? 'rounded-tr-[1.5rem] ' : ''} `}
         >
-          {(message.startsWith('{{GROUP_') || message.startsWith('{{POST_')) && message.endsWith('_}}') ? (
+          {(message.startsWith('{{') || message.startsWith('{{_')) && message.endsWith('_}}') ? (
             <p className="opacity-50 text-sm">message not supported</p>
           ) : (
             <p className="text-lg leading-tight break-all">{message}</p>
