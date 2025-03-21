@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SocialHeader from "../components/social/base/SocialHeader";
+import GroupHeader from "../components/social/base/SocialHeader";
 import { Group } from "../lib/entity/Group";
 import { getAllGroups } from "../lib/ApiCalls/GroupApiCalls";
 import SocialCard from "../components/social/base/SocialCard";
@@ -20,7 +20,7 @@ export default function GroupFeed() {
     }, [])
     return (
         <div className="flex flex-col gap-6">
-            <SocialHeader />
+            <GroupHeader />
         <div className="grid md:grid-cols-2 gap-6">
 
             {
