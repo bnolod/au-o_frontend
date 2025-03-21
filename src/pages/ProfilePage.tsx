@@ -116,12 +116,13 @@ export default function ProfilePage() {
             <p className="text-textColor/90">{user?.bio ? user?.bio : 'Empty bio :c'}</p>
           </div>
           <div className="w-full flex flex-row justify-between text-base">
+          {user?.id != authUser?.id ? 
             <button
-              className="hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-8 rounded-xl  bg-highlightPrimary"
+              className={"hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-8 rounded-xl bg-highlightPrimary"}
               onClick={handleFollowClick}
             >
               {followsThisUser ? 'Unfollow' : 'Follow'}
-            </button>
+            </button> : <div></div>}
             <div className="gap-2 flex flex-row">
               {user?.id == authUser?.id ? (
                 <button className="hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-4 rounded-xl  bg-backdropSecondary">
