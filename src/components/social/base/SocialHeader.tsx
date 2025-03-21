@@ -15,10 +15,10 @@ export default function GroupHeader() {
             <button 
                 className="flex flex-row items-center justify-center h-full aspect-square hover:aspect-auto bg-highlightSecondary rounded-xl text-white transition-all duration-300 overflow-hidden group"
             >
-                <span className="flex items-center justify-center w-full h-full transition-all duration-300 ease-in-out group-hover:w-auto group-hover:mx-2">
+                <span className="flex items-center justify-center w-full h-full transition-all duration-300 group-hover:w-auto group-hover:mx-2">
                     <FaPlus className="text-lg" />
                 </span>
-                <p className="w-0 ml-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:w-auto group-hover:pr-2 text-nowrap">
+                <p className="w-0 transition-all duration-300 group-hover:opacity-100 group-hover:w-auto group-hover:px-2 text-nowrap">
                     Create Group
                 </p>
             </button>
