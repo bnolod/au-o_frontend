@@ -20,7 +20,7 @@ export default function LandingHeader({
   }, []);
 
   return (
-    <header className="relative">
+    <header className="sticky top-0 z-50">
       <nav className="max-w-screen flex flex-wrap flex-row items-center justify-between">
         {/* <div className=" flex p-5 w-1/3">
           <Link
@@ -36,13 +36,13 @@ export default function LandingHeader({
             />
           </Link>
         </div> */}
-        <div className=" items-center p-5 w-full text-textColor">
-          <div className="hidden  md:block md:w-auto" id="navbar-default">
-            <ul className="font-medium flex flex-row justify-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
+        <div className=" items-center p-5 max-lg:p-0 w-full text-textColor">
+          <div className=" lg:w-auto" id="navbar-default">
+            <ul className="font-medium flex flex-row justify-center p-4 lg:p-0 mt-4  rounded-lg lg:flex-row lg:space-x-8 rtl:space-x-reverse">
               <li className="flex items-center">
                 <Link
                   to="#"
-                  className="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0"
+                  className="block py-2 px-3 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:p-0"
                 >
                   {HeaderTexts.downloadApp[language]}
                 </Link>
@@ -50,7 +50,7 @@ export default function LandingHeader({
               <li className="flex items-center">
                 <Link
                   to="#"
-                  className="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0"
+                  className="block py-2 px-3 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:p-0"
                 >
                   {HeaderTexts.faq[language]}
                 </Link>
@@ -58,7 +58,7 @@ export default function LandingHeader({
               <li className="flex items-center">
                 <Link
                   to="#"
-                  className="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0"
+                  className="block py-2 px-3 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:p-0"
                 >
                   {HeaderTexts.aboutUs[language]}
                 </Link>
@@ -66,7 +66,7 @@ export default function LandingHeader({
               <li className="flex items-center">
                 <Link
                   to="/login"
-                  className="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0"
+                  className="block py-2 px-3 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:p-0"
                 >
                   {HeaderTexts.login[language]}
                 </Link>

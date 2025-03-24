@@ -21,7 +21,7 @@ export default function ScrollableDisplay({
         className +
         " " +
         (firstPage ? "text-left items-start" : "text-right items-end") +
-        " flex flex-col justify-between z-0 bg-backdropPrimary/10 w-full rounded-3xl "
+        " flex flex-col justify-between z-0 bg-backdropPrimary/10 hover:bg-backdropPrimary/25 w-full rounded-3xl "
       }
     >
       <h3 className="text-4xl w-9/12 drop-shadow-lg">

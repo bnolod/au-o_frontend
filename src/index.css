@@ -20,6 +20,9 @@
   background-attachment: fixed;
 }
 
+#root, body {
+  width: 100%;
+}
 
 :root {
   --background: 255,240,240;
