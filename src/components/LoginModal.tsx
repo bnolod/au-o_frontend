@@ -206,9 +206,11 @@ export default function LoginModal({
                   type="submit"
                   className="p-3 w-full bg-highlightSecondary text-white rounded-xl"
                 >
-                  {AuthTexts.login.confirm[language]}
+                  {registerMode?
+                  AuthTexts.signup.confirm[language] :
+                  AuthTexts.login.confirm[language]}
                 </button>
-                <p>
+                <p className="text-textColor/50 pt-4">
               {!registerMode ? AuthTexts.login.notRegistered[language] : AuthTexts.signup.haveAccount[language]}
                   </p>
               </div>
