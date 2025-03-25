@@ -4,7 +4,7 @@ export function createTimestamp() {
     return new Date().getTime().toString();
   }
 
-export async function createImageForm(image: File, description: string, user: User | null) {
+export function createImageForm(image: File, description: string, user: User | null) {
     const imageForm = new FormData();
     imageForm.append('image', image);
     imageForm.append('description', description || '');

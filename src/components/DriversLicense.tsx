@@ -37,30 +37,33 @@ export default function DriversLicense({ user }: { user: UserResponse }) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!image || !user) {
-      showSnackbar('nincs image vagy user', 'error');
+    let upload = null;
+    if (!user) {
+      showSnackbar('nincs user', 'error');
       return;
     }
-    showSnackbar(`Kép ${image.name} feltöltése folyamatban`, 'info');
-    const res = await createImageForm(image, userRequest!.nickname, user);
-    if (res) {
-      const upload = await imageUpload(res);
-      if (upload !== null) {
-        setUserRequest({
-          ...userRequest,
-          profileImg: upload.url,
-        });
-        console.log(userRequest.profileImg)
-        showSnackbar(`Kép ${image.name} sikeresen feltöltve`, 'success');
-      } else {
-        showSnackbar('Hiba a kép feltöltése közben', 'error');
-        return;
+    if (image) {
+      showSnackbar(`Kép ${image.name} feltöltése folyamatban`, 'info');
+      const res = createImageForm(image, userRequest!.nickname, user);
+      if (res) {
+        upload = await imageUpload(res);
+        if (upload !== null) {
+          setUserRequest({
+            ...userRequest,
+            profileImg: upload.url,
+          });
+          console.log(userRequest.profileImg);
+          showSnackbar(`Kép ${image.name} sikeresen feltöltve`, 'success');
+        } else {
+          showSnackbar('Hiba a kép feltöltése közben', 'error');
+          return;
+        }
       }
-      if (null != updateProfile(userRequest.nickname, userRequest.bio, upload.url)) {
-        showSnackbar('Sikeres profil frissítés', 'success');
-      } else {
-        showSnackbar('Hiba a profil frissítése közben', 'error');
-      }
+    }
+    if (null != updateProfile(userRequest.nickname, userRequest.bio, upload ? upload.url : userRequest.profileImg)) {
+      showSnackbar('Sikeres profil frissítés', 'success');
+    } else {
+      showSnackbar('Hiba a profil frissítése közben', 'error');
     }
   };
 
@@ -80,36 +83,59 @@ export default function DriversLicense({ user }: { user: UserResponse }) {
         />
         <h1 className="text-5xl text-right text-textColor/50 flex-grow">_igazolvány</h1>
       </div>
-      <form className="flex flex-col" onSubmit={handleSubmit}>
-        <div className='flex flex-row gap-6'>
-        <input type="file" name="image" className="hidden" accept="image/png, image/jpg, image/jpeg" id="image" ref={fileInputRef} onChange={onImageChange} />
-        <div className="w-1/2 cursor-pointer hover:opacity-75 rounded-2xl overflow-hidden" onClick={handleAvatarClick}>
-          <Avatar src={displayedImage} sx={{ width: '100%', height: '100%' }} variant="square">
-            {userRequest?.nickname.substring(0, 3).toUpperCase()}
-          </Avatar>
-        </div>
-        <div className="flex flex-col flex-1">
-          <label  htmlFor="username">Username: </label>
-          <input type="text" name="username" disabled value={`@${userRequest?.username}`} className="w-full  bg-backdropSecondary p-2" />
-          <br />
-          <label  htmlFor="nickname">Nickname: </label>
+      <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+        <div className="flex flex-row gap-6">
           <input
-            type="text"
-            name="nickname"
-            value={userRequest?.nickname}
-            className="border-b-2 w-full border-b-black outline-none focus:border-b-highlightPrimary bg-backdropSecondary p-2"
-            onChange={(e) => setUserRequest({ ...userRequest, nickname: e.target.value })}
+            type="file"
+            name="image"
+            className="hidden"
+            accept="image/png, image/jpg, image/jpeg"
+            id="image"
+            ref={fileInputRef}
+            onChange={onImageChange}
           />
-          <br />
-          <label  htmlFor="nickname">Bio: </label>
-          <input type="text" name="nickname" value={userRequest?.bio} className="border-b-2 w-full border-b-black outline-none focus:border-b-highlightPrimary bg-backdropSecondary p-2" />
-          <br />
+          <div
+            className="w-1/2 cursor-pointer hover:opacity-75 rounded-2xl overflow-hidden"
+            onClick={handleAvatarClick}
+          >
+            <Avatar src={displayedImage} sx={{ width: '100%', height: '100%' }} variant="square">
+              {userRequest?.nickname.substring(0, 3).toUpperCase()}
+            </Avatar>
+          </div>
+          <div className="flex flex-col flex-1">
+            <label htmlFor="username">Username: </label>
+            <input
+              type="text"
+              name="username"
+              disabled
+              value={`@${userRequest?.username}`}
+              className="w-full  bg-backdropSecondary p-2"
+            />
+            <br />
+            <label htmlFor="nickname">Nickname: </label>
+            <input
+              type="text"
+              name="nickname"
+              value={userRequest?.nickname}
+              className="border-b-2 w-full border-b-black outline-none focus:border-b-highlightPrimary bg-backdropSecondary p-2"
+              onChange={(e) => setUserRequest({ ...userRequest, nickname: e.target.value })}
+            />
+            <br />
+            <label htmlFor="nickname">Bio: </label>
+            <input
+              type="text"
+              name="nickname"
+              value={userRequest?.bio}
+              className="border-b-2 w-full border-b-black outline-none focus:border-b-highlightPrimary bg-backdropSecondary p-2"
+              onChange={(e) => setUserRequest({ ...userRequest, bio: e.target.value })}
+            />
+            <br />
+          </div>
         </div>
-        </div>
-      </form>
         <button className="bg-highlightPrimary p-2 rounded-full" type="submit">
           Edit
         </button>
+      </form>
     </div>
   );
 }
