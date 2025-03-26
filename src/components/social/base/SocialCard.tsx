@@ -1,9 +1,9 @@
-import { MdLockOutline } from "react-icons/md";
-import { SocialCardProps } from "../props";
-import { GroupTexts } from "../../../constants/texts";
-import { joinGroup } from "../../../lib/ApiCalls/GroupApiCalls";
-import SocialBanner from "./SocialBanner";
-import { useNavigate } from "react-router";
+import { MdInfo, MdLockOutline } from 'react-icons/md';
+import { SocialCardProps } from '../props';
+import { GroupTexts } from '../../../constants/texts';
+import { joinGroup } from '../../../lib/ApiCalls/GroupApiCalls';
+import SocialBanner from './SocialBanner';
+import { useNavigate } from 'react-router';
 
 export default function SocialCard({
   language,
@@ -12,9 +12,9 @@ export default function SocialCard({
   type = 'GROUP',
   preview,
   onCreateClick,
-}:  SocialCardProps) {
+}: SocialCardProps) {
   if (!group && !event) return null;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const item =
     group && !event
       ? {
@@ -43,69 +43,38 @@ export default function SocialCard({
   if (item)
     return (
       <article
-        className=" bg-background rounded-2xl p-2 overflow-hidden cursor-pointer hover:scale-[1.025] hover:bg-backdropSecondary transition-all"
-        style={{
-          //shadowColor: colorScheme === 'dark' ? '#fff0f0' : '#1b1b1b',
-          //shadowOffset: {
-            //width: 0,
-            //height: 10,
-          //},
-          //shadowOpacity: 1,0
-          //shadowRadius: 20,
-        }}
-        onClick={() =>
-          navigate("/groups/" + group?.id)
-        }
+        className=" rounded-2xl cursor-pointer hover:scale-[1.025] hover:bg-backdropSecondary transition-all group"
+        onClick={() => navigate('/groups/' + group?.id)}
       >
-        <div className={`${preview !== 'DISPLAY' ? ' ' : 'pointer-events-none'} opacity-75 overflow-hidden rounded-xl`}>
-          <SocialBanner
-            id={Number(item.id)}
-            language={language}
-            name={item.alias}
-            image={item.bannerImage}
-            count={item.count}
-            type={type}
-            onClick={onCreateClick}
-          />
-        </div>
-        <div className="p-4">
-          <div className="social-card-container">
-            <div className="basis-4/6">
-              <h3 className="text-xl font-bold leading-tight">
+        <div className="flex flex-col">
+          <div
+            className={`${
+              preview !== 'DISPLAY' ? ' ' : 'pointer-events-none'
+            }  overflow-hidden rounded-xl p-2 bg-backdropSecondary `}
+          >
+            <SocialBanner
+              id={Number(item.id)}
+              language={language}
+              name={item.alias}
+              image={item.bannerImage}
+              count={item.count}
+              type={type}
+              onClick={onCreateClick}
+            />
+            <div className="flex flex-row justify-between pt-4 px-2">
+              <h3 className="text-xl flex-1 truncate font-bold leading-tight">
                 {group && !group.public && <MdLockOutline />}
                 {item.name}
-                <p className="text-sm font-semibold muted pb-2"> {item.alias}</p>
               </h3>
-              <span className="opacity-85">{item.description}</span> {/*TODO: ADD EXPANDING TEXT FIELD*/}
+              <p className="text-xl font-bold muted"> {item.alias}</p>
             </div>
-            <div className="flex items-start gap-3">
-              {/* {!item.isUserRelated && (
-                <button onClick={!preview ? () => {type === "GROUP" ? joinGroup(group!.id) : {}} : () => {}} className="social-card-secondary-button bg-highlightSecondary">
-                  {type === 'GROUP'
-                    ? group?.public
-                      ? GroupTexts.buttons.join[language]
-                      : group?.member
-                      ? GroupTexts.actions.application.sent[language]
-                      : GroupTexts.page.apply[language]
-                    : 'Attend'}
-                </button>
-              )} */}
-              {/* <button
-                className="social-card-secondary-button"
-                onClick={() =>
-                  navigate("/groups/" + group?.id)
-                }
-              >
-                {type === 'GROUP' &&
-                group?.validMember
-                  ? group.public
-                    ? GroupTexts.actions.visit[language]
-                    : GroupTexts.actions.visit[language]
-                  : group?.public
-                  ? GroupTexts.actions.visit[language]
-                  : GroupTexts.actions.details[language]}
-              </button> */}
-            </div>
+          </div>
+          <div className="p-2 mt-2 rounded-xl bg-backdropPrimary  group-hover:bg-backdropSecondary transition-all">
+            <MdInfo className='absolute -mt-3 -ml-3 group-[xd]' size={16}></MdInfo>
+            <p className='absolute -mt-3 ml-2 text-xs transition-all text-textColor/50 truncate row'>Description</p>
+
+            <p className="opacity-85 font-thin">{item.description}</p> {/*TODO: ADD EXPANDING TEXT FIELD*/}
+            {/* <div className="flex items-start gap-3"></div> */}
           </div>
         </div>
       </article>

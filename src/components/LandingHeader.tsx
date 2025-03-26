@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import { HeaderTexts } from '../constants/texts';
 import { useEffect, useState } from 'react';
 
@@ -21,42 +20,42 @@ export default function LandingHeader({ language = 'EN' }: { language?: 'EN' | '
         <div className=" items-center p-5 max-lg:p-0 w-full text-textColor">
           <img
             src={isDark ? 'assets/auoLogo_white.svg' : 'assets/auoLogo_black.svg'}
-            className="absolute m-2"
+            className="absolute m-2 max-lg:hidden"
             alt="AUO logo"
           />
           <div className=" lg:w-auto" id="navbar-default">
             <ul className="font-medium flex flex-row justify-center p-4 lg:p-0 mt-4  rounded-lg lg:flex-row lg:space-x-8 rtl:space-x-reverse">
               <li className="flex items-center">
-                <Link
-                  to="#"
-                  className="block py-2 px-3 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:p-0"
+                <a
+                  href="#"
+                  className="block py-2 px-3 rounded hover:opacity-75 lg:border-0 lg:p-0"
                 >
                   {HeaderTexts.downloadApp[language]}
-                </Link>
+                </a>
               </li>
               <li className="flex items-center">
-                <Link
-                  to="#"
-                  className="block py-2 px-3 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:p-0"
+                <a
+                  href="#footer"
+                  className="block py-2 px-3 rounded hover:opacity-75 lg:border-0 lg:p-0"
                 >
                   {HeaderTexts.faq[language]}
-                </Link>
+                </a>
               </li>
               <li className="flex items-center">
-                <Link
-                  to="#"
-                  className="block py-2 px-3 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:p-0"
+                <a
+                  href="#footer"
+                  className="block py-2 px-3 rounded hover:opacity-75 lg:border-0 lg:p-0"
                 >
                   {HeaderTexts.aboutUs[language]}
-                </Link>
+                </a>
               </li>
               {/* <li className="flex items-center">
-                <Link
-                  to="/login"
-                  className="block py-2 px-3 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:p-0"
+                <a
+                  href="/login"
+                  className="block py-2 px-3 rounded hover:opacity-75 lg:border-0 lg:p-0"
                 >
                   {HeaderTexts.login[language]}
-                </Link>
+                </a>
               </li> */}
             </ul>
           </div>

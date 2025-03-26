@@ -77,7 +77,7 @@ export default function LandingPage() {
           </div>
         </div>
       </main>
-      <footer className="bg-black w-full min-h-64 text-white/75 p-8 pb-32 flex flex-col items-center border-t-2 border-white/10 gap-4">
+      <footer id='footer' className="bg-black w-full min-h-64 text-white/75 p-8 pb-32 flex flex-col items-center border-t-2 border-white/10 gap-4">
         <img src="assets/auoLogo_white.svg" alt="auo logo" />
         <div className="w-full flex flex-wrap max-md:flex-col max-md:gap-8">
           <div className="w-1/2 flex flex-col justify-center items-center max-lg:w-full">
