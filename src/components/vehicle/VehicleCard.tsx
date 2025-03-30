@@ -16,15 +16,19 @@ import {
 import { Car } from '../../lib/entity/Car';
 import { NavLink } from 'react-router';
 import { useAuthentication } from '../../contexts/AuthenticationContext';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Post } from '../../lib/entity/Post';
 import { getPostsByVehicleId } from '../../lib/ApiCalls/CarApiCalls';
 import { ImageList, ImageListItem } from '@mui/material';
 import { getAspectRatio } from '../../lib/functions';
+import VehicleTypeSelector from './VehicleTypeSelector';
+import { CarType } from '../../lib/types';
 
-export default function VehicleCard({ car, closeFn }: { car: Car; closeFn?: () => void }) {
+export default function VehicleCard({ car, closeFn, editMode = false}: { car: Car; closeFn?: () => void, editMode:boolean }) {
   const { user: authUser } = useAuthentication();
   const [posts, setPosts] = useState<Post[] | null>(null);
+  const [carEditable, setCarEditable] = useState<Car>(car);
+  const [carTypeModal, setCarTypeModal] = useState(false);
 
   const handlePostFetch = async () => {
     const res = await getPostsByVehicleId(car.id);
@@ -36,6 +40,10 @@ export default function VehicleCard({ car, closeFn }: { car: Car; closeFn?: () =
   useEffect(() => {
     handlePostFetch();
   }, [car]);
+
+
+  
+
 
   return (
     <div className="w-full m-4 md:w-1/2 flex flex-col bg-background h-full rounded-2xl overflow-hidden gap-6">
@@ -62,9 +70,29 @@ export default function VehicleCard({ car, closeFn }: { car: Car; closeFn?: () =
         <section className="bg-backdropSecondary dshadow mx-4 p-4 rounded-xl flex flex-col">
           <div className="flex flex-row">
             <div>
-              <p className="text-2xl font-bold">{car.manufacturer}</p>
-              <p>{car.model}</p>
-              <p className="text-textColor/50">{car.type}</p>
+              <input
+              type="text"
+              value={carEditable.manufacturer}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setCarEditable({ ...carEditable, manufacturer: e.target.value })
+              }
+              className="text-2xl w-full bg-transparent font-bold"
+              />
+              <input
+              type="text"
+              value={carEditable.model}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setCarEditable({ ...carEditable, model: e.target.value })
+              }
+              className="w-full bg-transparent"
+              />
+              
+              <button
+              onClick={()=>{setCarTypeModal(!carTypeModal)}}
+              className="text-textColor/50 bg-transparent w-full"
+              >{carEditable.type}</button>
+
+              {carTypeModal && <VehicleTypeSelector selected={carEditable.type} setSelected={(value:CarType)=>{setCarEditable({...carEditable, type: value})}}/>}
             </div>
           </div>
           {authUser && authUser.id == car.owner?.id && (
