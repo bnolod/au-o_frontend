@@ -1,9 +1,0 @@
-export { default as Cabriolet } from './cabriolet';
-export { default as Coupe } from './coupe';
-export { default as Grandcoupe } from './grandcoupe';
-export { default as Hatch } from './hatch';
-export { default as Kombi } from './kombi';
-export { default as Pickup } from './pickup';
-export { default as Roadster } from './roadster';
-export { default as Sedan } from './sedan';
-export { default as Suv } from './suv';
