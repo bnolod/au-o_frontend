@@ -18,9 +18,9 @@ export default function VehicleTypeSelector({
     <Modal open={open} onClose={() => setOpen(false)} className="flex items-center justify-center text-textColor">
       <div className="bg-backdropSecondary rounded-xl w-2/6 aspect-square grid grid-cols-3">
         {CarTypes.map((carType) => (
-          <button className={'flex flex-col justify-center ' + (selected == carType && "underline")} onClick={()=>{setSelected(carType); setOpen(false)}}>
-            <GetCarImage type={carType} ></GetCarImage>
-            {carType}
+          <button className={'flex flex-col justify-center ' + (selected == carType && " border rounded-xl")} onClick={()=>{setSelected(carType); setOpen(false)}}>
+            <GetCarImage width={"100%"} strokeWidth={"1"} stroke={"#fff"} type={carType} ></GetCarImage>
+            <p>{carType}</p>
           </button>
         ))}
       </div>
