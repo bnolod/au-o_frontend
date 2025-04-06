@@ -23,6 +23,7 @@ import { ImageList, ImageListItem } from '@mui/material';
 import { getAspectRatio } from '../../lib/functions';
 import VehicleTypeSelector from './VehicleTypeSelector';
 import { CarType } from '../../lib/types';
+import { GetCarImage } from '../cars';
 
 export default function VehicleCard({ car, closeFn, editMode = false}: { car: Car; closeFn?: () => void, editMode:boolean }) {
   const { user: authUser } = useAuthentication();
@@ -69,14 +70,14 @@ export default function VehicleCard({ car, closeFn, editMode = false}: { car: Ca
       <main className="overflow-y-scroll flex flex-col gap-4">
         <section className="bg-backdropSecondary dshadow mx-4 p-4 rounded-xl flex flex-col">
           <div className="flex flex-row">
-            <div>
+            <div className='flex flex-col gap-2 w-1/2'>
               <input
               type="text"
               value={carEditable.manufacturer}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setCarEditable({ ...carEditable, manufacturer: e.target.value })
               }
-              className="text-2xl w-full bg-transparent font-bold"
+              className="text-2xl bg-transparent font-bold"
               />
               <input
               type="text"
@@ -84,16 +85,17 @@ export default function VehicleCard({ car, closeFn, editMode = false}: { car: Ca
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setCarEditable({ ...carEditable, model: e.target.value })
               }
-              className="w-full bg-transparent"
+              className="bg-transparent"
               />
               
               <button
               onClick={()=>{setCarTypeModal(!carTypeModal)}}
-              className="text-textColor/50 bg-transparent w-full"
+              className="text-textColor/50 bg-transparent text-left"
               >{carEditable.type}</button>
 
-              {carTypeModal && <VehicleTypeSelector selected={carEditable.type} setSelected={(value:CarType)=>{setCarEditable({...carEditable, type: value})}}/>}
+              <VehicleTypeSelector typeSelectorOpen={carTypeModal} closeTypeSelector={()=>setCarTypeModal(false)} selected={carEditable.type} setSelected={(value:CarType)=>{setCarEditable({...carEditable, type: value})}}/>
             </div>
+            <div className='flex flex-grow justify-end'><GetCarImage type={carEditable.type} width={"100%"}></GetCarImage></div>
           </div>
           {authUser && authUser.id == car.owner?.id && (
             <div className="w-full">

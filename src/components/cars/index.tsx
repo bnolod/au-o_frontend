@@ -30,7 +30,7 @@ export function GetCarImage({
   type: CarType;
   strokeWidth: number;
   stroke: string;
-  width: number;
+  width: string | number;
   height: number;
 }) /*//colorScheme: "light" | "dark" = "dark",
     width: number = 64,
