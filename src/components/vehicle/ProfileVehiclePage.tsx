@@ -6,6 +6,7 @@ import { getUserGarageById } from '../../lib/ApiCalls/CarApiCalls';
 import VehiclePageItem from './VehiclePageItem';
 import { Modal } from '@mui/material';
 import VehicleCard from './VehicleCard';
+import { FaCarCrash } from 'react-icons/fa';
 
 export default function ProfileVehiclePage({ user }: { user: User }) {
   const { user: AuthUser } = useAuthentication();
@@ -31,7 +32,7 @@ export default function ProfileVehiclePage({ user }: { user: User }) {
   }, [user]);
 
   return (
-    <div className="flex flex-col w-full bg-background p-4 rounded-2xl shadow-md shadow-[#00000066]">
+    <div className="flex flex-col w-full bg-background p-3 rounded-2xl shadow-md shadow-[#00000066]">
       <Modal
         open={openModal}
         onClose={() => setOpenModal(false)}
@@ -62,7 +63,7 @@ export default function ProfileVehiclePage({ user }: { user: User }) {
           );
         })
       ) : (
-        <div>No cars found.</div>
+        <div className='text-center text-textColor/50 items-center flex flex-col p-3'><FaCarCrash className='text-6xl'/><p>No cars found.</p></div>
       )}
     </div>
   );

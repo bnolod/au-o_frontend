@@ -7,6 +7,7 @@ import { useAuthentication } from '../../contexts/AuthenticationContext';
 import { getFavoritesOfUser, getPostsOfUser } from '../../lib/ApiCalls/PostApiCalls';
 import { getAspectRatio } from '../../lib/functions';
 import { Post as PostEntity } from '../../lib/entity/Post';
+import { FaCarCrash } from 'react-icons/fa';
 
 export default function PostDisplay({ userId, saved = false }: { userId: number; saved?: boolean }) {
   const [posts, setPosts] = useState<PostEntity[]>([]);
@@ -35,7 +36,7 @@ export default function PostDisplay({ userId, saved = false }: { userId: number;
       </Modal>
 
       <Card>
-        {posts.length === 0 && <div className="text-center">No posts found.</div>}
+        {posts.length === 0 && <div className="text-center text-textColor/50 flex flex-col items-center p-3"><FaCarCrash className='text-6xl'/><p>No posts found.</p></div>}
         <ImageList variant="masonry" cols={2} gap={16}>
           {posts.slice().reverse().map((post) => (
             <ImageListItem key={post.postId}>

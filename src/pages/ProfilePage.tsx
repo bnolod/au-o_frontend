@@ -9,6 +9,7 @@ import { User } from '../lib/entity/User';
 import { useAuthentication } from '../contexts/AuthenticationContext';
 import { followUser, getFollows, unfollowUser } from '../lib/ApiCalls/UserApiCalls';
 import ProfileVehiclePage from '../components/vehicle/ProfileVehiclePage';
+import GroupsDisplay from '../components/profilecomponents/GroupsDisplay';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<User>();
@@ -74,7 +75,7 @@ export default function ProfilePage() {
         bottomDisplay = <PostDisplay userId={parseInt(id!)} />;
         break;
       case 'groups':
-        bottomDisplay = <div>Groups</div>;
+        bottomDisplay = <GroupsDisplay/>;
         break;
       case 'car':
         bottomDisplay = <ProfileVehiclePage user={user}/>;
@@ -87,7 +88,7 @@ export default function ProfilePage() {
 
   return (
     <>
-      <div className=" rounded-2xl  flex flex-col p-5 gap-3">
+      <div className=" rounded-2xl flex flex-col p-5 pt-0 gap-3">
         <div className="bg-backdropPrimary pt-4 pb-4 rounded-2xl px-4 shadow-md shadow-[#00000066]">
           <div className="flex justify-start items-center w-full gap-3  py-8 px-4 rounded-2xl ">
             <button className="hover:animate-spin" onClick={handleProfileClick}>
