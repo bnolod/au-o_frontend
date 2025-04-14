@@ -10,6 +10,7 @@ export default function MockAuth() {
     const registerData: RegisterRequest = {
         username: "teszt",
         email: "teszt@teszt.com",
+        confirmPassword: "Teszt@1234",
         dateOfBirth: "1999-01-01",
         password: "Teszt@1234",
         nickname: "teszti",

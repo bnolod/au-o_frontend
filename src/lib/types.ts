@@ -33,6 +33,7 @@ export interface LoginResponse {
 export interface RegisterRequest {
   email: string;
   password: string;
+  confirmPassword: string;
   username: string;
   nickname: string;
   dateOfBirth: string;
@@ -92,7 +93,7 @@ export interface ImageUploadResponse {
   url: string;
   deleteHash: string;
 }
-export type PostResponseType = "USERPOST" | "GROUPOST" | "EVENTPOST";
+export type PostResponseType = "USERPOST" | "GROUPPOST" | "EVENTPOST";
 export type UserPostResponseType = {
   isPublic: boolean;
   bio: string;

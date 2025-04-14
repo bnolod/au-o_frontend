@@ -32,10 +32,11 @@ export default function LoginModal({
       try {
         const request: RegisterRequest = {
           dateOfBirth: "2000-01-01",
-          email: formState!.email,
-          password: formState!.password,
-          nickname: formState!.nickname,
-          username: formState!.username,
+          email: formState?.email || "",
+          password: formState?.password || "",
+          nickname: formState?.nickname || "",
+          username: formState?.username || "",
+          confirmPassword: formState?.confirmPassword  || "",
         };
         console.log(request);
         const validity = validateRegister(
@@ -43,7 +44,7 @@ export default function LoginModal({
         request.username,
         request.password,
         request.nickname,
-        request.password,
+        request.confirmPassword,
         request.dateOfBirth,
         language
       );
@@ -145,7 +146,13 @@ export default function LoginModal({
         />
         <Input
           type="password"
-          value={formState?.password}
+          onChange={(E) => {
+            setFormState({
+              ...formState!,
+              confirmPassword: E.currentTarget.value,
+            });
+          }}
+          value={formState?.confirmPassword}
           labelText={AuthTexts.signup.labels.confirmPassword[language]}
           inputPlaceholder={
             AuthTexts.signup.placeholders.confirmPassword[language]
@@ -155,6 +162,9 @@ export default function LoginModal({
       <div>
         <Input
           type="date"
+          onChange={(e) => {
+            setFormState({ ...formState!, dateOfBirth: e.currentTarget.value });
+          }}
           value={formState?.dateOfBirth}
           labelText={AuthTexts.signup.labels.dateOfBirth[language]}
           inputPlaceholder={"2000-01-01"}
