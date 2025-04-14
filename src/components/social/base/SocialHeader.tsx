@@ -83,7 +83,7 @@ export default function GroupHeader({isPosting}: {isPosting: boolean}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <div className="w-full lg:w-1/2 bg-background h-4/5 lg:h-2/3 overflow-y-scroll rounded-2xl">
+        <div className="w-full lg:w-1/2 bg-background h-full lg:h-2/3 overflow-y-scroll rounded-2xl flex flex-col">
           <div className="p-4 bg-backdropSecondary flex justify-between items-center sticky top-0">
             <h1 className="text-xl flex flex-row items-center gap-2">
               <MdGroup size={32}></MdGroup>
@@ -91,7 +91,7 @@ export default function GroupHeader({isPosting}: {isPosting: boolean}) {
             </h1>
             <MdClose size={32} className="cursor-pointer hover:opacity-50" onClick={handleClose}></MdClose>
           </div>
-          <section className="w-full flex flex-col gap-2 p-8">
+          <section className="w-full flex flex-col h-full gap-2 p-8 items-center overflow-y-hidden justify-start lg:justify-between">
             <label htmlFor="groupName" className="text-textColor/75">
               Group Name
             </label>
@@ -125,8 +125,11 @@ export default function GroupHeader({isPosting}: {isPosting: boolean}) {
               className="w-full py-3 focus:outline-highlightSecondary focus:outline-none px-4 rounded-xl bg-backdropPrimary"
               onChange={(e:React.ChangeEvent<HTMLInputElement>) => {setNewGroupForm({...newGroupForm, alias: e.currentTarget.value})}}
             />
-            <div className="w-full flex flex-row gap-2 items-center my-2">
-              <button className='w-20 rounded-xl primary self-end flex flex-col justify-center items-center p-1' onClick={() => {
+            <label htmlFor="visibility" className="text-textColor/75">
+              Visibility
+            </label>
+            <div className="flex flex-row gap-2 items-center justify-between">
+              <button className='w-20 rounded-xl primary self-end flex flex-col justify-center items-center p-1' name='visibility' onClick={() => {
                           setNewGroupForm({ ...newGroupForm, public: !newGroupForm.public });
                       }}>
                           {newGroupForm.public ? 
@@ -139,10 +142,8 @@ export default function GroupHeader({isPosting}: {isPosting: boolean}) {
                       </p>
               
                       </button>
-            </div>
-            <input type="file" className="bg-red-500 hidden" ref={fileInputRef} name="image" onChange={onImageChange}/>
             <button
-              className="p-3 bg-highlightSecondary rounded-xl w-1/3 mx-auto"
+              className="p-3 bg-highlightSecondary rounded-xl"
               onClick={() => {
                 if (fileInputRef.current) {
                   fileInputRef.current.click();
@@ -151,7 +152,9 @@ export default function GroupHeader({isPosting}: {isPosting: boolean}) {
             >
               Upload Banner image {image && image.name}
             </button>
-            <button className="my-4 bg-highlightPrimary w-1/2 p-4 rounded-2xl shadow-lg shadow-[#00000022] hover:opacity-75 transition-opacity m-auto" onClick={()=>{handleSubmit()}}>
+            </div>
+            <input type="file" className="bg-red-500 hidden" ref={fileInputRef} name="image" onChange={onImageChange}/>
+            <button className="my-4 bg-highlightPrimary w-1/2 p-4 rounded-2xl shadow-lg shadow-[#00000022] hover:opacity-75 transition-opacity justify-self-end" onClick={()=>{handleSubmit()}}>
               Create group
             </button>
           </section>
