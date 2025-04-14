@@ -1,11 +1,9 @@
 
-import { div, Button } from '@mui/material';
 import { useState, FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useAuthentication } from '../../../contexts/AuthenticationContext';
 import { useSnackbar } from '../../../contexts/SnackbarContext';
 import { imageUpload } from '../../../lib/ApiCalls/ImageApiCalls';
-import { publishPost } from '../../../lib/ApiCalls/PostApiCalls';
 import { createImageForm } from '../../../lib/functions';
 import { CreatePostRequest } from '../../../lib/request/PostCreationRequest';
 import { ImageUploadResponse } from '../../../lib/types';

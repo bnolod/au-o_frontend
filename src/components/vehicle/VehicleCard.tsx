@@ -1,20 +1,12 @@
 import {
-  Md10Mp,
-  MdAndroid,
-  MdBadge,
   MdCalendarMonth,
   MdClose,
   MdEdit,
   MdEngineering,
   MdKey,
-  MdOutlineEngineering,
-  MdSettingsAccessibility,
-  MdSpeaker,
-  MdSpeakerGroup,
   MdSpellcheck,
 } from 'react-icons/md';
 import { Car } from '../../lib/entity/Car';
-import { NavLink } from 'react-router';
 import { useAuthentication } from '../../contexts/AuthenticationContext';
 import React, { useEffect, useState } from 'react';
 import { Post } from '../../lib/entity/Post';

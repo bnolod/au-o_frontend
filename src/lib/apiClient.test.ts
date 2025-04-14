@@ -8,6 +8,7 @@ const testUser:RegisterRequest = {
     email: "hallo@teszt.com",
     nickname: "teszter",
     password: "erosjelszo",
+    confirmPassword: "erosjelszo",
     dateOfBirth: "2000-01-01",
 }
 

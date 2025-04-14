@@ -5,6 +5,7 @@ import { Modal } from '@mui/material';
 import VehicleCard from '../vehicle/VehicleCard';
 import { Car } from '../../lib/entity/Car';
 import VehiclePageItem from '../vehicle/VehiclePageItem';
+import { useAuthentication } from '../../contexts/AuthenticationContext';
 
 export default function PostImage({
   images,
@@ -17,6 +18,7 @@ export default function PostImage({
   onImageRemove: (index: number) => void;
   car?: Car;
 }) {
+  const {user} = useAuthentication()
   const [currentIndex, setCurrentIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
 
@@ -37,6 +39,7 @@ export default function PostImage({
           className="flex items-center justify-center p-4 text-textColor"
         >
           <VehicleCard
+          editMode={car.owner?.id === user?.id}
             closeFn={() => {
               setOpenModal(false);
             }}

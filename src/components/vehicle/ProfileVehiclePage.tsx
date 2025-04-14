@@ -40,6 +40,7 @@ export default function ProfileVehiclePage({ user }: { user: User }) {
       >
         {selectedCar ? (
           <VehicleCard
+            editMode={selectedCar.owner?.id === AuthUser?.id}
             closeFn={() => {
               setOpenModal(false);
             }}
