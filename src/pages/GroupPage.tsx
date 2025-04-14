@@ -1,21 +1,21 @@
-import { Navigate, useNavigate, useParams } from 'react-router';
+import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from 'react-router';
 import { Group } from '../lib/entity/Group';
 import { useEffect, useState } from 'react';
 import { getGroup, joinGroup } from '../lib/ApiCalls/GroupApiCalls';
-import { FaInfo, FaRegMessage, FaStar, FaUsers, FaWrench } from 'react-icons/fa6';
+import { FaRegMessage, FaStar, FaUsers, FaWrench } from 'react-icons/fa6';
 import GroupPostTab from '../components/social/tabs/GroupPostTab';
 import GroupMembersTab from '../components/social/tabs/GroupMembersTab';
 import GroupChatTab from '../components/social/tabs/GroupChat';
-import { useWebSocket } from '../contexts/WebSocketContext';
 import GroupOptionsTab from '../components/social/tabs/GroupOptionsTab';
 export default function GroupPage() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string, }>();
   const navigate = useNavigate();
   if (!id) {
     return <Navigate to="/groups" />;
   }
   const [group, setGroup] = useState<Group>();
   
+
   const [tab, setTab] = useState<'posts' | 'members' | 'about' | 'chat' | 'options'>('posts');
   useEffect(() => {
     init();

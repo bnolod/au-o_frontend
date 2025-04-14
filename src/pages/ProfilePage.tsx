@@ -1,20 +1,23 @@
 import { Avatar, Modal } from '@mui/material';
-import { MdBackupTable, MdBookmark, MdCarRepair, MdGroups, MdMessage, MdMoreHoriz } from 'react-icons/md';
+import { MdAdd, MdBackupTable, MdBookmark, MdCarRepair, MdGroups, MdMessage, MdMoreHoriz } from 'react-icons/md';
 import PostDisplay from '../components/profilecomponents/PostDisplay';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { apiFetch } from '../lib/apiClient';
-import { NavLink, useParams } from 'react-router';
+import { NavLink, useNavigate, useParams } from 'react-router';
 import DriversLicense from '../components/DriversLicense';
 import { User } from '../lib/entity/User';
 import { useAuthentication } from '../contexts/AuthenticationContext';
 import { followUser, getFollows, unfollowUser } from '../lib/ApiCalls/UserApiCalls';
 import ProfileVehiclePage from '../components/vehicle/ProfileVehiclePage';
 import GroupsDisplay from '../components/profilecomponents/GroupsDisplay';
+import NewButton from '../components/profile/base/NewButton';
+import { getNewButtonClickEvent, getNewButtonLabel } from '../lib/functions';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<User>();
   const { user: authUser } = useAuthentication();
   const { id } = useParams();
+  const navigate = useNavigate()
   const [selectedPage, setSelectedPage] = useState<'posts' | 'groups' | 'car' | 'saved'>('posts');
   const [openEditModal, setEditModal] = useState(false);
   const [followsThisUser, setFollowsThisUser] = useState<boolean>(false);
@@ -27,6 +30,7 @@ export default function ProfilePage() {
 
     // Add logic to handle page change here
   }
+  let isOwner = user?.id == authUser?.id;
 
   async function handleFollowClick() {
     if (followsThisUser) {
@@ -125,7 +129,7 @@ export default function ProfilePage() {
               {followsThisUser ? 'Unfollow' : 'Follow'}
             </button> : <div></div>}
             <div className="gap-2 flex flex-row">
-              {user?.id == authUser?.id ? (
+              {isOwner ? (
                 <button className="hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-4 rounded-xl  bg-backdropSecondary">
                   Edit Profile
                 </button>
@@ -158,18 +162,24 @@ export default function ProfilePage() {
             <MdGroups className="hover:opacity-50 transition-opacity" />
           </button>
           <button
-            className={`flex-grow flex justify-center ${selectedPage == 'saved' ? ' text-highlightPrimary' : ''} `}
-            onClick={(event) => handlePageChange(event, 'saved')}
-          >
-            <MdBookmark className="hover:opacity-50 transition-opacity" />
-          </button>
-          <button
             className={`flex-grow flex justify-center ${selectedPage == 'car' ? ' text-highlightPrimary' : ''} `}
             onClick={(event) => handlePageChange(event, 'car')}
           >
             <MdCarRepair className="hover:opacity-50 transition-opacity" />
           </button>
+          <button
+            className={`flex-grow flex justify-center ${selectedPage == 'saved' ? ' text-highlightPrimary' : ''} `}
+            onClick={(event) => handlePageChange(event, 'saved')}
+          >
+            <MdBookmark className="hover:opacity-50 transition-opacity" />
+          </button>
         </div>
+        <span>
+          { isOwner && selectedPage !== 'saved' &&
+            <NewButton icon={<MdAdd  size={32}/>} label={getNewButtonLabel(selectedPage)} onClick={getNewButtonClickEvent(selectedPage, navigate)}></NewButton>
+          }
+          
+        </span>
         <div className="min-h-[50vh]">{bottomDisplay}</div>
       </div>
       </>

@@ -10,8 +10,8 @@ import { imageUpload } from '../../../lib/ApiCalls/ImageApiCalls';
 import { createGroup } from '../../../lib/ApiCalls/GroupApiCalls';
 import { useNavigate } from 'react-router';
 
-export default function SocialHeader() {
-  const [open, setOpen] = useState(false);
+export default function GroupHeader({isPosting}: {isPosting: boolean}) {
+  const [open, setOpen] = useState(isPosting);
   const {showSnackbar} = useSnackbar();
   const {user} = useAuthentication();
   const navigate = useNavigate();

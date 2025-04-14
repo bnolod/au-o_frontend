@@ -4,7 +4,7 @@ import Input from "./Input";
 import { MdClose } from "react-icons/md";
 import { LoginRequest, RegisterRequest } from "../lib/types";
 import { useAuthentication } from "../contexts/AuthenticationContext";
-import { redirect, replace, useNavigate } from "react-router";
+import { redirect, useNavigate } from "react-router";
 import { validateRegister } from "../lib/Validation/Validation";
 import { useSnackbar } from "../contexts/SnackbarContext";
 
