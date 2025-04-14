@@ -1,5 +1,5 @@
-import { FaMagnifyingGlass, FaPlus, FaX } from 'react-icons/fa6';
-import { useRef, useState } from 'react';
+import { FaDoorClosed, FaDoorOpen, FaMagnifyingGlass, FaPlus, FaX } from 'react-icons/fa6';
+import React, { useRef, useState } from 'react';
 import { Modal } from '@mui/material';
 import { MdClose, MdGroup } from 'react-icons/md';
 import { createImageForm } from '../../../lib/functions';
@@ -7,11 +7,14 @@ import { GroupCreationRequest } from '../../../lib/request/GroupCreationRequest'
 import { useSnackbar } from '../../../contexts/SnackbarContext';
 import { useAuthentication } from '../../../contexts/AuthenticationContext';
 import { imageUpload } from '../../../lib/ApiCalls/ImageApiCalls';
+import { createGroup } from '../../../lib/ApiCalls/GroupApiCalls';
+import { useNavigate } from 'react-router';
 
-export default function GroupHeader() {
+export default function SocialHeader() {
   const [open, setOpen] = useState(false);
   const {showSnackbar} = useSnackbar();
   const {user} = useAuthentication();
+  const navigate = useNavigate();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<File>();
@@ -24,8 +27,7 @@ export default function GroupHeader() {
     public: true,
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+  const handleSubmit = async () => {
       let upload = null;
       if (!user) {
         showSnackbar('nincs user', 'error');
@@ -41,17 +43,24 @@ export default function GroupHeader() {
               ...newGroupForm,
               bannerImage: upload.url,
             });
+            //kar setelni a statebe, mert nem frissul eleg hamar
             showSnackbar(`Kép ${image.name} sikeresen feltöltve`, 'success');
+
           } else {
             showSnackbar('Hiba a kép feltöltése közben', 'error');
             return;
           }
         }
       }
-      if (null != updateProfile(userRequest.nickname, userRequest.bio, upload ? upload.url : userRequest.profileImg)) {
-        showSnackbar('Sikeres profil frissítés', 'success');
+      console.log(newGroupForm);
+
+      const res = await createGroup({...newGroupForm, bannerImage: upload ? upload.url : ""});
+
+      if (res) {
+        navigate(`/groups/${res.id}`);
+        showSnackbar('Csoport létrehozva', 'success');
       } else {
-        showSnackbar('Hiba a profil frissítése közben', 'error');
+        showSnackbar('Hiba a csoport létrehozása közben', 'error');
       }
     };
 
@@ -82,7 +91,7 @@ export default function GroupHeader() {
             </h1>
             <MdClose size={32} className="cursor-pointer hover:opacity-50" onClick={handleClose}></MdClose>
           </div>
-          <section className="min-h-full w-full flex flex-col gap-2 p-8">
+          <section className="w-full flex flex-col gap-2 p-8">
             <label htmlFor="groupName" className="text-textColor/75">
               Group Name
             </label>
@@ -92,8 +101,9 @@ export default function GroupHeader() {
               maxLength={32}
               placeholder="Car Group 1"
               className="w-full py-3 focus:outline-highlightSecondary focus:outline-none px-4 rounded-xl bg-backdropPrimary"
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => {setNewGroupForm({...newGroupForm, name: e.currentTarget.value})}}
             />
-            <label htmlFor="groupName" className="text-textColor/75">
+            <label htmlFor="description" className="text-textColor/75">
               Description
             </label>
             <input
@@ -102,26 +112,35 @@ export default function GroupHeader() {
               maxLength={32}
               placeholder="This group is about..."
               className="w-full py-3 focus:outline-highlightSecondary focus:outline-none px-4 rounded-xl bg-backdropPrimary"
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => {setNewGroupForm({...newGroupForm, description: e.currentTarget.value})}}
             />
-            <label htmlFor="groupName" className="text-textColor/75">
+            <label htmlFor="alias" className="text-textColor/75">
               Alias (optional)
             </label>
             <input
               type="text"
-              name="groupName"
+              name="alias"
               maxLength={32}
               placeholder="MYGROUP"
               className="w-full py-3 focus:outline-highlightSecondary focus:outline-none px-4 rounded-xl bg-backdropPrimary"
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => {setNewGroupForm({...newGroupForm, alias: e.currentTarget.value})}}
             />
             <div className="w-full flex flex-row gap-2 items-center my-2">
-              <input
-                type="checkbox"
-                name="publiccheckbox"
-                className="w-5 h-5 text-blue-600 bg-backdropSecondary border-gray-300 rounded-sm focus:ring-blue-500  dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
-              />
-              <label htmlFor="publiccheckbox">Private group</label>
+              <button className='w-20 rounded-xl primary self-end flex flex-col justify-center items-center p-1' onClick={() => {
+                          setNewGroupForm({ ...newGroupForm, public: !newGroupForm.public });
+                      }}>
+                          {newGroupForm.public ? 
+                          
+                          <FaDoorOpen className='text-xl' />
+                      : <FaDoorClosed className='text-xl'/>}
+                      <p className='text-sm'>
+                          
+                          {newGroupForm.public ? 'Public' : 'Private'}
+                      </p>
+              
+                      </button>
             </div>
-            <input type="file" className="bg-red-500 hidden" ref={fileInputRef} name="image" onChange={onImageChange} />
+            <input type="file" className="bg-red-500 hidden" ref={fileInputRef} name="image" onChange={onImageChange}/>
             <button
               className="p-3 bg-highlightSecondary rounded-xl w-1/3 mx-auto"
               onClick={() => {
@@ -132,7 +151,7 @@ export default function GroupHeader() {
             >
               Upload Banner image {image && image.name}
             </button>
-            <button className="my-4 bg-highlightPrimary w-1/2 p-4 rounded-2xl shadow-lg shadow-[#00000022] hover:opacity-75 transition-opacity m-auto">
+            <button className="my-4 bg-highlightPrimary w-1/2 p-4 rounded-2xl shadow-lg shadow-[#00000022] hover:opacity-75 transition-opacity m-auto" onClick={()=>{handleSubmit()}}>
               Create group
             </button>
           </section>
