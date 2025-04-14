@@ -1,7 +1,7 @@
 import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from 'react-router';
-import { Group } from '../lib/entity/Group';
+import { Group, GroupMemberResponse } from '../lib/entity/Group';
 import { useEffect, useState } from 'react';
-import { getGroup, joinGroup } from '../lib/ApiCalls/GroupApiCalls';
+import { getGroup, getGroupStatus, joinGroup } from '../lib/ApiCalls/GroupApiCalls';
 import { FaRegMessage, FaStar, FaUsers, FaWrench } from 'react-icons/fa6';
 import GroupPostTab from '../components/social/tabs/GroupPostTab';
 import GroupMembersTab from '../components/social/tabs/GroupMembersTab';
@@ -11,18 +11,30 @@ export default function GroupPage() {
   const { id } = useParams<{ id: string, }>();
   const navigate = useNavigate();
   const [group, setGroup] = useState<Group>();
+  const [status, setStatus] = useState<GroupMemberResponse>();
   
   
   const [tab, setTab] = useState<'posts' | 'members' | 'about' | 'chat' | 'options'>('posts');
   useEffect(() => {
     init();
   }, []);
+  async function getStatus(group: Group) {
+      const res = await getGroupStatus(group.id);
+      if (res) {
+        setStatus(res);
+        return;
+      }
+      return;
+    }
+  
 
   async function init() {
     const group = await getGroup(id!);
     if (group) {
       setGroup(group);
-      console.log(group);
+      if (group.member) {
+       await getStatus(group)
+      }
     }
   }
   if (!id) {
@@ -67,7 +79,7 @@ export default function GroupPage() {
               <FaStar className="text-lg" />
               <p>Posts</p>
             </button>
-            {group.validMember && (
+            {group.validMember   && (
               <button
                 className={`border-2 border-background/25 hover:opacity-50 transition-opacity rounded-xl bg-backdropPrimary  flex items-center flex-1 p-2 gap-2 text-lg font-semibold  ${
                   tab === 'members' ? 'bg-highlightSecondary' : 'secondary'
@@ -94,7 +106,7 @@ export default function GroupPage() {
                 <p>Chat</p>
               </button>
             )}
-            {group.validMember && (
+            {group.validMember && status && status.role == "ADMIN" && (
             <button
               className={`border-2 border-background/25 hover:opacity-50 transition-opacity  rounded-xl bg-backdropPrimary  flex items-center flex-1 p-2 gap-2 text-lg font-semibold ${
                 tab === 'options' ? 'bg-highlightSecondary' : 'secondary'
@@ -133,15 +145,13 @@ export default function GroupPage() {
               </button>
         )}
       </div>
-      {group.validMember ? (
+      {group && (
         <article className=" flex-col w-full mx-auto my-2 justify-center">
           {tab === 'posts' && <GroupPostTab validMember={group.validMember} tab={tab} id={group.id} />}
-          {tab === 'members' && <GroupMembersTab validMember={group.validMember} tab={tab} id={group.id} />}
-          {tab === 'chat' && <GroupChatTab group={group} />}
-          {tab === 'options' && <GroupOptionsTab group={group} language={'EN'} />}
+          {tab === 'members' && group.validMember && status && <GroupMembersTab validMember={group.validMember} tab={tab} id={group.id} />}
+          {tab === 'chat' && group.validMember && <GroupChatTab group={group} />}
+          {tab === 'options' && group.validMember && status && status.role == "ADMIN" && <GroupOptionsTab group={group} language={'EN'} />}
         </article>
-      ) : (
-        ''
       )}
     </section>
   );

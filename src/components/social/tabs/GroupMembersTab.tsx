@@ -42,11 +42,17 @@ export default function GroupMembersTab({
         )} */}
         {users &&
           users.users.map((user) => (
-            <div className="flex items-center gap-2 p-2">
+            <div className="flex items-center justify-between gap-2 p-2">
+              <div>
+
               <Avatar src={user.user.profileImg} className="rounded-full w-12 h-12" />
               <div>
                 <h2 className="text-lg font-bold">{user.user.nickname}</h2>
                 <p className="muted">@{user.user.username}</p>
+              </div>
+              </div>
+              <div>
+                <p className="text-sm muted">{user.role[0]}{user.role.substring(1, user.role.length).toLowerCase()}</p>
               </div>
             </div>
           ))}
