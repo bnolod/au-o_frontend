@@ -17,8 +17,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
         r={0.012}
         style={{
           fill: '#000',
-          stroke: '#fff',
-          strokeWidth: 0.79375,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.79375,
           strokeDasharray: 'none',
           strokeOpacity: 1,
         }}
@@ -30,27 +30,15 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
           fill: '#fff',
           fillOpacity: 1,
           fillRule: 'nonzero',
-          stroke: '#fff',
-          strokeWidth: 0.653893,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.653893,
           strokeLinecap: 'round',
           strokeLinejoin: 'round',
           strokeDasharray: 'none',
           strokeOpacity: 1,
         }}
       />
-      <path
-        d="M33.753 128.81a.012.076 0 0 1 .011-.076.012.076 0 0 1 .012.076"
-        style={{
-          opacity: 1,
-          fill: 'none',
-          fillOpacity: 1,
-          fillRule: 'nonzero',
-          stroke: '#fff',
-          strokeWidth: 0.79375,
-          strokeDasharray: 'none',
-          strokeOpacity: 1,
-        }}
-      />
+
       <path
         d="m116.58 129.173 4.488-.127 3.516-.766M124.116 117.089c-.06 4.397-.125 5.942-.84 9.35-.256 1.216 1.524.998 1.234 1.777M96.134 129.02a10.38 10.38 0 0 1 4.576-10.476 10.38 10.38 0 0 1 11.431.081 10.38 10.38 0 0 1 4.426 10.54M27.301 129.29a10.38 10.38 0 0 1 4.263-10.77 10.38 10.38 0 0 1 11.583-.118 10.38 10.38 0 0 1 4.483 10.68"
         style={{
@@ -58,8 +46,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
           fill: 'none',
           fillOpacity: 1,
           fillRule: 'nonzero',
-          stroke: '#fff',
-          strokeWidth: 0.653893,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.653893,
           strokeLinecap: 'round',
           strokeLinejoin: 'round',
           strokeDasharray: 'none',
@@ -73,8 +61,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
           fill: 'none',
           fillOpacity: 1,
           fillRule: 'nonzero',
-          stroke: '#fff',
-          strokeWidth: 0.653893,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.653893,
           strokeLinecap: 'round',
           strokeDasharray: 'none',
           strokeOpacity: 1,
@@ -87,8 +75,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
           fill: 'none',
           fillOpacity: 1,
           fillRule: 'nonzero',
-          stroke: '#fff',
-          strokeWidth: 0.79375,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.79375,
           strokeLinecap: 'round',
           strokeLinejoin: 'round',
           strokeDasharray: 'none',
@@ -102,8 +90,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
           fill: 'none',
           fillOpacity: 1,
           fillRule: 'nonzero',
-          stroke: '#fff',
-          strokeWidth: 0.653893,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.653893,
           strokeLinecap: 'round',
           strokeLinejoin: 'round',
           strokeDasharray: 'none',
@@ -114,8 +102,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
         d="m123.696 117.093-3.575-.42-5.298.434 3.031 1.837c1.675.712 4.831.718 5.9.129"
         style={{
           fill: 'none',
-          stroke: '#fff',
-          strokeWidth: 0.435929,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.435929,
           strokeLinecap: 'round',
           strokeLinejoin: 'round',
           strokeDasharray: 'none',
@@ -128,8 +116,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
         d="m16.881 113.327 2.474.477 1.202 3.987-3.302.154"
         style={{
           fill: 'none',
-          stroke: '#fff',
-          strokeWidth: 0.529167,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.529167,
           strokeLinecap: 'round',
           strokeDasharray: 'none',
           strokeOpacity: 1,
@@ -141,8 +129,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
         d="M49.526 127.297H94.1M15.525 124.241l10.253 2.05"
         style={{
           fill: 'none',
-          stroke: '#fff',
-          strokeWidth: 0.435929,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.435929,
           strokeLinecap: 'round',
           strokeDasharray: 'none',
           strokeOpacity: 1,
@@ -152,8 +140,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
         d="M117.93 126.55c2.176.022 4.117-.469 4.117-.469"
         style={{
           fill: 'none',
-          stroke: '#fff',
-          strokeWidth: 0.435929,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.435929,
           strokeLinecap: 'round',
           strokeLinejoin: 'round',
           strokeDasharray: 'none',
@@ -164,8 +152,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
         d="m18.855 115.604-1.297-.023"
         style={{
           fill: 'none',
-          stroke: '#fff',
-          strokeWidth: 0.529167,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.529167,
           strokeLinecap: 'round',
           strokeDasharray: 'none',
           strokeOpacity: 1,
@@ -177,8 +165,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
         d="m32.335 108.227 8.81 3.046H91.12"
         style={{
           fill: 'none',
-          stroke: '#fff',
-          strokeWidth: 0.435929,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.435929,
           strokeLinecap: 'round',
           strokeMiterlimit: 3.9,
           strokeDasharray: 'none',
@@ -191,8 +179,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
         r={7.976}
         style={{
           fill: 'none',
-          stroke: '#fff',
-          strokeWidth: 0.653893,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.653893,
           strokeLinecap: 'butt',
           strokeDasharray: 'none',
           strokeOpacity: 1,
@@ -204,8 +192,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
         r={6.746}
         style={{
           fill: 'none',
-          stroke: '#fff',
-          strokeWidth: 0.435929,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.435929,
           strokeLinecap: 'butt',
           strokeDasharray: 'none',
           strokeOpacity: 1,
@@ -213,7 +201,7 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
       />
       <g
         style={{
-          stroke: '#fff',
+          stroke: props.stroke,
           strokeOpacity: 1,
         }}
         transform="translate(-.026 -.741)"
@@ -224,8 +212,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
           r={7.976}
           style={{
             fill: 'none',
-            stroke: '#fff',
-            strokeWidth: 0.653893,
+            stroke: props.stroke,
+            strokeWidth: props.strokeWidth as number *  0.653893,
             strokeLinecap: 'butt',
             strokeDasharray: 'none',
             strokeOpacity: 1,
@@ -237,8 +225,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
           r={6.746}
           style={{
             fill: 'none',
-            stroke: '#fff',
-            strokeWidth: 0.553492,
+            stroke: props.stroke,
+            strokeWidth: props.strokeWidth as number *  0.553492,
             strokeLinecap: 'butt',
             strokeDasharray: 'none',
             strokeOpacity: 1,
@@ -247,7 +235,7 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
       </g>
       <g
         style={{
-          stroke: '#fff',
+          stroke: props.stroke,
           strokeOpacity: 1,
         }}
         transform="translate(-8.226 -.414)"
@@ -256,8 +244,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
           d="M68.385 115.367h5.1"
           style={{
             fill: 'none',
-            stroke: '#fff',
-            strokeWidth: 0.871857,
+            stroke: props.stroke,
+            strokeWidth: props.strokeWidth as number *  0.871857,
             strokeLinecap: 'round',
             strokeDasharray: 'none',
             strokeOpacity: 1,
@@ -271,8 +259,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
           style={{
             fill: 'none',
             fillOpacity: 1,
-            stroke: '#fff',
-            strokeWidth: 0.687739,
+            stroke: props.stroke,
+            strokeWidth: props.strokeWidth as number *  0.687739,
             strokeLinecap: 'round',
             strokeDasharray: 'none',
             strokeOpacity: 1,
@@ -284,8 +272,8 @@ const SvgCoupe = (props: SVGProps<SVGSVGElement>) => (
         style={{
           fill: 'none',
           fillOpacity: 1,
-          stroke: '#fff',
-          strokeWidth: 0.435929,
+          stroke: props.stroke,
+          strokeWidth: props.strokeWidth as number *  0.435929,
           strokeLinecap: 'round',
           strokeDasharray: 'none',
           strokeOpacity: 1,

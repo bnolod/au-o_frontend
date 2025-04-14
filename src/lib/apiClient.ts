@@ -102,6 +102,7 @@ export async function getUserByToken(): Promise<User | null> {
     throw new HttpError(500, "getuserbytoken_fail + " + error);
   }
 }
+
 export async function apiLogin(request: LoginRequest): Promise<string | null> {
   try {
     localStorage.removeItem("jwtToken");

@@ -162,7 +162,7 @@ export function validateNewVehicle(
     errors.push(t.invalidYear[language]);
   }
   if (errors.length > 0) {
-    return { valid: false, messages: t.carCreationFailed[language] };
+    return { valid: false, messages: errors };
   }
   return {
     valid: true,

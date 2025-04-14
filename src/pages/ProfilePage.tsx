@@ -12,16 +12,18 @@ import ProfileVehiclePage from '../components/vehicle/ProfileVehiclePage';
 import GroupsDisplay from '../components/profilecomponents/GroupsDisplay';
 import NewButton from '../components/profile/base/NewButton';
 import { getNewButtonClickEvent, getNewButtonLabel } from '../lib/functions';
+import NewVehicleForm from '../components/vehicle/NewVehicle';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<User>();
   const { user: authUser } = useAuthentication();
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [selectedPage, setSelectedPage] = useState<'posts' | 'groups' | 'car' | 'saved'>('posts');
   const [openEditModal, setEditModal] = useState(false);
   const [followsThisUser, setFollowsThisUser] = useState<boolean>(false);
   const [follows, setFollows] = useState<User[]>([]);
+  const [vehicleOpen, setVehicleOpen] = useState(false);
   const [followers, setFollowers] = useState<User[]>([]);
 
   function handlePageChange(event: React.MouseEvent<HTMLButtonElement>, value: 'posts' | 'groups' | 'car' | 'saved') {
@@ -36,10 +38,9 @@ export default function ProfilePage() {
     if (followsThisUser) {
       unfollowUser(parseInt(id!)).then(async () => await loadFollows(parseInt(id!)));
     } else {
-      followUser(parseInt(id!)).then(async () =>await loadFollows(parseInt(id!)));
+      followUser(parseInt(id!)).then(async () => await loadFollows(parseInt(id!)));
     }
   }
-
 
   async function loadFollows(userId: number) {
     const res = await getFollows(userId);
@@ -49,11 +50,10 @@ export default function ProfilePage() {
     }
   }
 
-
-  useEffect(()=> {
+  useEffect(() => {
     setFollowsThisUser(followers.some((follower) => follower.id === authUser?.id));
-  },[followers])
-  
+  }, [followers]);
+
   async function load() {
     const res = await apiFetch<User>(`users/user/${id}`);
     if (res && res.data) {
@@ -65,11 +65,11 @@ export default function ProfilePage() {
   useEffect(() => {
     load();
     loadFollows(parseInt(id!));
-    console.log("refetch")
+    console.log('refetch');
   }, [id, openEditModal]);
 
   function handleProfileClick() {
-    if ( user && user?.id === authUser?.id) {
+    if (user && user?.id === authUser?.id) {
       setEditModal(true);
     }
   }
@@ -82,10 +82,10 @@ export default function ProfilePage() {
         bottomDisplay = <PostDisplay userId={parseInt(id!)} />;
         break;
       case 'groups':
-        bottomDisplay = <GroupsDisplay/>;
+        bottomDisplay = <GroupsDisplay />;
         break;
       case 'car':
-        bottomDisplay = <ProfileVehiclePage user={user}/>;
+        bottomDisplay = <ProfileVehiclePage user={user} />;
         break;
       case 'saved':
         bottomDisplay = <PostDisplay userId={parseInt(id!)} saved />;
@@ -103,13 +103,15 @@ export default function ProfilePage() {
                 {user?.nickname.substring(0, 3).toUpperCase()}
               </Avatar>
             </button>
-            <Modal
-              open={openEditModal}
-              onClose={() => setEditModal(false)}
-              className="flex justify-center items-center"
-            >
-              <DriversLicense onClose={() => setEditModal(false)} user={user}></DriversLicense>
-            </Modal>
+            {authUser && user && user.id === authUser.id && (
+              <Modal
+                open={openEditModal}
+                onClose={() => setEditModal(false)}
+                className="flex justify-center items-center"
+              >
+                <DriversLicense onClose={() => setEditModal(false)} user={user} />
+              </Modal>
+            )}
             <div className="flex-grow">
               <h3 className="text-3xl font-semibold">{user?.nickname} </h3>
               <p className="text-md text-textColor/75">@{user?.username}</p>
@@ -118,19 +120,23 @@ export default function ProfilePage() {
               <p>{followers && followers.length} Followers</p>
               <p>{follows && follows.length} Following</p>
             </div>
-
           </div>
           <div className="p-4">
             <p className="text-textColor/90">{user?.bio ? user?.bio : 'Empty bio :c'}</p>
           </div>
           <div className="w-full flex flex-row justify-between text-base">
-          {user?.id != authUser?.id ? 
-            <button
-              className={"hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-8 rounded-xl bg-highlightPrimary"}
-              onClick={handleFollowClick}
-            >
-              {followsThisUser ? 'Unfollow' : 'Follow'}
-            </button> : <div></div>}
+            {user?.id != authUser?.id ? (
+              <button
+                className={
+                  'hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-8 rounded-xl bg-highlightPrimary'
+                }
+                onClick={handleFollowClick}
+              >
+                {followsThisUser ? 'Unfollow' : 'Follow'}
+              </button>
+            ) : (
+              <div></div>
+            )}
             <div className="gap-2 flex flex-row">
               {isOwner ? (
                 <button className="hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-4 rounded-xl  bg-backdropSecondary">
@@ -178,13 +184,29 @@ export default function ProfilePage() {
           </button>
         </div>
         <span>
-          { isOwner && selectedPage !== 'saved' &&
-            <NewButton icon={<MdAdd  size={32}/>} label={getNewButtonLabel(selectedPage)} onClick={getNewButtonClickEvent(selectedPage, navigate)}></NewButton>
-          }
-          
+          {isOwner && selectedPage !== 'saved' && (
+            <NewButton
+              icon={<MdAdd size={32} />}
+              label={getNewButtonLabel(selectedPage)}
+              onClick={
+                selectedPage === 'car'
+                  ? () => {
+                      setVehicleOpen(true);
+                    }
+                  : getNewButtonClickEvent(selectedPage, navigate)
+              }
+            ></NewButton>
+          )}
         </span>
-        <div className="min-h-[50vh]">{bottomDisplay}</div>
+          {selectedPage === 'car' && 
+        <Modal open={vehicleOpen} onClose={() => setVehicleOpen(false)} className="flex justify-center items-center m-auto w-1/3 h-fit rounded-xl bg-backdropPrimary ">
+          <NewVehicleForm />
+        </Modal>
+          }
+        <div className="min-h-[50vh]">
+          {bottomDisplay}
+        </div>
       </div>
-      </>
+    </>
   );
 }

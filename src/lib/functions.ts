@@ -22,8 +22,6 @@ export function getNewButtonClickEvent(value: 'posts' | 'groups' | 'car' | 'save
       return () => navigate('/post');
     case 'groups':
       return () => navigate('/groups?post=true');
-    case 'car':
-      return () => console.log('New Vehicle Clicked');
     default:
       return () => console.log('No action defined');
   }

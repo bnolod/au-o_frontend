@@ -38,19 +38,7 @@ const SvgRoadster = (props: SVGProps<SVGSVGElement>) => (
           strokeOpacity: 1,
         }}
       />
-      <path
-        d="M33.753 128.542a.012.076 0 0 1 .011-.076.012.076 0 0 1 .012.076"
-        style={{
-          opacity: 1,
-          fill: 'none',
-          fillOpacity: 1,
-          fillRule: 'nonzero',
-          stroke: props.stroke,
-          strokeWidth: props.strokeWidth as number * 0.79375,
-          strokeDasharray: 'none',
-          strokeOpacity: 1,
-        }}
-      />
+     
       <path
         d="m116.58 128.905 4.488-.127 3.516-.767M124.116 116.82c-.06 4.398-.125 5.942-.84 9.35-.256 1.217 1.524.999 1.234 1.777M96.134 128.75a10.38 10.38 0 0 1 4.576-10.475 10.38 10.38 0 0 1 11.431.082 10.38 10.38 0 0 1 4.426 10.54M27.301 129.022a10.38 10.38 0 0 1 4.263-10.77 10.38 10.38 0 0 1 11.583-.12 10.38 10.38 0 0 1 4.483 10.681"
         style={{
