@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/landing" element={<LandingPage />} />
         <Route element={<ProtectedRoute />}>
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />{/*deprecated*/}
           <Route path="/landing" element={<LandingPage />} />
           <Route path="/" element={<GeneralLayout />}>
             <Route index element={<PostsFeed />} />
