@@ -1,10 +1,67 @@
 import { FaMagnifyingGlass, FaPlus, FaX } from 'react-icons/fa6';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Modal } from '@mui/material';
 import { MdClose, MdGroup } from 'react-icons/md';
+import { createImageForm } from '../../../lib/functions';
+import { GroupCreationRequest } from '../../../lib/request/GroupCreationRequest';
+import { useSnackbar } from '../../../contexts/SnackbarContext';
+import { useAuthentication } from '../../../contexts/AuthenticationContext';
+import { imageUpload } from '../../../lib/ApiCalls/ImageApiCalls';
 
 export default function GroupHeader() {
   const [open, setOpen] = useState(false);
+  const {showSnackbar} = useSnackbar();
+  const {user} = useAuthentication();
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [image, setImage] = useState<File>();
+  const [displayedImage, setDisplayedImage] = useState<string>('');
+  const [newGroupForm, setNewGroupForm] = useState<GroupCreationRequest>({
+    name: '',
+    description: '',
+    alias: '',
+    bannerImage: '',
+    public: true,
+  });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      let upload = null;
+      if (!user) {
+        showSnackbar('nincs user', 'error');
+        return;
+      }
+      if (image) {
+        showSnackbar(`Kép ${image.name} feltöltése folyamatban`, 'info');
+        const res = createImageForm(image, `groupimage_${newGroupForm.name}` , user);
+        if (res) {
+          upload = await imageUpload(res);
+          if (upload !== null) {
+            setNewGroupForm({
+              ...newGroupForm,
+              bannerImage: upload.url,
+            });
+            showSnackbar(`Kép ${image.name} sikeresen feltöltve`, 'success');
+          } else {
+            showSnackbar('Hiba a kép feltöltése közben', 'error');
+            return;
+          }
+        }
+      }
+      if (null != updateProfile(userRequest.nickname, userRequest.bio, upload ? upload.url : userRequest.profileImg)) {
+        showSnackbar('Sikeres profil frissítés', 'success');
+      } else {
+        showSnackbar('Hiba a profil frissítése közben', 'error');
+      }
+    };
+
+  const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.files) {
+      setImage(e.target.files[0]);
+      setDisplayedImage(URL.createObjectURL(e.target.files[0]));
+    }
+  };
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -56,12 +113,28 @@ export default function GroupHeader() {
               placeholder="MYGROUP"
               className="w-full py-3 focus:outline-highlightSecondary focus:outline-none px-4 rounded-xl bg-backdropPrimary"
             />
-            <div className='w-full flex flex-row gap-2 items-center my-2'>
-                <input type="checkbox" name="publiccheckbox" className="w-5 h-5 text-blue-600 bg-backdropSecondary border-gray-300 rounded-sm focus:ring-blue-500  dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600" />
-                <label htmlFor="publiccheckbox">Private group</label>
+            <div className="w-full flex flex-row gap-2 items-center my-2">
+              <input
+                type="checkbox"
+                name="publiccheckbox"
+                className="w-5 h-5 text-blue-600 bg-backdropSecondary border-gray-300 rounded-sm focus:ring-blue-500  dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label htmlFor="publiccheckbox">Private group</label>
             </div>
-            <input type="file" className='bg-red-500' />
-            <button className='my-4 bg-highlightPrimary w-1/2 p-4 rounded-2xl shadow-lg shadow-[#00000022] hover:opacity-75 transition-opacity m-auto'>Create group</button>
+            <input type="file" className="bg-red-500 hidden" ref={fileInputRef} name="image" onChange={onImageChange} />
+            <button
+              className="p-3 bg-highlightSecondary rounded-xl w-1/3 mx-auto"
+              onClick={() => {
+                if (fileInputRef.current) {
+                  fileInputRef.current.click();
+                }
+              }}
+            >
+              Upload Banner image {image && image.name}
+            </button>
+            <button className="my-4 bg-highlightPrimary w-1/2 p-4 rounded-2xl shadow-lg shadow-[#00000022] hover:opacity-75 transition-opacity m-auto">
+              Create group
+            </button>
           </section>
         </div>
       </Modal>
