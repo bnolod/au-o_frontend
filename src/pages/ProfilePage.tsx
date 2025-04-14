@@ -69,7 +69,9 @@ export default function ProfilePage() {
   }, [id, openEditModal]);
 
   function handleProfileClick() {
-    setEditModal(true);
+    if ( user && user?.id === authUser?.id) {
+      setEditModal(true);
+    }
   }
 
   //
