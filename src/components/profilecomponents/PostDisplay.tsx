@@ -36,7 +36,7 @@ export default function PostDisplay({ userId, saved = false }: { userId: number;
       </Modal>
 
       <Card>
-        {posts.length === 0 && <div className="text-center text-textColor/50 flex flex-col items-center p-3"><FaCarCrash className='text-6xl'/><p>No posts found.</p></div>}
+        {posts.length === 0 && <div className="text-center text-textColor/50 flex flex-col items-center p-3"><FaCarCrash className='text-6xl'/><p>{saved ? "No saved posts found." : "No posts found."}</p></div>}
         <ImageList variant="masonry" cols={2} gap={16}>
           {posts.slice().reverse().map((post) => (
             <ImageListItem key={post.postId}>
