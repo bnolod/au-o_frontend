@@ -1,12 +1,14 @@
-import { MdBookmark, MdMoreHoriz } from 'react-icons/md';
+import { MdBookmark, MdDelete, MdMoreHoriz } from 'react-icons/md';
 import { UserPostResponseType } from '../../lib/types';
 import Avatar from '@mui/material/Avatar';
 import { grey } from '@mui/material/colors';
 import { NavLink } from 'react-router';
 import { useState } from 'react';
 import { ListItemIcon, ListItemText, Menu, MenuItem, MenuList } from '@mui/material';
-import { favoritePost } from '../../lib/ApiCalls/PostApiCalls';
+import { deletePost, favoritePost } from '../../lib/ApiCalls/PostApiCalls';
 import { Post } from '../../lib/entity/Post';
+import { useAuthentication } from '../../contexts/AuthenticationContext';
+import { useSnackbar } from '../../contexts/SnackbarContext';
 
 export default function PostHeader({
   user,
@@ -14,13 +16,17 @@ export default function PostHeader({
   favorite,
   post,
   groupView,
+  loadPosts
 }: {
   user: UserPostResponseType;
   postId: number;
   favorite: boolean;
   post: Post;
   groupView?:boolean;
+  loadPosts: () => void;
 }) {
+  const {showSnackbar} = useSnackbar();
+  const { user: AuthUser } = useAuthentication();
   const [isFavorite, setIsFavorite] = useState<boolean>(favorite);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const open = anchorEl != null ? true : false;
@@ -31,6 +37,14 @@ export default function PostHeader({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  async function handleDelete(postId:number) {
+    if (await deletePost(postId)) {
+      showSnackbar('Post deleted', 'success');
+      loadPosts();
+    }
+
+  }
 
   return (
     <div className=" py-3 px-3 bg-backdropPrimary hover:opacity-50 transition-opacity flex basis-2/12 items-center justify-start w-full">
@@ -74,6 +88,16 @@ export default function PostHeader({
               </ListItemIcon>
               <ListItemText>{isFavorite ? 'Unfavorite' : 'Favorite'}</ListItemText>
             </MenuItem>
+              {
+                user.id === AuthUser?.id && (
+                  <MenuItem onClick={()=>{handleDelete(postId)}} className="bg-background">
+                  <ListItemIcon>
+                    <MdDelete className={`text-3xl`} />
+                  </ListItemIcon>
+                  <ListItemText>Delete</ListItemText>
+                  </MenuItem>
+                )
+              }
           </MenuList>
         </Menu>
       </div>

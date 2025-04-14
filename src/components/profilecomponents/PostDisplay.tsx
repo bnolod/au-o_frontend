@@ -16,11 +16,11 @@ export default function PostDisplay({ userId, saved = false }: { userId: number;
 
   const { user } = useAuthentication();
 
+  async function load() {
+    const res = saved ? await getFavoritesOfUser(userId) : await getPostsOfUser(userId);
+    if (res) {setPosts(res)};
+  }
   useEffect(() => {
-    async function load() {
-      const res = saved ? await getFavoritesOfUser(userId) : await getPostsOfUser(userId);
-      if (res) setPosts(res);
-    }
     load();
   }, [saved, userId]);
 
@@ -32,7 +32,7 @@ export default function PostDisplay({ userId, saved = false }: { userId: number;
   return (
     <>
       <Modal open={openModal} onClose={() => setOpenModal(false)} className="flex items-center justify-center p-4">
-        {selectedPost ? <div className='w-1/2'><Post post={selectedPost} language="HU" user={user!} /> </div> : <div />}
+        {selectedPost ? <div className='w-1/2'><Post post={selectedPost} loadPosts={()=>{load(); setOpenModal(false)}} language="HU" user={user!} /> </div> : <div />}
       </Modal>
 
       <Card>
