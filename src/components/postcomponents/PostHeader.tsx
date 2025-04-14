@@ -16,7 +16,8 @@ export default function PostHeader({
   favorite,
   post,
   groupView,
-  loadPosts
+  loadPosts,
+  isAuthorized
 }: {
   user: UserPostResponseType;
   postId: number;
@@ -24,6 +25,7 @@ export default function PostHeader({
   post: Post;
   groupView?:boolean;
   loadPosts: () => void;
+  isAuthorized?: boolean;
 }) {
   const {showSnackbar} = useSnackbar();
   const { user: AuthUser } = useAuthentication();
@@ -89,7 +91,7 @@ export default function PostHeader({
               <ListItemText>{isFavorite ? 'Unfavorite' : 'Favorite'}</ListItemText>
             </MenuItem>
               {
-                user.id === AuthUser?.id && (
+                (user.id === AuthUser?.id) || isAuthorized && (
                   <MenuItem onClick={()=>{handleDelete(postId)}} className="bg-background">
                   <ListItemIcon>
                     <MdDelete className={`text-3xl`} />

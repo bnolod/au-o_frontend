@@ -13,10 +13,12 @@ export default function GroupPostTab({
   tab,
   id,
   validMember,
+  isAuthorized
 }: {
   tab: 'posts' | 'members' | 'about' | 'chat' | 'options';
   id: number;
   validMember: boolean;
+  isAuthorized: boolean;
 }) {
 
   const {user} = useAuthentication();
@@ -44,7 +46,7 @@ export default function GroupPostTab({
           .slice()
           .reverse()
           .map((post) => (
-            <Post groupView user={user!} post={post} language='EN'>
+            <Post groupView user={user!} post={post} isAuthorized={isAuthorized} language='EN' loadPosts={() => {init()}}>
 
             </Post>
             // <ImageListItem key={post.postId}>

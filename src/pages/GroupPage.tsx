@@ -10,6 +10,7 @@ import GroupOptionsTab from '../components/social/tabs/GroupOptionsTab';
 export default function GroupPage() {
   const { id } = useParams<{ id: string, }>();
   const navigate = useNavigate();
+  const [role, setRole] = useState<string>();
   const [group, setGroup] = useState<Group>();
   const [status, setStatus] = useState<GroupMemberResponse>();
   
@@ -21,6 +22,7 @@ export default function GroupPage() {
   async function getStatus(group: Group) {
       const res = await getGroupStatus(group.id);
       if (res) {
+        setRole(res.role);
         setStatus(res);
         return;
       }
@@ -147,7 +149,7 @@ export default function GroupPage() {
       </div>
       {group && (
         <article className=" flex-col w-full mx-auto my-2 justify-center">
-          {tab === 'posts' && <GroupPostTab validMember={group.validMember} tab={tab} id={group.id} />}
+          {tab === 'posts' && <GroupPostTab validMember={group.validMember} tab={tab} id={group.id} isAuthorized={role === 'ADMIN' || role === 'MODERATOR'}/>}
           {tab === 'members' && group.validMember && status && <GroupMembersTab validMember={group.validMember} tab={tab} id={group.id} />}
           {tab === 'chat' && group.validMember && <GroupChatTab group={group} />}
           {tab === 'options' && group.validMember && status && status.role == "ADMIN" && <GroupOptionsTab group={group} language={'EN'} />}
