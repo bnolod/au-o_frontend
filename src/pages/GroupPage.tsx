@@ -10,12 +10,9 @@ import GroupOptionsTab from '../components/social/tabs/GroupOptionsTab';
 export default function GroupPage() {
   const { id } = useParams<{ id: string, }>();
   const navigate = useNavigate();
-  if (!id) {
-    return <Navigate to="/groups" />;
-  }
   const [group, setGroup] = useState<Group>();
   
-
+  
   const [tab, setTab] = useState<'posts' | 'members' | 'about' | 'chat' | 'options'>('posts');
   useEffect(() => {
     init();
@@ -27,6 +24,9 @@ export default function GroupPage() {
       setGroup(group);
       console.log(group);
     }
+  }
+  if (!id) {
+    return <Navigate to="/groups" />;
   }
   if (group === undefined) return <p>spinner</p>;
   return (

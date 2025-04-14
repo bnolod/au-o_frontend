@@ -1,7 +1,7 @@
 import { Avatar, Modal } from '@mui/material';
-import { MdAdd, MdBackupTable, MdBookmark, MdCarRepair, MdGroups, MdMessage, MdMoreHoriz } from 'react-icons/md';
+import { MdAdd, MdBackupTable, MdBookmark, MdCarRepair, MdGroups, MdMoreHoriz } from 'react-icons/md';
 import PostDisplay from '../components/profilecomponents/PostDisplay';
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { apiFetch } from '../lib/apiClient';
 import { NavLink, useNavigate, useParams } from 'react-router';
 import DriversLicense from '../components/DriversLicense';
@@ -51,7 +51,7 @@ export default function ProfilePage() {
 
 
   useEffect(()=> {
-    setFollowsThisUser(followers.some((follower) => follower.id === authUser.id));
+    setFollowsThisUser(followers.some((follower) => follower.id === authUser?.id));
   },[followers])
   
   async function load() {
@@ -65,7 +65,8 @@ export default function ProfilePage() {
   useEffect(() => {
     load();
     loadFollows(parseInt(id!));
-  }, [id]);
+    console.log("refetch")
+  }, [id, openEditModal]);
 
   function handleProfileClick() {
     setEditModal(true);
@@ -105,7 +106,7 @@ export default function ProfilePage() {
               onClose={() => setEditModal(false)}
               className="flex justify-center items-center"
             >
-              <DriversLicense user={user}></DriversLicense>
+              <DriversLicense onClose={() => setEditModal(false)} user={user}></DriversLicense>
             </Modal>
             <div className="flex-grow">
               <h3 className="text-3xl font-semibold">{user?.nickname} </h3>

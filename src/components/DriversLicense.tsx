@@ -6,7 +6,7 @@ import { createImageForm } from '../lib/functions';
 import { imageUpload } from '../lib/ApiCalls/ImageApiCalls';
 import { updateProfile } from '../lib/ApiCalls/UserApiCalls';
 
-export default function DriversLicense({ user }: { user: UserResponse }) {
+export default function DriversLicense({ user, onClose }: { user: UserResponse, onClose: () => void }) {
   const [isDark, setIsDark] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -32,6 +32,7 @@ export default function DriversLicense({ user }: { user: UserResponse }) {
     if (e.target.files) {
       setImage(e.target.files[0]);
       setDisplayedImage(URL.createObjectURL(e.target.files[0]));
+
     }
   };
 
@@ -62,6 +63,7 @@ export default function DriversLicense({ user }: { user: UserResponse }) {
     }
     if (null != updateProfile(userRequest.nickname, userRequest.bio, upload ? upload.url : userRequest.profileImg)) {
       showSnackbar('Sikeres profil frissítés', 'success');
+      onClose()
     } else {
       showSnackbar('Hiba a profil frissítése közben', 'error');
     }

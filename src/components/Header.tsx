@@ -5,7 +5,6 @@ import Avatar from '@mui/material/Avatar';
 import { grey } from '@mui/material/colors';
 import {
   Drawer,
-  Icon,
   List,
   ListItem,
   ListItemAvatar,
