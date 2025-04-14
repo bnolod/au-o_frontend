@@ -1,7 +1,7 @@
 import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router";
 import LandingPage from "./pages/LandingPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
-import MainPage from "./pages/MainPage.tsx";
+//import MainPage from "./pages/MainPage.tsx";
 import { useAuthentication } from "./contexts/AuthenticationContext.tsx";
 import ProtectedRoute from "./lib/ProtectedRoute.tsx";
 import GeneralLayout from "./pages/GeneralLayout.tsx";
@@ -12,6 +12,7 @@ import MessagesPage from "./pages/MessagesPage.tsx";
 import GroupPage from "./pages/GroupPage.tsx";
 import NewGroupPost from "./components/social/tabs/NewGroupPost.tsx";
 import PostsFeed from "./pages/Feed.tsx";
+import EventsPage from "./pages/EventsPage.tsx";
 
 function App() {
   const { user } = useAuthentication();
@@ -29,6 +30,7 @@ function App() {
               { user && <Route index element={<Navigate to={`/profile/${user!.id}`}/>} />}
               <Route path=":id" element={<ProfilePage/>} />
             </Route>
+              
             <Route path="/post">
               <Route index element={<NewPost />} />
               <Route path=":id" element={<GeneralLayout />} />
@@ -38,6 +40,7 @@ function App() {
               <Route path=":id" element={<GroupPage />} />
               <Route path=":id/post/create" element={<NewGroupPost/>}/>
             </Route>
+            <Route path="/events" element={<EventsPage/>}/>
           </Route>
           <Route path="/messages">
             <Route index element={<MessagesPage/>}/>

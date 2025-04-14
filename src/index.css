@@ -216,4 +216,7 @@
   .muted {
     @apply opacity-65;
   }
+  .cardshadow {
+    @apply mb-6 shadow-[#00000055] shadow-lg
+  }
 }

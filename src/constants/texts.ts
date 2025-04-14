@@ -393,29 +393,36 @@ export const HttpErrorTexts = {
     },
   };
   export const EventTexts = {
+    notAvailable: {
+      HU: 'Az események egy következő frissítésben válnak elérhetővé.',
+      EN: 'Events will be available in a future update',
+    },
+    staytuned: {
+      HU: 'Figyeld a frissítéseket!',
+      EN: 'Stay tuned!',
+    },
     creation: {
       placeholders: {
         name: {
-          EN: "Your New Event",
-          HU: "Az új eseményed"
+          EN: 'Your New Event',
+          HU: 'Az új eseményed',
         },
         description: {
-          EN: "Tell us about your event!",
-          HU: "Mesélj az eseményről!"
+          EN: 'Tell us about your event!',
+          HU: 'Mesélj az eseményről!',
         },
         location: {
-          EN: "Where will it be?",
-          HU: "Hol lesz?"
+          EN: 'Where will it be?',
+          HU: 'Hol lesz?',
         },
-        
-      }
+      },
     },
     buttons: {
       attend: {
         attendeeCount: {
-          EN: "attendee",
-          HU: "résztvevő"
-        }
-      }
-    }
-  }
+          EN: 'attendee',
+          HU: 'résztvevő',
+        },
+      },
+    },
+  };
