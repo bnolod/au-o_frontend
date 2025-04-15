@@ -1,4 +1,4 @@
-import { MdBookmark, MdDelete, MdMoreHoriz } from 'react-icons/md';
+import { MdBookmark, MdDelete, MdEdit, MdMoreHoriz } from 'react-icons/md';
 import { UserPostResponseType } from '../../lib/types';
 import Avatar from '@mui/material/Avatar';
 import { grey } from '@mui/material/colors';
@@ -16,13 +16,15 @@ export default function PostHeader({
   favorite,
   post,
   groupView,
-  loadPosts
+  loadPosts,
+  onEdit
 }: {
   user: UserPostResponseType;
   postId: number;
   favorite: boolean;
   post: Post;
   groupView?:boolean;
+  onEdit: () => void;
   loadPosts: () => void;
 }) {
   const {showSnackbar} = useSnackbar();
@@ -88,6 +90,16 @@ export default function PostHeader({
               </ListItemIcon>
               <ListItemText>{isFavorite ? 'Unfavorite' : 'Favorite'}</ListItemText>
             </MenuItem>
+              {
+                user.id === AuthUser?.id && (
+                  <MenuItem onClick={onEdit} className="bg-background">
+                  <ListItemIcon>
+                    <MdEdit className={`text-3xl`} />
+                  </ListItemIcon>
+                  <ListItemText>Edit</ListItemText>
+                  </MenuItem>
+                )
+              }
               {
                 user.id === AuthUser?.id && (
                   <MenuItem onClick={()=>{handleDelete(postId)}} className="bg-background">

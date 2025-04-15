@@ -31,8 +31,8 @@ export default function PostDisplay({ userId, saved = false }: { userId: number;
 
   return (
     <>
-      <Modal open={openModal} onClose={() => setOpenModal(false)} className="flex items-center justify-center p-4">
-        {selectedPost ? <div className='w-1/2'><Post post={selectedPost} loadPosts={()=>{load(); setOpenModal(false)}} language="HU" user={user!} /> </div> : <div />}
+      <Modal open={openModal} onClose={() => setOpenModal(false)} className="flex items-center justify-center w-3/4 lg:w-2/3 xl:w-7/12 m-auto">
+        {selectedPost ? <div className='w-full'><Post post={selectedPost} loadPosts={()=>{load(); setOpenModal(false)}} language="HU" user={user!} /> </div> : <div />}
       </Modal>
 
       <Card>

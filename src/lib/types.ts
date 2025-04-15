@@ -129,6 +129,11 @@ export interface ImageStoreRequest {
   postImages: ImageUploadResponse[];
   location: string;
 }
+export interface EditPostRequest {
+  text: string;
+  location: string;
+  carId: number | null
+}
 
 
 export interface PostCardProps {
