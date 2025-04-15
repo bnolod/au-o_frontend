@@ -7,14 +7,15 @@ import GroupPostTab from '../components/social/tabs/GroupPostTab';
 import GroupMembersTab from '../components/social/tabs/GroupMembersTab';
 import GroupChatTab from '../components/social/tabs/GroupChat';
 import GroupOptionsTab from '../components/social/tabs/GroupOptionsTab';
+import GroupApplicationsTab from '../components/social/tabs/GroupApplicationsTab';
+import { FaCheckSquare } from 'react-icons/fa';
 export default function GroupPage() {
   const { id } = useParams<{ id: string, }>();
   const navigate = useNavigate();
   const [group, setGroup] = useState<Group>();
   const [status, setStatus] = useState<GroupMemberResponse>();
   
-  
-  const [tab, setTab] = useState<'posts' | 'members' | 'about' | 'chat' | 'options'>('posts');
+  const [tab, setTab] = useState<'posts' | 'members' | 'about' | 'chat' | 'options' | 'applications'>('posts');
   useEffect(() => {
     init();
   }, []);
@@ -106,6 +107,19 @@ export default function GroupPage() {
                 <p>Chat</p>
               </button>
             )}
+            {!group.public && group.validMember && status && status.role == "ADMIN" && (
+            <button
+              className={`border-2 border-background/25 hover:opacity-50 transition-opacity  rounded-xl bg-backdropPrimary  flex items-center flex-1 p-2 gap-2 text-lg font-semibold ${
+                tab === 'applications' ? 'bg-highlightSecondary' : 'secondary'
+              }`}
+              onClick={() => {
+                setTab('applications');
+              }}
+            >
+              <FaCheckSquare className="text-lg" />
+              <p>Applications</p>
+            </button>
+            )}
             {group.validMember && status && status.role == "ADMIN" && (
             <button
               className={`border-2 border-background/25 hover:opacity-50 transition-opacity  rounded-xl bg-backdropPrimary  flex items-center flex-1 p-2 gap-2 text-lg font-semibold ${
@@ -150,7 +164,8 @@ export default function GroupPage() {
           {tab === 'posts' && <GroupPostTab validMember={group.validMember} tab={tab} id={group.id} />}
           {tab === 'members' && group.validMember && status && <GroupMembersTab validMember={group.validMember} tab={tab} id={group.id} />}
           {tab === 'chat' && group.validMember && <GroupChatTab group={group} />}
-          {tab === 'options' && group.validMember && status && status.role == "ADMIN" && <GroupOptionsTab group={group} language={'EN'} reLoad={()=>init()}/>}
+          {tab === 'applications' && group.validMember && status && <GroupApplicationsTab status={status} group={group} />}
+          {tab === 'options' && group.validMember && status && status.role == "ADMIN" && <GroupOptionsTab group={group} language={'EN'} reLoad={() => {init()}}/>}
         </article>
       )}
     </section>

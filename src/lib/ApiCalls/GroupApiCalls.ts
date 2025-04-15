@@ -1,6 +1,6 @@
 import { apiFetch } from '../apiClient';
 import { GroupCreationRequest } from '../request/GroupCreationRequest';
-import { Group, GroupMemberListResponse, GroupMemberResponse } from '../entity/Group';
+import { Group, GroupMemberListResponse, GroupMemberResponse, Status } from '../entity/Group';
 import { ImageStoreRequest } from '../request/ImgurRequest';
 import { Post } from '../entity/Post';
 
@@ -21,6 +21,15 @@ export async function getGroup(groupId: string) {
 export async function getAllGroups() {
   //temporary
   const req = await apiFetch<Group[]>('groups/all', 'GET', true);
+  if (req && req.status === 200) {
+    return req.data;
+  }
+  return null;
+}
+export async function getPendingMembers(id: number, role: Status) {
+  if (role === "MEMBER") return null;
+  const req = await apiFetch<GroupMemberResponse[]>(`groups/group/${id}/pending`, 'GET', true);
+
   if (req && req.status === 200) {
     return req.data;
   }

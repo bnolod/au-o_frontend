@@ -5,7 +5,7 @@ import { useSnackbar } from '../../../contexts/SnackbarContext';
 import Input from '../../Input';
 import { FaDoorClosed, FaDoorOpen } from 'react-icons/fa6';
 
-export default function GroupOptionsTab({ group, language, reLoad }: { group: Group; language: 'HU' | 'EN' ; reLoad: () => void}) {
+export default function GroupOptionsTab({ group, language, reLoad }: { group: Group; language: 'HU' | 'EN'; reLoad: () => void}) {
   const { showSnackbar } = useSnackbar();
   const [editGroup, setEditGroup] = useState<GroupEditRequest>({
     name: group.name,

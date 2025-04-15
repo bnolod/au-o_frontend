@@ -28,3 +28,4 @@ export interface GroupMemberListResponse {
   group: Group
   users: GroupMemberResponse[]
 }
+export type Status = "ADMIN" | "MEMBER" | "MODERATOR"

@@ -12,7 +12,7 @@ export default function GroupMembersTab({
   id,
   validMember,
 }: {
-  tab: 'posts' | 'members' | 'about' | 'chat' | 'options';
+  tab: 'posts' | 'members' | 'about' | 'chat' | 'options' | 'applications';
   id: number;
   validMember: boolean;
 }) {
