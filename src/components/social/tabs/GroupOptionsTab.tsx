@@ -5,7 +5,7 @@ import { useSnackbar } from '../../../contexts/SnackbarContext';
 import Input from '../../Input';
 import { FaDoorClosed, FaDoorOpen } from 'react-icons/fa6';
 
-export default function GroupOptionsTab({ group, language }: { group: Group; language: 'HU' | 'EN' }) {
+export default function GroupOptionsTab({ group, language, reLoad }: { group: Group; language: 'HU' | 'EN' ; reLoad: () => void}) {
   const { showSnackbar } = useSnackbar();
   const [editGroup, setEditGroup] = useState<GroupEditRequest>({
     name: group.name,
@@ -16,7 +16,9 @@ export default function GroupOptionsTab({ group, language }: { group: Group; lan
   async function handleGroupEdit() {
     const res = await modifyGroup(group.id, editGroup);
     if (res) {
+      reLoad()
       showSnackbar('Sikeresen módosítottad a csoportot', 'info');
+      
       return;
     } else showSnackbar('Nem sikerült módosítani a csoportot', 'error');
   }

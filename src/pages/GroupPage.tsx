@@ -150,7 +150,7 @@ export default function GroupPage() {
           {tab === 'posts' && <GroupPostTab validMember={group.validMember} tab={tab} id={group.id} />}
           {tab === 'members' && group.validMember && status && <GroupMembersTab validMember={group.validMember} tab={tab} id={group.id} />}
           {tab === 'chat' && group.validMember && <GroupChatTab group={group} />}
-          {tab === 'options' && group.validMember && status && status.role == "ADMIN" && <GroupOptionsTab group={group} language={'EN'} />}
+          {tab === 'options' && group.validMember && status && status.role == "ADMIN" && <GroupOptionsTab group={group} language={'EN'} reLoad={()=>init()}/>}
         </article>
       )}
     </section>
