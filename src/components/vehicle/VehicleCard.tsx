@@ -3,15 +3,16 @@ import { Car } from '../../lib/entity/Car';
 import { useAuthentication } from '../../contexts/AuthenticationContext';
 import React, { useEffect, useState } from 'react';
 import { Post } from '../../lib/entity/Post';
-import { editCar, getPostsByVehicleId } from '../../lib/ApiCalls/CarApiCalls';
-import { ImageList, ImageListItem } from '@mui/material';
+import { deleteCar, editCar, getPostsByVehicleId } from '../../lib/ApiCalls/CarApiCalls';
+import { ImageList, ImageListItem, Modal } from '@mui/material';
 import { getAspectRatio } from '../../lib/functions';
 import VehicleTypeSelector from './VehicleTypeSelector';
 import { CarType } from '../../lib/types';
 import { GetCarImage } from '../cars';
-import { FaGear, FaHorse } from 'react-icons/fa6';
+import { FaGear, FaHorse, FaTrash } from 'react-icons/fa6';
 import { CarCreationRequest } from '../../lib/request/CarCreationRequest';
 import { useSnackbar } from '../../contexts/SnackbarContext';
+import { useNavigate } from 'react-router';
 
 export default function VehicleCard({
   car,
@@ -27,7 +28,9 @@ export default function VehicleCard({
   const [carEditable, setCarEditable] = useState<Car>(car);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [carTypeModal, setCarTypeModal] = useState(false);
-  const {showSnackbar} = useSnackbar()
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const { showSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const handlePostFetch = async () => {
     const res = await getPostsByVehicleId(car.id);
@@ -45,21 +48,59 @@ export default function VehicleCard({
     setIsEditing(false);
     setCarTypeModal(false);
   }
+
+  async function handleDelete() {
+    const req = await deleteCar(car.id);
+    if (req) {
+      showSnackbar('Car deleted successfully', 'success');
+      setConfirmDelete(false);
+      navigate('/');
+      return;
+    }
+    showSnackbar('Failed to delete car', 'error');
+  }
   async function handleSave() {
-    const carToSave: CarCreationRequest = {...carEditable} 
+    const carToSave: CarCreationRequest = { ...carEditable };
     const req = await editCar(car.id, carToSave);
     if (req) {
       setIsEditing(false);
-      showSnackbar("Car edited successfully", "success")
-    
-    return}
-    
-    showSnackbar("Failed to edit car", "error")
+      showSnackbar('Car edited successfully', 'success');
+
+      return;
+    }
+
+    showSnackbar('Failed to edit car', 'error');
   }
   let isOwner = authUser && authUser.id == car.owner?.id;
 
   return (
     <div className="w-full m-4 md:w-1/2 flex flex-col bg-background h-full rounded-2xl overflow-hidden gap-6">
+      <Modal
+        open={confirmDelete}
+        onClose={() => setConfirmDelete(false)}
+        className="flex m-auto text-textColor justify-center w-1/3 h-fit p-3 rounded-xl bg-background items-center"
+      >
+        <div className='flex flex-col gap-4'>
+          <h4 className="txl">Are you sure you want to delete this car?</h4>
+          <br />
+          <span className="flex flex-row items-center justify-between">
+            <button
+              onClick={() => setConfirmDelete(false)}
+              className="shadow-md shadow-[#00000066] py-2 px-4 rounded-xl bg-backdropPrimary flex flex-row items-center justify-center gap-2"
+            >
+              <MdClose size={20} />
+              Cancel
+            </button>
+            <button
+              onClick={() => handleDelete()}
+              className="shadow-md shadow-[#00000066] py-2 px-4 rounded-xl bg-highlightSecondary flex flex-row items-center justify-center gap-2"
+            >
+              <FaTrash size={20} />
+              Confirm
+            </button>
+          </span>
+        </div>
+      </Modal>
       <header className="w-full flex flex-row justify-between p-4 bg-backdropSecondary items-center">
         {car.owner ? (
           <p className="text-xl">
@@ -142,35 +183,47 @@ export default function VehicleCard({
               ></GetCarImage>
             </div>
           </div>
-          {isOwner &&
-            (!isEditing ? (
-              <div className="w-full">
+          <div className="flex flex-row">
+            {isOwner && (
+              <div className="flex flex-row gap-2 items-center justify-start">
                 <button
-                  onClick={() => setIsEditing(true)}
+                  onClick={() => setConfirmDelete(true)}
                   className="ml-auto shadow-md shadow-[#00000066] py-2 px-4 rounded-xl bg-highlightSecondary flex flex-row items-center justify-center gap-2"
                 >
-                  <MdEdit size={20}></MdEdit>
-                  Edit car
+                  <FaTrash size={20} />
                 </button>
               </div>
-            ) : (
-              <div className="w-fit self-end flex flex-row justify-end items-center gap-2">
-                <button
-                  onClick={handleCancel}
-                  className=" shadow-md shadow-[#00000066] py-2 px-4 rounded-xl bg-backdropPrimary flex flex-row items-center justify-center gap-2"
-                >
-                  <MdClose size={20} />
-                  Cancel
-                </button>
-                <button
-                  onClick={handleSave}
-                  className=" shadow-md shadow-[#00000066] py-2 px-4 rounded-xl bg-highlightSecondary flex flex-row items-center justify-center gap-2"
-                >
-                  <MdCheck size={20} />
-                  Save
-                </button>
-              </div>
-            ))}
+            )}
+            {isOwner &&
+              (!isEditing ? (
+                <div className="w-full self-end">
+                  <button
+                    onClick={() => setIsEditing(true)}
+                    className="ml-auto shadow-md shadow-[#00000066] py-2 px-4 rounded-xl bg-highlightSecondary flex flex-row items-center justify-center gap-2"
+                  >
+                    <MdEdit size={20}></MdEdit>
+                    Edit car
+                  </button>
+                </div>
+              ) : (
+                <div className="w-full self-end flex flex-row justify-end items-center gap-2">
+                  <button
+                    onClick={handleCancel}
+                    className=" shadow-md shadow-[#00000066] py-2 px-4 rounded-xl bg-backdropPrimary flex flex-row items-center justify-center gap-2"
+                  >
+                    <MdClose size={20} />
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleSave}
+                    className=" shadow-md shadow-[#00000066] py-2 px-4 rounded-xl bg-highlightSecondary flex flex-row items-center justify-center gap-2"
+                  >
+                    <MdCheck size={20} />
+                    Save
+                  </button>
+                </div>
+              ))}
+          </div>
         </section>
         <section className="pb-4 flex flex-col gap-4">
           <div className="flex justify-between flex-row mx-4 p-4 rounded-2xl bg-backdropPrimary dshadow items-center gap-4">
@@ -201,9 +254,9 @@ export default function VehicleCard({
               disabled={!isEditing}
               type="number"
               step={0.1}
-              value={carEditable.displacement/10}
+              value={carEditable.displacement / 10}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setCarEditable({ ...carEditable, displacement: parseFloat(e.target.value)*10 })
+                setCarEditable({ ...carEditable, displacement: parseFloat(e.target.value) * 10 })
               }
               className={` ${
                 isEditing ? 'bg-backdropPrimary border border-black dark:border-white' : 'bg-transparent'
@@ -211,8 +264,7 @@ export default function VehicleCard({
             />
           </div>
           <div className="flex flex-row mx-4 p-4 justify-between rounded-2xl bg-backdropPrimary dshadow items-center gap-4">
-
-          <span className="flex flex-row  items-center gap-4">
+            <span className="flex flex-row  items-center gap-4">
               <MdCalendarMonth size={32} />
               <p className="text-textColor/75">Production Year:</p>
             </span>
@@ -235,7 +287,13 @@ export default function VehicleCard({
               <MdSpellcheck size={32} />
               <p className="text-textColor/75">Description:</p>
             </div>
-            <textarea className={`${!isEditing ? "w-full pointer-events-none bg-transparent" : "bg-backdropSecondary"} p-2 rounded-xl break-words w-full`}>{car.description}</textarea>
+            <textarea
+              className={`${
+                !isEditing ? 'w-full pointer-events-none bg-transparent' : 'bg-backdropSecondary'
+              } p-2 rounded-xl break-words w-full`}
+            >
+              {car.description}
+            </textarea>
           </div>
         </section>
         <section className=" px-4 pb-16">
