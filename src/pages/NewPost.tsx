@@ -1,7 +1,7 @@
 import Card from '../components/Card';
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import PostImage from '../components/postcomponents/PostImage';
-import { ImageUploadResponse } from '../lib/types';
+import { Car, ImageUploadResponse } from '../lib/types';
 
 import Button from '../components/Button';
 import { useAuthentication } from '../contexts/AuthenticationContext';
@@ -14,7 +14,9 @@ import { useNavigate } from 'react-router';
 import { PostCreationTexts } from '../constants/texts';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Modal } from '@mui/material';
-import ProfileVehiclePage from '../components/vehicle/ProfileVehiclePage';
+import { getUserGarageById } from '../lib/ApiCalls/CarApiCalls';
+import VehiclePageItem from '../components/vehicle/VehiclePageItem';
+import { validateUserPost } from '../lib/Validation/Validation';
 
 export default function PostPage() {
   const { user } = useAuthentication();
@@ -25,6 +27,8 @@ export default function PostPage() {
   const [newPostForm, setNewPostForm] = useState<CreatePostRequest>();
   const [vehicleOpen, setVehicleOpen] = useState(false);
   const { showSnackbar } = useSnackbar();
+  const [cars, setCars] = useState<Car[]>([]);
+  const [selectedCar, setSelectedCar] = useState<Car | null>();
 
   //nem hiszem el
   if (loading && user !== undefined) {
@@ -44,13 +48,11 @@ export default function PostPage() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    if (!formIsValid()) return null;
-
+    if (!formIsValid()) return;
     const uploadedImages: ImageUploadResponse[] = [];
     for (const image of images) {
       showSnackbar(`Kép ${image.name} feltöltése folyamatban`, 'info');
-      const res = await createImageForm(image, newPostForm!.description, user.user!);
+      const res = await createImageForm(image, newPostForm!.description, user!);
       if (res) {
         const upload = await imageUpload(res);
         if (upload !== null) {
@@ -65,7 +67,7 @@ export default function PostPage() {
       text: newPostForm!.description,
       postImages: uploadedImages,
       location: newPostForm!.location,
-      vehicleId: null,
+      vehicleId: newPostForm!.vehicleId || null,
     });
     navigate('/profile');
     showSnackbar('Sikeres posztolás', 'success');
@@ -88,7 +90,18 @@ export default function PostPage() {
   function handleImageRemove(index: number) {
     setImages((image) => image.filter((_, i) => i !== index));
   }
+  const handleFetch = async () => {
+    if (user) {
+      const res = await getUserGarageById(user.id);
+      if (res) {
+        setCars(res);
+      }
+    }
+  };
 
+  useEffect(() => {
+    handleFetch();
+  }, [user]);
   function formIsValid() {
     if (newPostForm?.description === '') {
       showSnackbar('Hiányzó leírás', 'error');
@@ -168,33 +181,33 @@ export default function PostPage() {
                 <button onClick={handleVehicleSelect} className="w-full p-3 bg-backdropSecondary rounded-xl">
                   {PostCreationTexts.form.vehicle[language] +
                     ': ' +
-                    (newPostForm.vehicleId ? '' : PostCreationTexts.form.vehiclePlaceholder[language])}
+                    ( selectedCar && selectedCar.model || "none" )}
                 </button>
               )}
-
-              <span className="flex gap-3">
-                <span className="flex flex-grow flex-col">
-                  <label htmlFor="event">Esemény:</label>
-                  <input type="text" name="event" className="secondary rounded-xl p-3 w-full" />
-                </span>
-                <span className="flex flex-grow flex-col">
-                  <label htmlFor="group">Csoport:</label>
-                  <input type="text" name="event" className="secondary rounded-xl p-3 w-full" />
-                </span>
-              </span>
 
               <Modal
                 open={vehicleOpen}
                 onClose={() => setVehicleOpen(false)}
                 className="w-full h-full flex text-textColor items-center justify-center"
               >
-
-                <div className='w-full h-5/6 md:w-2/4 md:h-3/4 p-3 bg-background rounded-3xl'>
-                  <div className='h-full overflow-y-scroll '>
-                  <ProfileVehiclePage user={user!} />
+                <div className="w-full h-5/6 md:w-2/4 md:h-3/4 p-3 bg-background rounded-3xl">
+                  <div className="h-full overflow-y-scroll ">
+                    {cars.map((car) => {
+                      return (
+                        <div onClick={() => {
+                          setNewPostForm({ ...newPostForm!, vehicleId: Number(car.id) });
+                          setSelectedCar(car);
+                          setVehicleOpen(false);
+                          showSnackbar('Jármű kiválasztva', 'success');
+                        }}>
+                        <div className='pointer-events-none'>
+                          <VehiclePageItem car={car} />
+                        </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-                
               </Modal>
 
               <Button type="submit" secondary>

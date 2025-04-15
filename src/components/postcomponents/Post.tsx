@@ -20,7 +20,7 @@ export default function Post ({post, language,preview = false, user, groupView, 
             {
                 user && user.id === post.user.id && !preview && (
                     <Modal open={open} onClose={() => setOpen(false)} className="flex bg-backdropSecondary h-fit m-auto p-2 rounded-xl text-textColor w-3/4 lg:w-2/3 xl:w-1/3 justify-center items-center">
-                        <PostEditModal post={post} />
+                        <PostEditModal onClose={() => setOpen(false)} post={post} />
                     </Modal>
                 )
             }

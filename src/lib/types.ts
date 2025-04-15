@@ -133,7 +133,7 @@ export interface ImageStoreRequest {
 export interface EditPostRequest {
   text: string;
   location: string;
-  carId: number | null
+  vehicleId: number | null
 }
 
 
@@ -297,13 +297,15 @@ export interface TextEditModalProps {
 }
 
 export interface Car {
-  id: string,
+  id: number,
   manufacturer: string,
   model: string,
   type: CarType,
   horsepower: number,
   description: string,
-  displacement: number
+  displacement: number,
+    owner?: User;
+  productionYear: number,
 }
 export type CarType =
    "SEDAN"

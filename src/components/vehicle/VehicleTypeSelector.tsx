@@ -22,7 +22,7 @@ export default function VehicleTypeSelector({
       <div className="bg-backdropSecondary rounded-xl w-2/6 aspect-square grid grid-cols-3 p-3">
         {CarTypes.map((carType) => (
           <button className={'flex flex-col justify-center p-3 ' + (selected == carType && " border rounded-xl")} onClick={()=>{setSelected(carType); }}>
-            <GetCarImage width={180} height={120} strokeWidth={2.5} stroke={ "#fff"} type={carType} ></GetCarImage>
+            <GetCarImage width={180} height={100} strokeWidth={2.5} stroke={ "#fff"} type={carType} ></GetCarImage>
             <p>{carType}</p>
           </button>
         ))}
