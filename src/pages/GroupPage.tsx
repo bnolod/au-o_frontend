@@ -1,7 +1,7 @@
-import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from 'react-router';
+import { Navigate, useNavigate, useParams } from 'react-router';
 import { Group, GroupMemberResponse } from '../lib/entity/Group';
 import { useEffect, useState } from 'react';
-import { getGroup, getGroupStatus, joinGroup } from '../lib/ApiCalls/GroupApiCalls';
+import { getGroup, getGroupStatus, joinGroup, leaveGroup } from '../lib/ApiCalls/GroupApiCalls';
 import { FaRegMessage, FaStar, FaUsers, FaWrench } from 'react-icons/fa6';
 import GroupPostTab from '../components/social/tabs/GroupPostTab';
 import GroupMembersTab from '../components/social/tabs/GroupMembersTab';
@@ -57,6 +57,11 @@ export default function GroupPage() {
           <FaUsers className="text-5xl text-textColor self-center  rounded-xl " />
           {/* <span> */}
           <h2 className="text-3xl font-semibold self-center">{group.name}</h2>
+          {group.member && group.validMember && status?.role !== "ADMIN" && <button onClick={async () => {
+            const req = await leaveGroup(group.id)
+            if (req) {
+              navigate('/groups')
+            }}} className=' self-end p-2 rounded-xl bg-highlightSecondary'>Leave Group</button>}
           {/* <p className="muted">{group.description.slice(0,12)}...</p> */}
           {/* </span> */}
         </div>
@@ -147,16 +152,11 @@ export default function GroupPage() {
             )}
           </div>
         ) : (
-          <button
-              onClick={async () => {
-                const res = await joinGroup(group.id);
-                if (res) {
-                  setGroup(res);
-                }
-              }}
-               className="border-2 border-background/25 hover:opacity-50 transition-opacity  rounded-xl bg-highlightPrimary  flex items-center flex-1 p-2 gap-2 text-lg font-semibold">
-                Join
-              </button>
+          <>
+          <h4 className='text-center text-lg font-semibold'>
+          Awaiting application.
+          </h4>
+                 </>
         )}
       </div>
       {group && (

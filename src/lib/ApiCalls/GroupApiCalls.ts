@@ -76,6 +76,13 @@ export async function handleJoinRequest(groupId: number, userId: number, accept:
   }
   return null;
 }
+/**
+ * Csoport jelentkezési kérés visszavonásának kezelése
+ * 
+ * @param {group} group Csoport entitás
+ * @param {"HU" | "EN"} language Nyelv
+ * @returns {Promise<void>}
+ */
 
 export async function postToGroup(groupId: number, post: ImageStoreRequest) {
   const req = await apiFetch<Post>(`groups/group/${groupId}/post`, 'POST', true, post);
