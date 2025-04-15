@@ -142,9 +142,8 @@ export default function GroupPage() {
               <button
               onClick={async () => {
                 const res = await joinGroup(group.id);
-                if (res) {
-                  navigate(`/groups/${id}`)
-                }
+                init();
+
               }}
                className="border-2 border-background/25 hover:opacity-50 transition-opacity  rounded-xl bg-highlightPrimary  flex items-center flex-1 p-2 gap-2 text-lg font-semibold">
                 Join
