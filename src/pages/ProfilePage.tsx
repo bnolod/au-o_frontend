@@ -85,7 +85,7 @@ export default function ProfilePage() {
         bottomDisplay = <GroupsDisplay />;
         break;
       case 'car':
-        bottomDisplay = <ProfileVehiclePage user={user} />;
+        bottomDisplay = <ProfileVehiclePage user={user} className='shadow-md shadow-[#00000066]' />;
         break;
       case 'saved':
         bottomDisplay = <PostDisplay userId={parseInt(id!)} saved />;

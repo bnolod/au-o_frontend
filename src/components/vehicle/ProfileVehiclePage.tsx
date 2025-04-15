@@ -8,7 +8,7 @@ import { Modal } from '@mui/material';
 import VehicleCard from './VehicleCard';
 import { FaCarCrash } from 'react-icons/fa';
 
-export default function ProfileVehiclePage({ user }: { user: User }) {
+export default function ProfileVehiclePage({ user, className }: { user: User, className?: string; }) {
   const { user: AuthUser } = useAuthentication();
   const [cars, setCars] = useState<Car[]>([]);
 
@@ -32,7 +32,7 @@ export default function ProfileVehiclePage({ user }: { user: User }) {
   }, [user]);
 
   return (
-    <div className="flex flex-col w-full bg-background p-3 rounded-2xl shadow-md shadow-[#00000066]">
+    <div className={"flex flex-col w-full bg-background p-3 rounded-2xl " + (className ? className : "")} >
       <Modal
         open={openModal}
         onClose={() => setOpenModal(false)}

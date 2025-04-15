@@ -24,6 +24,175 @@ export const LandingTexts = {
         EN: "Attend and organize events to meet new people and show off your wheels."
     }
 }
+export const PostCreationTexts = {
+  publicPostIndicator: {
+    HU: 'Nyilvános',
+    EN: 'Public',
+  },
+  imageUploadErrorAlert: {
+    HU: 'Hiba a képek feltöltésekor',
+    EN: 'Error uploading images',
+  },
+  imageUploadErrorAlertMessage: {
+    HU: 'Próbáld újra',
+    EN: 'Try again',
+  },
+  imageUploadSuccessToast: {
+    header: {
+      HU: 'Siker!',
+      EN: 'Success!',
+    },
+    message: {
+      HU: 'Minden kép feltöltésre került.',
+      EN: 'All images have been uploaded.',
+    },
+  },
+  imageUploadDuplicateSafeguard: {
+    header: {
+      HU: 'Duplikált kép',
+      EN: 'Duplicate image',
+    },
+    message: {
+      HU: 'Ez a kép már feltöltésre került korábban, és nem került hozzáadásra.',
+      EN: 'This image has already been uploaded and was not added.',
+    },
+  },
+  noEventSpecified: {
+    HU: 'Nincs',
+    EN: 'None',
+  },
+  copied: {
+    HU: 'Másolva a vágólapra',
+    EN: 'Copied to clipboard',
+  },
+  options: {
+    share: {
+      HU: 'Megosztás',
+      EN: 'Share',
+    },
+    quickshare: {
+      HU: 'Gyors küldés',
+      EN: 'Quick send',
+    },
+    report: {
+      HU: 'Jelentés',
+      EN: 'Report',
+    },
+    cancel: {
+      HU: 'Mégse',
+      EN: 'Cancel',
+    },
+    edit: {
+      HU: 'Szerkesztés',
+      EN: 'Edit',
+    },
+  },
+  cancel: {
+    HU: 'Mégse',
+    EN: 'Cancel',
+  },
+  uploadPrompt: {
+    HU: 'Tölts fel képeket az eszközödről!',
+    EN: 'Upload photos from your device!',
+  },
+  selectedImages: {
+    HU: 'kiválasztva a 10-ből',
+    EN: 'of 10 selected',
+  },
+  clearImages: {
+    HU: 'Képek Visszaállítása',
+    EN: 'Clear Selection',
+  },
+  form: {
+    description: {
+      label: {
+        HU: 'Leírás',
+        EN: 'Description',
+      },
+      placeholder: {
+        HU: 'Írj valamit a poszthoz!',
+        EN: 'Write something about your post!',
+      },
+    },
+    group: {
+      HU: 'Csoport',
+      EN: 'Group',
+    },
+    event: {
+      HU: 'Esemény',
+      EN: 'Event',
+    },
+    vehicle: {
+      HU: 'Jármű',
+      EN: 'Vehicle',
+    },
+    vehiclePlaceholder: {
+      HU: 'Nincs jármű kiválasztva',
+      EN: 'No vehicle selected',
+    },
+    location: {
+      label: {
+        EN: 'Location',
+        HU: 'Hely',
+      },
+      placeholder: {
+        HU: 'Mesélj a kép helyéről!',
+        EN: 'Tell us where you took the picture',
+      },
+    },
+    next: {
+      HU: 'Tovább',
+      EN: 'Next',
+    },
+  },
+  upload: {
+    HU: 'Képfeltöltés',
+    EN: 'Upload photos',
+  },
+  notFound: {
+    HU: 'Nem találjuk a posztot',
+    EN: "We can't find the post",
+  },
+  loading: {
+    HU: 'Kis türelmet...',
+    EN: 'Just a moment...',
+  },
+
+  buttons: {
+    unassignVehicle: {
+      HU: 'Jármű levétele',
+      EN: 'Unassign vehicle',
+    },
+    dismiss: {
+      HU: 'Vissza',
+      EN: 'Dismiss',
+    },
+    post: {
+      HU: 'Közzététel',
+      EN: 'Post',
+    },
+  },
+  noImageFoundAlert: {
+    HU: 'Nem található kép!',
+    EN: 'No image found!',
+  },
+  noImageFoundAlertMessage: {
+    HU: 'Kérlek válassz ki legalább egy képet a feltöltéshez!',
+    EN: 'Please select at least one image to upload!',
+  },
+  confirmPost: {
+    HU: 'Közzététel',
+    EN: 'Post',
+  },
+  cancelPreview: {
+    HU: 'Vissza',
+    EN: 'Back',
+  },
+  deletePost: {
+    HU: 'Poszt törlése',
+    EN: 'Delete post',
+  },
+};
 export const GroupTexts = {
   page: {
     posts: {

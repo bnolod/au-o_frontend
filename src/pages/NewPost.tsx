@@ -11,22 +11,28 @@ import { CreatePostRequest } from '../lib/request/PostCreationRequest';
 import { publishPost } from '../lib/ApiCalls/PostApiCalls';
 import { useSnackbar } from '../contexts/SnackbarContext';
 import { useNavigate } from 'react-router';
+import { PostCreationTexts } from '../constants/texts';
+import { useLanguage } from '../contexts/LanguageContext';
+import { Modal } from '@mui/material';
+import ProfileVehiclePage from '../components/vehicle/ProfileVehiclePage';
 
 export default function PostPage() {
-  const user = useAuthentication();
+  const { user } = useAuthentication();
+  const { language } = useLanguage();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState<boolean>(true);
   const [newPostForm, setNewPostForm] = useState<CreatePostRequest>();
+  const [vehicleOpen, setVehicleOpen] = useState(false);
   const { showSnackbar } = useSnackbar();
 
   //nem hiszem el
-  if (loading && user.user !== undefined) {
+  if (loading && user !== undefined) {
     setLoading(false);
     setNewPostForm({
       description: '',
       location: '',
-      userId: user.user!.id,
+      userId: user!.id,
       groupId: null,
       eventId: null,
       images: [],
@@ -50,8 +56,7 @@ export default function PostPage() {
         if (upload !== null) {
           uploadedImages.push(upload as ImageUploadResponse);
           showSnackbar(`Kép ${image.name} sikeresen feltöltve`, 'success');
-        }
-        else{
+        } else {
           showSnackbar('Hiba a kép feltöltése közben', 'error');
         }
       }
@@ -64,7 +69,6 @@ export default function PostPage() {
     });
     navigate('/profile');
     showSnackbar('Sikeres posztolás', 'success');
-    
   }
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -72,11 +76,11 @@ export default function PostPage() {
       const fileArray = Array.from(e.target.files);
       for (const file of fileArray) {
         //TODO: Other file types
-        if(file.type == 'image/webp'){
+        if (file.type == 'image/webp') {
           showSnackbar('WebP formátum nem támogatott', 'error');
           return;
         }
-      };
+      }
       setImages((image) => [...image, ...fileArray]);
     }
   }
@@ -101,10 +105,15 @@ export default function PostPage() {
     return true;
   }
 
+  function handleVehicleSelect(e: React.FormEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    setVehicleOpen(true);
+  }
+
   return (
     <div className="h-full w-full flex flex-col justify-center align-middle items-center justify-items-center">
       {loading ? (
-        <h1 className={'text-7xl text-center italic'}>spinner</h1>
+        <h1 className={'text-7xl text-center italic'}>Spinner</h1>
       ) : (
         <Card className=" w-full self-center shadow-lg shadow-[#00000022]">
           <h1 className="text-center text-3xl">New Post</h1>
@@ -124,19 +133,26 @@ export default function PostPage() {
                 htmlFor="fileUpload"
                 className="secondary p-3 w-full rounded-xl tx-l text-center hover:cursor-pointer"
               >
-                <input className="hidden" multiple type="file"  accept="image/png, image/jpg, image/jpeg" id="fileUpload" onChange={handleImageChange} />
-                Fotók feltöltése
+                <input
+                  className="hidden"
+                  multiple
+                  type="file"
+                  accept="image/png, image/jpg, image/jpeg"
+                  id="fileUpload"
+                  onChange={handleImageChange}
+                />
+                {PostCreationTexts.upload[language]}
               </label>
-              <label htmlFor="text">Leírás:</label>
+              <label htmlFor="text">{PostCreationTexts.form.description.label[language]}</label>
               <textarea
                 className="secondary rounded-xl p-3"
                 onChange={(e) => {
                   setNewPostForm({ ...newPostForm!, description: e.currentTarget.value });
                 }}
-                placeholder="Leírás"
+                placeholder={PostCreationTexts.form.description.placeholder[language]}
                 name="text"
               />
-              <label htmlFor="location">Lokáció:</label>
+              <label htmlFor="location">{PostCreationTexts.form.location.label[language]}</label>
               <input
                 className="secondary rounded-xl p-3"
                 onChange={(e) => {
@@ -144,7 +160,18 @@ export default function PostPage() {
                 }}
                 type="text"
                 name="location"
+                placeholder={PostCreationTexts.form.location.placeholder[language]}
               />
+
+              <label htmlFor="">{PostCreationTexts.form.vehicle[language]}</label>
+              {user && newPostForm && (
+                <button onClick={handleVehicleSelect} className="w-full p-3 bg-backdropSecondary rounded-xl">
+                  {PostCreationTexts.form.vehicle[language] +
+                    ': ' +
+                    (newPostForm.vehicleId ? '' : PostCreationTexts.form.vehiclePlaceholder[language])}
+                </button>
+              )}
+
               <span className="flex gap-3">
                 <span className="flex flex-grow flex-col">
                   <label htmlFor="event">Esemény:</label>
@@ -156,8 +183,22 @@ export default function PostPage() {
                 </span>
               </span>
 
+              <Modal
+                open={vehicleOpen}
+                onClose={() => setVehicleOpen(false)}
+                className="w-full h-full flex text-textColor items-center justify-center"
+              >
+
+                <div className='w-full h-5/6 md:w-2/4 md:h-3/4 p-3 bg-background rounded-3xl'>
+                  <div className='h-full overflow-y-scroll '>
+                  <ProfileVehiclePage user={user!} />
+                  </div>
+                </div>
+                
+              </Modal>
+
               <Button type="submit" secondary>
-                Post
+                {PostCreationTexts.confirmPost[language]}
               </Button>
             </form>
           </section>

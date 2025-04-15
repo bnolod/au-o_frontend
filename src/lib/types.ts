@@ -25,6 +25,7 @@ export interface User {
   bio: string;
   dateOfBirth: string;
   dateOfSignup: string;
+  deleted: false;
 }
 export interface LoginResponse {
   token?: string;
