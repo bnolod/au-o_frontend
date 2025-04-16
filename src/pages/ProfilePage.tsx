@@ -1,5 +1,5 @@
 import { Avatar, Modal } from '@mui/material';
-import { MdAdd, MdBackupTable, MdBookmark, MdCarRepair, MdGroups, MdMoreHoriz } from 'react-icons/md';
+import { MdAdd, MdBackupTable, MdBookmark, MdCarRepair, MdGroups } from 'react-icons/md';
 import PostDisplay from '../components/profilecomponents/PostDisplay';
 import { useEffect, useState } from 'react';
 import { apiFetch } from '../lib/apiClient';
@@ -139,7 +139,7 @@ export default function ProfilePage() {
             )}
             <div className="gap-2 flex flex-row">
               {isOwner ? (
-                <button className="hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-4 rounded-xl  bg-backdropSecondary">
+                <button className="hover:opacity-75 shadow-md shadow-[#00000066] transition-all py-2 px-4 rounded-xl  bg-backdropSecondary" onClick={()=>setEditModal(true)}>
                   Edit Profile
                 </button>
               ) : (
@@ -151,9 +151,9 @@ export default function ProfilePage() {
                 </NavLink>
               )}
 
-              <button className="py-2 px-4 rounded-xl hover:opacity-75 shadow-md shadow-[#00000066] transition-all bg-backdropSecondary">
+              {/*<button className="py-2 px-4 rounded-xl hover:opacity-75 shadow-md shadow-[#00000066] transition-all bg-backdropSecondary">
                 <MdMoreHoriz className="hover:opacity-50 transition-opacity" size={24}></MdMoreHoriz>
-              </button>
+              </button>*/}
             </div>
           </div>
         </div>
