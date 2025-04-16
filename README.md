@@ -66,9 +66,13 @@ A garázs funkció kiegészíti a többi funkciót a következőkkel:
 ## ✅ Telepítési útmutató
 
 #### Szükséges a futtatáshoz
+> [!WARNING]
+> Az alkalmazás Imgur API kliens ID-t használ. Ez nem került fel nyilvánosan a repóba, saját kliens ID igényléséről [itt](https://github.com/bnolod/au-o_mobil/blob/main/README.md#fontos-) olvashatnak.
 
 - [Node.js](https://nodejs.org/en/download)
 - A backend sikeres futtatása, ami [ebben](https://github.com/bnolod/au-o_backend) a repóban található.
+- Imgur API kulcs .env file-ban elhelyezve.
+  
 ### Futtatási lépések
 > Parancssor:
 >
@@ -99,7 +103,13 @@ A garázs funkció kiegészíti a többi funkciót a következőkkel:
 - Az API tesztek **megosztottak** a három komponens között. (web & mobil & backend) 
 - A frontend és backend közötti kapcsolatot test-driven development koncepciók alapján fejlesztettük.
 - Az API tesztek a Backend repóhoz csatolt Postman Collection exportjában található.
-    - **Eredmény:** minden felhasznált endpoint elérhetősége és visszaadott értéke le lett tesztelve 
+    - **Eredmény:** minden felhasznált endpoint elérhetősége és visszaadott értéke le lett tesztelve
+ 
+### 🏠️ E2E tesztek
+- Az End to end tesztek Playwright használatával lettek megoldva.
+- A tesztek lefedik a legfontosabb felhasználói folyamatokat, mint például a bejelentkezés és adatbevitel.
+    - **Eredmény:** Több böngészőn is megbízhatóan működik a webalkalmazás.
+
 ### 👴 Végfelhasználói tesztek
 - Az alkalmazásunk beviteli mezőit ellenőrizzük közös validációs szabályokkal (a dokumentációját szintén a backend repóban találják)
 - Ezekre a beállításokra készültek mock elemek és tesztesetek a hibakezelésekre.
