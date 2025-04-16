@@ -61,6 +61,10 @@ export default function LoginModal({
           toggleModal();
           navigate("/");
         }
+        else{
+          showSnackbar("Registration failed", "error");
+        }
+        
       }
     } catch (e: any) {
       console.log("Please fill out all fields");
@@ -76,6 +80,9 @@ export default function LoginModal({
       if (res) {
         toggleModal();
         navigate("/", { replace: true });
+      }
+      else{
+        showSnackbar("Login failed", "error");
       }
     }
   }
