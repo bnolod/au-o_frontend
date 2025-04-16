@@ -102,7 +102,7 @@ export function validateUserPost(
   location: string,
   language: 'HU' | 'EN' = 'EN'
 ) {
-  let errors: string[] = [];
+  const errors: string[] = [];
   if (description && description.length > 255) {
     errors.push(t.descriptionTooLong[language]);
   }
@@ -132,7 +132,7 @@ export function validateNewVehicle(
   productionYear: number,
   language: 'HU' | 'EN' = 'EN'
 ) {
-  let errors: string[] = [];
+  const errors: string[] = [];
   if (description && description.length > 255) {
     errors.push(t.descriptionTooLong[language]);
   }
@@ -170,7 +170,7 @@ export function validateNewVehicle(
   };
 }
 export function validateComment(text: string, language: 'HU' | 'EN' = 'EN') {
-  let errors: string[] = [];
+  const errors: string[] = [];
 
   if (text.length < 1) {
     errors.push(t.commentTooShort[language]);
@@ -189,7 +189,7 @@ export function validateComment(text: string, language: 'HU' | 'EN' = 'EN') {
 }
 
 export function validateReply(text: string, language: 'HU' | 'EN' = 'EN') {
-  let errors: string[] = [];
+  const errors: string[] = [];
 
   if (text.length < 1) {
     errors.push(t.replyTooShort[language]);
@@ -208,7 +208,7 @@ export function validateReply(text: string, language: 'HU' | 'EN' = 'EN') {
 }
 
 export function validateNewGroup(name: string, description: string, alias: string, language: "EN" | "HU" = "EN") {
-  let errors: string[] = []
+  const errors: string[] = []
 
   if (name.length < 6) {
     errors.push(t.groupNameTooShort[language])

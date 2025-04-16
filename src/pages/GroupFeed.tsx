@@ -8,7 +8,7 @@ import { useLocation } from 'react-router';
 export default function GroupFeed() {
   const path = useLocation();
   const { language } = useLanguage();
-  let isPosting = path.search === '?post=true';
+  const isPosting = path.search === '?post=true';
 
   const [groups, setGroups] = useState<Group[]>([]);
 

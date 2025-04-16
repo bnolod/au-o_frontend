@@ -32,7 +32,7 @@ export default function ProfilePage() {
 
     // Add logic to handle page change here
   }
-  let isOwner = user?.id == authUser?.id;
+  const isOwner = user?.id == authUser?.id;
 
   async function handleFollowClick() {
     if (followsThisUser) {

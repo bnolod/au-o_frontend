@@ -71,7 +71,7 @@ export default function VehicleCard({
 
     showSnackbar('Failed to edit car', 'error');
   }
-  let isOwner = authUser && authUser.id == car.owner?.id;
+  const isOwner = authUser && authUser.id == car.owner?.id;
 
   return (
     <div className="w-full m-4 md:w-1/2 flex flex-col bg-background h-full rounded-2xl overflow-hidden gap-6">

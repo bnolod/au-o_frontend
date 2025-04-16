@@ -36,7 +36,7 @@ export function createImageForm(image: File, description: string, user: User | n
   return imageForm;
 }
 export function formatNumber(number: number, language?: 'HU' | 'EN') {
-  let lang = language || 'EN';
+  const lang = language || 'EN';
   if (number < 1000) {
     return number.toString();
   }

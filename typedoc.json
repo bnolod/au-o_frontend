@@ -1,0 +1,11 @@
+{
+    "entryPoints": ["src"], // Specify the entry point(s) for your project
+    "entryPointStrategy": "expand", // Automatically expand the src directory
+    "out": "docs", // Output directory for the generated documentation
+    "tsconfig": "./tsconfig.json", // Path to your TypeScript configuration file
+    "excludeExternals": true, // Exclude external modules from the documentation
+    "excludePrivate": true, // Exclude private members from the documentation
+    "excludeProtected": true, // Exclude protected members from the documentation
+    "includeVersion": true, // Include the project version in the documentation
+    "exclude": ["**/*.test.ts", "**/*.spec.ts", "**/__mocks__/**"] // Exclude test files
+  }
