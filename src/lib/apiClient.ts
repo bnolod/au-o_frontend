@@ -88,9 +88,15 @@ export async function apiFetch<T>(
     return null;
   }
 }
+
 /**
- * apiFetch handles token automatically from localstorage
+ * Fetches the user profile using the JWT token.
+ * 
+ * @returns {Promise<User | null>} - The user profile if successful, otherwise null.
+ * 
+ * 
  */
+
 export async function getUserByToken(): Promise<User | null> {
   try {
     const res = await apiFetch("auth/profile");
@@ -102,6 +108,18 @@ export async function getUserByToken(): Promise<User | null> {
     throw new HttpError(500, "getuserbytoken_fail + " + error);
   }
 }
+
+/**
+ * Logs in the user.
+ * 
+ * @param {LoginRequest} request - The login request object containing username and password.
+ * 
+ * @returns {Promise<string | null>} - The JWT token if login is successful, otherwise null.
+ * 
+ * @example
+ * const token = await apiLogin({ username: 'user', password: 'pass' });
+ * 
+ */
 
 export async function apiLogin(request: LoginRequest): Promise<string | null> {
   try {
@@ -117,6 +135,16 @@ export async function apiLogin(request: LoginRequest): Promise<string | null> {
     throw new HttpError(500, "apilogin_fail " + error);
   }
 }
+
+/**
+ * Registers a new user.
+ * 
+ * @param {RegisterRequest} request - The registration request object containing user details.
+ * 
+ * @returns {Promise<string | null>} - The JWT token if registration is successful, otherwise null.
+ * 
+ */
+
 export async function apiRegister(request: RegisterRequest) {
   const res = await apiClient.post("auth/register", request);
   if (res) {
@@ -124,6 +152,20 @@ export async function apiRegister(request: RegisterRequest) {
     return res.data.token;
   }
 }
+
+/**
+ * Adds or removes a reaction to a post, comment, or reply.
+ * 
+ * @param {string} reaction - The type of reaction to add or remove. Can be "FIRE", "COOL", or "HEART".
+ * @param {string} target - The target of the reaction. Can be "post", "comment", or "reply".
+ * @param {number} postId - The ID of the post, comment, or reply to react to.
+ * 
+ * @returns {Promise<any>} - The response from the API.
+ * 
+ * @example
+ * const response = await addReaction("FIRE", "post", 123);
+ * 
+ */
 
 export async function addReaction(
   reaction: "FIRE" | "COOL" | "HEART",
