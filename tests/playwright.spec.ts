@@ -2,10 +2,10 @@ import { test, expect } from '@playwright/test';
 
 //imgur api miatt nem megfelelo a localhost
 const link = 'http://172.20.0.1:5173';
-const email = 'teszt12@teszt.com';
+const email = 'teszt@teszt.com';
 const password = 'Teszt123!';
-const username = 'teszt12user';
-const nickname = 'teszt12nick';
+const username = 'tesztuser';
+const nickname = 'tesztnick';
 const birthDate = '2025-04-03';
 
 async function login(page) {
