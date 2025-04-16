@@ -67,7 +67,7 @@ export default function LoginModal({
         
       }
     } catch (e: any) {
-      console.log("Please fill out all fields");
+      console.log("Please fill out all fields" + e);
       showSnackbar("Please fill out all fields", "error");
     }
     } else {

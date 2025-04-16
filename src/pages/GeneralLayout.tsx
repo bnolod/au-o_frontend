@@ -1,12 +1,9 @@
 import { Outlet } from "react-router";
-import CommentBoard from "../components/commentboard/CommentBoard";
 import Header from "../components/Header";
 import LeftNavigation from "../components/leftnavigation/LeftNavigation";
-import { useCommentBoard } from "../contexts/CommentContext";
 import MessageBoard from "../components/messages/MessageBoard";
 
 export default function GeneralLayout() {
-  const {isOpen} = useCommentBoard()
   return (
     <div className="animatedbg min-h-screen flex flex-col text-textColor">
       <Header />
