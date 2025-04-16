@@ -1,3 +1,8 @@
+/**
+ * Felhasználókhoz kapcsolódó API hívások
+ * @module ApiCalls/WsApiCalls
+ * @category API
+ */
 import { apiFetch } from '../apiClient';
 import LatestMessage from '../entityWs/LatestMessage';
 import { User } from '../types';

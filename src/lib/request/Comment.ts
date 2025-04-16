@@ -1,6 +1,11 @@
 import { apiFetch } from "../apiClient";
 import { Comment } from "../types";
-
+/**
+ * Kommentet fűz a megadott poszthoz
+ * @param postId Poszt azonosítója
+ * @param comment Komment tartalma
+ * @returns {Promise<Comment | null>} Komment objektum, vagy null, ha a komment üres
+ */
 export async function AddCommentToPost(postId: number, comment: string): Promise<Comment | null> {
     if (comment.length === 0) {
       return null;

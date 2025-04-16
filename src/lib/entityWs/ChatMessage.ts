@@ -1,3 +1,10 @@
+/**
+ * Chat üzenetek típusai
+ * @category Request
+ * @module request/SocketApi
+ */
+
+
 import { User } from "../entity/User";
 
 /**
@@ -21,6 +28,9 @@ export interface ChatMessage {
   user: {
     username: string;
   };
-
+  /**
+   * Üzenet küldőjének adatai
+   * @type {User}
+   */
   recipient: User;
 }

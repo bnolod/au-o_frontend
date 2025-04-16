@@ -1,3 +1,9 @@
+/**
+ * Legutóbbi üzenetek típusai
+ * @category Request
+ * @module request/SocketApi
+ */
+
 import { User } from '../entity/User';
 import { ChatMessage } from './ChatMessage';
 /**
