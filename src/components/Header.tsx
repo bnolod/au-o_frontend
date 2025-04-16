@@ -3,15 +3,7 @@ import { useEffect, useState } from 'react';
 import { useAuthentication } from '../contexts/AuthenticationContext';
 import Avatar from '@mui/material/Avatar';
 import { grey } from '@mui/material/colors';
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemIcon,
-  ListItemText,
-  Switch,
-} from '@mui/material';
+import { Drawer, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Switch } from '@mui/material';
 import { BiLogOut } from 'react-icons/bi';
 import { logout } from '../lib/apiClient';
 import { PiPlus } from 'react-icons/pi';
@@ -22,7 +14,7 @@ export default function Header() {
   const { user } = useAuthentication();
   const [isDark, setIsDark] = useState(false);
   const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false);
-  const {stompClient} = useWebSocket();
+  const { stompClient } = useWebSocket();
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -43,25 +35,52 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex items-center justify-center rounded-xl justify-self-center">
-          <NavLink to={"/"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Home</NavLink>
-          <NavLink to={"/groups"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Groups</NavLink>
-          <NavLink to={"/events"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>Events</NavLink>
-          
+          <NavLink
+            to={'/'}
+            className={({ isActive }) =>
+              `p-3 ${isActive && 'text-highlightPrimary font-bold'} cursor-pointer hover:opacity-50 transition-all`
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to={'/groups'}
+            className={({ isActive }) =>
+              `p-3 ${isActive && 'text-highlightPrimary font-bold'} cursor-pointer hover:opacity-50 transition-all`
+            }
+          >
+            Groups
+          </NavLink>
+          <NavLink
+            to={'/events'}
+            className={({ isActive }) =>
+              `p-3 ${isActive && 'text-highlightPrimary font-bold'} cursor-pointer hover:opacity-50 transition-all`
+            }
+          >
+            Events
+          </NavLink>
         </div>
         <div className="flex justify-end gap-1 items-center">
-          
-        
-        <NavLink to={"/messages"} className={({isActive}) => `p-3 ${isActive && "text-highlightPrimary font-bold"} cursor-pointer hover:opacity-50 transition-all`}>
-        <MdOutlineComment size={32}/>
-        </NavLink>
+          <NavLink
+            to={'/messages'}
+            className={({ isActive }) =>
+              `p-3 ${isActive && 'text-highlightPrimary font-bold'} cursor-pointer hover:opacity-50 transition-all`
+            }
+          >
+            <MdOutlineComment size={32} />
+          </NavLink>
 
-          <button className='flex flex-row items-center gap-2 transition-all px-4 py-2'
+          <button
+            className="flex flex-row items-center gap-2 transition-all px-4 py-2"
             onClick={() => {
               setDrawerOpen(!isDrawerOpen);
             }}
           >
-            
-            <Avatar sx={{ bgcolor: grey[800], width:48, height:48 }} src={user?.profileImg} className='hover:opacity-50 transition-all'>
+            <Avatar
+              sx={{ bgcolor: grey[800], width: 48, height: 48 }}
+              src={user?.profileImg}
+              className="hover:opacity-50 transition-all"
+            >
               {user?.nickname.substring(0, 3).toUpperCase()}
             </Avatar>
           </button>
@@ -77,14 +96,16 @@ export default function Header() {
               <ListItem className="">
                 <NavLink
                   to={'/profile'}
-                  className={'w-full flex flex-row items-center bg-backdropPrimary p-2 rounded-xl shadow-md shadow-[#00000022] hover:opacity-50 transition-all'}
+                  className={
+                    'w-full flex flex-row items-center bg-backdropPrimary p-2 rounded-xl shadow-md shadow-[#00000022] hover:opacity-50 transition-all'
+                  }
                 >
                   <ListItemAvatar>
                     <Avatar sx={{ bgcolor: grey[800] }} src={user?.profileImg}>
                       {user?.nickname.substring(0, 3).toUpperCase()}
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText  primary={user?.nickname} />
+                  <ListItemText primary={user?.nickname} />
                 </NavLink>
               </ListItem>
 
@@ -92,31 +113,34 @@ export default function Header() {
                 <NavLink
                   to={'/post'}
                   className={
-                   'w-9/12 flex flex-row items-center bg-backdropPrimary p-2 rounded-xl shadow-md shadow-[#00000022] hover:opacity-50 transition-all text-left'
+                    'w-9/12 flex flex-row items-center bg-backdropPrimary p-2 rounded-xl shadow-md shadow-[#00000022] hover:opacity-50 transition-all text-left'
                   }
                 >
                   <ListItemIcon>
-                    <PiPlus className='ml-2'></PiPlus>
+                    <PiPlus className="ml-2"></PiPlus>
                   </ListItemIcon>
                   <ListItemText primary="New post"></ListItemText>
                 </NavLink>
               </ListItem>
 
               <ListItem>
-                <button className={'w-9/12 flex flex-row items-center bg-backdropPrimary p-2 rounded-xl shadow-md shadow-[#00000022] hover:opacity-50 transition-all text-left'}
+                <button
+                  className={
+                    'w-9/12 flex flex-row items-center bg-backdropPrimary p-2 rounded-xl shadow-md shadow-[#00000022] hover:opacity-50 transition-all text-left'
+                  }
                   onClick={() => {
                     stompClient?.forceDisconnect();
                     logout();
                   }}
                 >
                   <ListItemIcon>
-                    <BiLogOut className='ml-2'></BiLogOut>
+                    <BiLogOut className="ml-2"></BiLogOut>
                   </ListItemIcon>
                   <ListItemText primary="Logout" />
                 </button>
               </ListItem>
-
-              <ListItem className="">
+              {/*switching works based on prefers-color-scheme
+  <ListItem className="">
                 <ListItemText>Dark mode</ListItemText>
                 <Switch
                   edge="end"
@@ -126,6 +150,7 @@ export default function Header() {
                   checked={document.getElementById('root')?.classList.contains('dark')}
                 ></Switch>
               </ListItem>
+  */}
             </List>
           </Drawer>
         </div>

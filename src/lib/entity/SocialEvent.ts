@@ -1,3 +1,7 @@
+/**
+ *  to be implemented
+ * 
+ */
 export interface SocialEvent {
   id: number;
   name: string;
@@ -12,6 +16,10 @@ export interface SocialEvent {
   public: boolean;
   isAttending: boolean;
 }
+/**
+ *  to be implemented
+ * 
+ */
 
 export interface EventPost {
   eventName: string;
